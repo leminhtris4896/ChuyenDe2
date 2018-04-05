@@ -1,0 +1,21 @@
+<resources>
+    <!-- API MAP -->
+    <string name="api_key">AIzaSyA8frbNP4UuiUrzFWHhnzybHG5Dwn_SPPE</string>
+
+    <string name="app_name">Món Ngon</string>
+    <string name="title_homepage">Trang chủ</string>
+    <string name="title_place">Địa điểm</string>
+    <string name="title_area">Khu vực</string>
+    <string name="title_user">Cá nhân</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- LÊ MINH TRÍ - TRANG ĐỊA ĐIỂM DOANH NGHIỆP -->
+    <!-- DETAIL -->
+    <string name="function_close">Đóng</string>
+    <string name="title_detail_business">Chi tiết địa điểm</string>
+    <string name="title_detail_product">Chi tiết sản phẩm</string>
+    <string name="title_detail_personal">Chi tiết cá nhân</string>
+
+</resources>

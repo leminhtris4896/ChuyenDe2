@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#fca139</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#ff404a</color>
+
+    <!-- HOME -->
+    <color name="tv_address">#8e8d8d</color>
+    <color name="bg_main">#d1d1d1</color>
+    <color name="bg_login">#f17735</color>
+    <!-- PLACE -->
+    <color name="adrress">#357648</color>
+    <color name="vote">#3a598e</color>
+    <color name="time">#365e7e</color>
+    <!-- DETAILT-->
+    <color name="name_product">#3e86af</color>
+    <color name="business_vote">#51768b</color>
+    <color name="phone">#ac6955</color>
+    <!-- USER -->
+    <color name="click_user">#fa8f54</color>
+    <color name="click_choosen_user">#ffbe9a</color>
+</resources>

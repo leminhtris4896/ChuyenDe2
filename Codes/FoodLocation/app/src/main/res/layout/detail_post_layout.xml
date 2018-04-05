@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.trile.foodlocation.DetailPostActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:gravity="center|left"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/update_infor"
+                android:drawablePadding="10dp"
+                android:text="@string/title_detail_product"
+                android:textColor="@android:color/white"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="right"
+                android:layout_marginRight="10dp"
+                android:text="@string/function_close"
+                android:textColor="@android:color/white"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/bg_main"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="200dp"
+                            android:src="@mipmap/gonggong"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/linear"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center|left"
+                            android:drawableLeft="@drawable/title_post"
+                            android:drawablePadding="5dp"
+                            android:text="Gong Cha Somba "
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Mát lạnh thơm ngon , giá rẻ , uống hoài không ngừng nghĩ , hãy làm ngay 1 ly nào"/>
+
+                        <TextView
+                            android:id="@+id/btn_phone"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:background="@mipmap/bg_phone"
+                            android:gravity="center"
+                            android:drawableLeft="@drawable/telephone"
+                            android:padding="10dp"
+                            android:drawablePadding="10dp"
+                            android:text="Liên hệ"
+                            android:textSize="15sp"
+                            android:layout_marginTop="30dp"
+                            android:textColor="@android:color/white"/>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        style="@style/linear"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/text_detail"
+                            android:textColor="@android:color/black"
+                            android:text="Khoảng cách : 3 km"
+                            android:drawableLeft="@drawable/near"/>
+
+                        <TextView
+                            style="@style/text_detail"
+                            android:textColor="@color/adrress"
+                            android:layout_marginRight="20dp"
+                            android:text="74/2/6 Đường 6 , P.Linh Đông , Quận Thủ Đức "
+                            android:drawableLeft="@drawable/map"/>
+
+                        <fragment
+                            android:id="@+id/myMapDetail"
+                            android:layout_marginTop="10dp"
+                            android:name="com.google.android.gms.maps.SupportMapFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
