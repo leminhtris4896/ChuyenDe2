@@ -17,5 +17,27 @@
     <string name="title_detail_business">Chi tiết địa điểm</string>
     <string name="title_detail_product">Chi tiết sản phẩm</string>
     <string name="title_detail_personal">Chi tiết cá nhân</string>
+    <!-- LOGIN -->
+    <!-- Login layout and Register layout and Update information-->
+    <string name="id_login">Email</string>
+    <string name="pass_login">Mật khẩu</string>
+    <string name="pass_login_again">Nhập lại mật khẩu</string>
+    <string name="button_register">Đăng Kí</string>
+    <string name="button_login">Đăng Nhập</string>
+    <string name="hint_mail">Địa chỉ mail</string>
+    <string name="hint_pass">Mật khẩu</string>
+    <string name="hint_pass_business_name">Tên doanh nghiệp</string>
+    <string name="hint_pass_business_phone">Số điện thoại</string>
+    <string name="hint_business_address">Địa chỉ doanh nghiệp</string>
+    <string name="btn_update">Cập nhật</string>
+    <string name="hint_time">Giờ làm việc (7h00 - 22h00) </string>
+
+    <string name="business_type"> Kinh doanh </string>
+    <string name="business_type_food"> Quán ăn </string>
+    <string name="business_type_drink"> Quán nước </string>
+    <string name="business_type_pub"> Quán nhậu </string>
+
+    <string name="cbx_register_normal"> Cá nhân </string>
+    <string name="cbx_register_business"> Doanh nghiệp </string>
 
 </resources>
