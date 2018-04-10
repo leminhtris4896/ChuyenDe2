@@ -37,6 +37,8 @@
     <string name="home_tv_toplocation">Địa điểm nổi bật</string>
     <string name="home_tv_offer">Đề xuất</string>
     <string name="home_tv_add_toplocation">Thêm</string>
+    <!-- PLACE -->
+    <string name="place_place">Địa điểm</string>
     <!-- DETAIL -->
     <string name="call_phone">Liên hệ</string>
     <!-- PRODUCT -->
