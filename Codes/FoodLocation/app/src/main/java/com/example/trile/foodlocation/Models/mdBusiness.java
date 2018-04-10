@@ -1,75 +1,161 @@
 package com.example.trile.foodlocation.Models;
 
 /**
- * Created by TRILE on 07/04/2018.
+ * Created by TRILE on 09/03/2018.
  */
 
 public class mdBusiness {
-    private String BusinessMail;
-    private String BusinessPass;
-    private String BusinessName;
-    private int BusinessPhone;
-    private String BusinessTime;
-    private String Type;
-
-    public mdBusiness(String businessMail, String businessPass, String businessName, int businessPhone, String businessTime, String type) {
-        BusinessMail = businessMail;
-        BusinessPass = businessPass;
-        BusinessName = businessName;
-        BusinessPhone = businessPhone;
-        BusinessTime = businessTime;
-        Type = type;
-    }
+    /*private int imgLocation;
+    private String nameBusiness;
+    private String addressBusiness;
 
     public mdBusiness() {
-        //
+        // Return
     }
 
-    public String getBusinessMail() {
-        return BusinessMail;
+    public mdBusiness(int imgLocation, String nameBusiness, String addressBusiness) {
+        this.imgLocation = imgLocation;
+        this.nameBusiness = nameBusiness;
+        this.addressBusiness = addressBusiness;
     }
 
-    public void setBusinessMail(String businessMail) {
-        BusinessMail = businessMail;
+    public int getImgLocation() {
+        return imgLocation;
     }
 
-    public String getBusinessPass() {
-        return BusinessPass;
+    public void setImgLocation(int imgLocation) {
+        this.imgLocation = imgLocation;
     }
 
-    public void setBusinessPass(String businessPass) {
-        BusinessPass = businessPass;
+    public String getNameBusiness() {
+        return nameBusiness;
     }
 
-    public String getBusinessName() {
-        return BusinessName;
+    public void setNameBusiness(String nameBusiness) {
+        this.nameBusiness = nameBusiness;
     }
 
-    public void setBusinessName(String businessName) {
-        BusinessName = businessName;
+    public String getAddressBusiness() {
+        return addressBusiness;
     }
 
-    public int getBusinessPhone() {
-        return BusinessPhone;
+    public void setAddressBusiness(String addressBusiness) {
+        this.addressBusiness = addressBusiness;
+    }*/
+    private String strEmail;
+    private String strPass;
+    private String strImage;
+    private String strName;
+    private String strPhone;
+    private String strAddress;
+    private String strBusinessType;
+    private String strOpenTime;
+    private String strScoreRating;
+    private String strListProductList;
+    private String strListCommentList;
+
+    public mdBusiness() {
     }
 
-    public void setBusinessPhone(int businessPhone) {
-        BusinessPhone = businessPhone;
+    public mdBusiness(String strEmail, String strPass, String strImage, String strName, String strPhone, String strAddress, String strBusinessType, String strOpenTime, String strScoreRating, String strListProductList, String strListCommentList) {
+        this.strEmail = strEmail;
+        this.strPass = strPass;
+        this.strImage = strImage;
+        this.strName = strName;
+        this.strPhone = strPhone;
+        this.strAddress = strAddress;
+        this.strBusinessType = strBusinessType;
+        this.strOpenTime = strOpenTime;
+        this.strScoreRating = strScoreRating;
+        this.strListProductList = strListProductList;
+        this.strListCommentList = strListCommentList;
     }
 
-    public String getBusinessTime() {
-        return BusinessTime;
+    public String getStrEmail() {
+        return strEmail;
     }
 
-    public void setBusinessTime(String businessTime) {
-        BusinessTime = businessTime;
+    public String getStrPass() {
+        return strPass;
     }
 
-    public String getType() {
-        return Type;
+    public String getStrImage() {
+        return strImage;
     }
 
-    public void setType(String type) {
-        Type = type;
+    public String getStrName() {
+        return strName;
+    }
+
+    public String getStrPhone() {
+        return strPhone;
+    }
+
+    public String getStrAddress() {
+        return strAddress;
+    }
+
+    public String getStrBusinessType() {
+        return strBusinessType;
+    }
+
+    public String getStrOpenTime() {
+        return strOpenTime;
+    }
+
+    public String getStrScoreRating() {
+        return strScoreRating;
+    }
+
+    public String getStrListProductList() {
+        return strListProductList;
+    }
+
+    public String getStrListCommentList() {
+        return strListCommentList;
+    }
+
+    public void setStrEmail(String strEmail) {
+        this.strEmail = strEmail;
+    }
+
+    public void setStrPass(String strPass) {
+        this.strPass = strPass;
+    }
+
+    public void setStrImage(String strImage) {
+        this.strImage = strImage;
+    }
+
+    public void setStrName(String strName) {
+        this.strName = strName;
+    }
+
+    public void setStrPhone(String strPhone) {
+        this.strPhone = strPhone;
+    }
+
+    public void setStrAddress(String strAddress) {
+        this.strAddress = strAddress;
+    }
+
+    public void setStrBusinessType(String strBusinessType) {
+        this.strBusinessType = strBusinessType;
+    }
+
+    public void setStrOpenTime(String strOpenTime) {
+        this.strOpenTime = strOpenTime;
+    }
+
+    public void setStrScoreRating(String strScoreRating) {
+        this.strScoreRating = strScoreRating;
+    }
+
+    public void setStrListProductList(String strListProductList) {
+        this.strListProductList = strListProductList;
+    }
+
+    public void setStrListCommentList(String strListCommentList) {
+        this.strListCommentList = strListCommentList;
     }
 }

@@ -31,7 +31,7 @@ public class NormalRegisterFragment extends Fragment {
     private ProgressDialog mProgress;
     // FIREBASE
     private FirebaseAuth mAuth;
-    private DatabaseReference root;
+    private DatabaseReference mData;
 
     public NormalRegisterFragment() {
         // Required empty public constructor
@@ -51,7 +51,7 @@ public class NormalRegisterFragment extends Fragment {
         //Get FireBasae
         mAuth = FirebaseAuth.getInstance();
 
-        root = FirebaseDatabase.getInstance().getReference().child("Users");
+        mData = FirebaseDatabase.getInstance().getReference().child("Users");
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +88,7 @@ public class NormalRegisterFragment extends Fragment {
                                 Toast.makeText(getContext(), "Tạo tài khoản thành công", Toast.LENGTH_SHORT).show();
                                 mProgress.dismiss();
                                 String userID = mAuth.getCurrentUser().getUid();
-                                DatabaseReference current_user_id = root.child(userID);
+                                DatabaseReference current_user_id = mData.child(userID);
                                 current_user_id.child("name").setValue(email);
                                 current_user_id.child("password").setValue(pass);
                             }

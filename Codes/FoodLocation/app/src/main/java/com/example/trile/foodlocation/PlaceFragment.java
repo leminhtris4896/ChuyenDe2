@@ -51,9 +51,9 @@ public class PlaceFragment extends Fragment {
         arrProductPlace.add(new mdPlace(R.mipmap.img_nuong,"Đồ nướng 199K","74/2/6 ,Linh Đông,Thủ Đức","07h00 - 22h00","4.5"));
 
         // Adapter of HomeProduct
-        adapterPlace = new AdapterPlace(arrProductPlace,getContext());
+        /*adapterPlace = new AdapterPlace(arrProductPlace,getContext());
         recyclePlace.setAdapter(adapterPlace);
-        recyclePlace.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener());
+        recyclePlace.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener());*/
 
         return view;
     }

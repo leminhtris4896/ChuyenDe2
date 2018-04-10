@@ -1,23 +1,16 @@
 <resources>
-    <!-- API MAP -->
-    <string name="api_key">AIzaSyA8frbNP4UuiUrzFWHhnzybHG5Dwn_SPPE</string>
-
     <string name="app_name">Món Ngon</string>
-    <string name="title_homepage">Trang chủ</string>
+    <string name="title_home">Trang chủ</string>
     <string name="title_place">Địa điểm</string>
     <string name="title_area">Khu vực</string>
     <string name="title_user">Cá nhân</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- API MAP -->
+    <string name="api_key">AIzaSyA8frbNP4UuiUrzFWHhnzybHG5Dwn_SPPE</string>
 
-    <!-- LÊ MINH TRÍ - TRANG ĐỊA ĐIỂM DOANH NGHIỆP -->
-    <!-- DETAIL -->
-    <string name="function_close">Đóng</string>
-    <string name="title_detail_business">Chi tiết địa điểm</string>
-    <string name="title_detail_product">Chi tiết sản phẩm</string>
-    <string name="title_detail_personal">Chi tiết cá nhân</string>
-    <!-- LOGIN -->
+
     <!-- Login layout and Register layout and Update information-->
     <string name="id_login">Email</string>
     <string name="pass_login">Mật khẩu</string>
@@ -39,5 +32,56 @@
 
     <string name="cbx_register_normal"> Cá nhân </string>
     <string name="cbx_register_business"> Doanh nghiệp </string>
+
+    <!-- HOME SCREEN -->
+    <string name="home_tv_toplocation">Địa điểm nổi bật</string>
+    <string name="home_tv_offer">Đề xuất</string>
+    <string name="home_tv_add_toplocation">Thêm</string>
+    <!-- DETAIL -->
+    <string name="call_phone">Liên hệ</string>
+    <!-- PRODUCT -->
+    <string name="NOTE">Bài đăng sẽ hiển thị trên cộng đồng người xem , Hãy đưa những thông tin chính xác nhất . Vì lợi ích của bạn cũng như tất cả mọi người</string>
+    <string name="hint_product">Tên sản phẩm</string>
+    <string name="hint_price">Giá sản phẩm</string>
+    <string name="hint_desciption">Mô tả</string>
+    <string name="btn_add">THÊM</string>
+    <!-- EDIT , ADD PRODUCT -->
+    <string name="btn_accept_add">Thêm sản phẩm</string>
+    <string name="btn_accept_edit">Chỉnh sửa sản phẩm</string>
+    <!-- USER SCREEN -->
+    <string name="user_personal"> Trang cá nhân </string>
+    <string name="user_product_manager"> Quản lý sản phẩm </string>
+    <string name="user_comment_manager"> Bình luận về trang </string>
+    <string name="user_logout"> Đăng xuất </string>
+    <string name="user_about_us"> Về chúng tôi </string>
+    <string name="user_exit"> Thoát </string>
+    <!-- DIALOG CHOOSEN IMAGE-->
+    <string name="function_choosen_title">Chọn ảnh</string>
+    <string name="function_choosen_close">Đóng</string>
+    <string name="choosen_img_camera">Máy ảnh</string>
+    <string name="choosen_img_library">Thư viện</string>
+    <!-- DIALOG COMMENT-->
+    <string name="function_title">Bình luận</string>
+    <string name="function_close">Đóng</string>
+    <string name="dialog_hint_edt">Viết bình luận</string>
+    <!-- ABOUT US-->
+    <string name="title_name"> MÓN NGON </string>
+    <string name="title_1">Giới thiệu : </string>
+    <string name="title_2">Địa chỉ : </string>
+    <string name="title_3">Hotline : </string>
+    <string name="title_4">Version : </string>
+    <string name="title_1_1"> - Đây là nhóm 3 , sản phẩm giới thiệu về các địa điểm , quán ăn , quán nước , cũng như quán nhậu. \n - Giúp mọi người tìm kiếm địa điểm nhanh và tiên lợi hơn .</string>
+    <string name="title_2_2"> 53 Võ Văn Ngân , Linh Chiểu , TP.HCM</string>
+    <string name="title_3_3"> 0908668620</string>
+    <string name="title_4_4"> 1.0.0 </string>
+    <!-- TITLE BAR-->
+    <string name="title_update"> Cập nhật thông tin </string>
+    <string name="title_manager"> Quản lý sản phẩm </string>
+    <string name="title_about_us"> Về chúng tôi </string>
+    <string name="title_add_product"> Thêm sản phẩm </string>
+    <string name="title_edit_product"> Chỉnh sửa sản phẩm </string>
+    <string name="title_detail_product"> Chi tiết sản phẩm </string>
+    <string name="title_detail_business"> Chi tiết doanh nghiệp </string>
+    <string name="title_detail_personal"> Trang cá nhân </string>
 
 </resources>
