@@ -2,12 +2,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/user_fragment"
     tools:context=".UserFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:background="@color/bg_main"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linear_personal"
+            style="@style/choosen_user">
+
+            <ImageView
+                style="@style/img_user"
+                android:src="@drawable/ic_user_menu"/>
+            <TextView
+                style="@style/text_user"
+                android:text="@string/user_personal"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_product_manager"
+            style="@style/choosen_user">
+
+            <ImageView
+                style="@style/img_user"
+                android:src="@drawable/ic_manager"/>
+            <TextView
+                style="@style/text_user"
+                android:text="@string/user_product_manager"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_comment"
+            style="@style/choosen_user"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                style="@style/img_user"
+                android:src="@drawable/ic_comment_user"/>
+            <TextView
+                style="@style/text_user"
+                android:text="@string/user_about_us"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_logout"
+            style="@style/choosen_user"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                style="@style/img_user"
+                android:src="@drawable/ic_comment_user"/>
+            <TextView
+                style="@style/text_user"
+                android:text="@string/user_logout"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </FrameLayout>
