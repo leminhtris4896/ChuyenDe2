@@ -33,7 +33,13 @@
             android:theme="@style/title_bar" />
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/title_bar" />
+            android:theme="@style/title_bar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".AddProductActivity"
             android:theme="@style/title_bar" />
@@ -45,11 +51,7 @@
         <activity
             android:name=".ProductManagerActivity"
             android:theme="@style/title_bar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
