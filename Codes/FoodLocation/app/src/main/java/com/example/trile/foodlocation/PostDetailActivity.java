@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.trile.foodlocation.Models.mdBusiness;
 import com.example.trile.foodlocation.Models.mdPost;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -86,12 +87,40 @@ public class PostDetailActivity extends AppCompatActivity implements OnMapReadyC
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 final mdPost mdPost = dataSnapshot.getValue(mdPost.class);
-                if (mdPost.getNameProduct().equalsIgnoreCase(bundle.getString("detailPost"))) {
-                    postName.setText(mdPost.getNameProduct());
-                    postContent.setText(mdPost.getDescriptionProduct());
-                    postAddress.setText(mdPost.getnNumberLike());
-                    Picasso.with(PostDetailActivity.this).load(mdPost.getImgProduct()).into(postImage);
-                }
+                databaseReference.child("Business").addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                        final mdBusiness mdBusiness = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdBusiness.class);
+                        if (mdPost.getNameProduct().equalsIgnoreCase(bundle.getString("detailPost")) && mdPost.getLienKetDiaDiem().equalsIgnoreCase(mdBusiness.getStrName())) {
+                            postName.setText(mdPost.getNameProduct());
+                            postContent.setText(mdPost.getDescriptionProduct());
+                            postAddress.setText(mdBusiness.getStrAddress());
+                            Picasso.with(PostDetailActivity.this).load(mdPost.getImgProduct()).into(postImage);
+                        }
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
 
             @Override

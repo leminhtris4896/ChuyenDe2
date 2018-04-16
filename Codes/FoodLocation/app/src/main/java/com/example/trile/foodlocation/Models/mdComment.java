@@ -5,23 +5,26 @@ package com.example.trile.foodlocation.Models;
  */
 
 public class mdComment {
-    private int imgUserComment;
+    private String imgUserComment;
     private String tvComment;
 
-    public mdComment(int imgUserComment, String tvComment) {
-        this.imgUserComment = imgUserComment;
-        this.tvComment = tvComment;
-    }
+
 
     public mdComment() {
         // Return
     }
 
-    public int getImgUserComment() {
+    public mdComment(String imgUserComment, String tvComment) {
+        this.imgUserComment = imgUserComment;
+        this.tvComment = tvComment;
+    }
+
+
+    public String getImgUserComment() {
         return imgUserComment;
     }
 
-    public void setImgUserComment(int imgUserComment) {
+    public void setImgUserComment(String imgUserComment) {
         this.imgUserComment = imgUserComment;
     }
 

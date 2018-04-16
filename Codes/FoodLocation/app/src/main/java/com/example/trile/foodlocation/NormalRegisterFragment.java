@@ -13,12 +13,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
+import com.example.trile.foodlocation.Models.mdUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -26,12 +36,13 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class NormalRegisterFragment extends Fragment {
 
-    private EditText edtMail,edtPass;
+    private EditText edtMail, edtPass;
     private Button btnRegister;
     private ProgressDialog mProgress;
     // FIREBASE
     private FirebaseAuth mAuth;
     private DatabaseReference mData;
+    private DatabaseReference mDataUser;
 
     public NormalRegisterFragment() {
         // Required empty public constructor
@@ -53,6 +64,9 @@ public class NormalRegisterFragment extends Fragment {
 
         mData = FirebaseDatabase.getInstance().getReference().child("Users");
 
+        mDataUser = FirebaseDatabase.getInstance().getReference();
+
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +87,7 @@ public class NormalRegisterFragment extends Fragment {
                 } else if (pass.length() < 10 || pass.length() > 30) {
                     edtPass.setError("Số kí tự không hợp lệ");
                     return;
-                } else  {
+                } else {
                     mProgress.show();
                     //Create user
                     mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
@@ -87,10 +101,17 @@ public class NormalRegisterFragment extends Fragment {
                             } else {
                                 Toast.makeText(getContext(), "Tạo tài khoản thành công", Toast.LENGTH_SHORT).show();
                                 mProgress.dismiss();
-                                String userID = mAuth.getCurrentUser().getUid();
-                                DatabaseReference current_user_id = mData.child(userID);
+                                final String userID = mAuth.getCurrentUser().getUid();
+                                /*DatabaseReference current_user_id = mData.child(userID);
                                 current_user_id.child("name").setValue(email);
-                                current_user_id.child("password").setValue(pass);
+                                current_user_id.child("password").setValue(pass);*/
+                                final Date currentTime = Calendar.getInstance().getTime();
+                                ArrayList<String> arrayListListSuHoatDong = new ArrayList<>();
+                                arrayListListSuHoatDong.add(email + " vừa mới đăng kí tài khoản - " + currentTime.toString());
+                                mdUser mdUserNew = new mdUser(email + "", pass + "", "0", arrayListListSuHoatDong);
+                                ArrayList<mdUser> arrayListUser = new ArrayList<>();
+                                arrayListUser.add(mdUserNew);
+                                mDataUser.child("Users").setValue(arrayListUser);
                             }
                         }
                     });

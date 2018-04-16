@@ -1,5 +1,7 @@
 package com.example.trile.foodlocation.Models;
 
+import java.util.ArrayList;
+
 /**
  * Created by TRILE on 07/04/2018.
  */
@@ -7,14 +9,18 @@ package com.example.trile.foodlocation.Models;
 public class mdUser {
     private String UserMail;
     private String UserPass;
-
-    public mdUser(String userMail, String userPass) {
-        UserMail = userMail;
-        UserPass = userPass;
-    }
+    private String UserID;
+    private ArrayList<String> arrayListLichSuHoatDong;
 
     public mdUser() {
         //
+    }
+
+    public mdUser(String userMail, String userPass, String userID, ArrayList<String> arrayListLichSuHoatDong) {
+        UserMail = userMail;
+        UserPass = userPass;
+        UserID = userID;
+        this.arrayListLichSuHoatDong = arrayListLichSuHoatDong;
     }
 
     public String getUserMail() {
@@ -31,5 +37,21 @@ public class mdUser {
 
     public void setUserPass(String userPass) {
         UserPass = userPass;
+    }
+
+    public String getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(String userID) {
+        UserID = userID;
+    }
+
+    public ArrayList<String> getArrayListLichSuHoatDong() {
+        return arrayListLichSuHoatDong;
+    }
+
+    public void setArrayListLichSuHoatDong(ArrayList<String> arrayListLichSuHoatDong) {
+        this.arrayListLichSuHoatDong = arrayListLichSuHoatDong;
     }
 }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.trile.foodlocation.Models.mdComment;
 import com.example.trile.foodlocation.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -36,8 +37,8 @@ public class AdapterComment extends RecyclerView.Adapter<AdapterComment.ViewHold
 
     @Override
     public void onBindViewHolder(AdapterComment.ViewHolder holder, int position) {
-        holder.imgUserComment.setImageResource(arrayListComment.get(position).getImgUserComment());
         holder.tvComment.setText(arrayListComment.get(position).getTvComment());
+        Picasso.with(context).load(arrayListComment.get(position).getImgUserComment()).into(holder.imgUserComment);
     }
 
     @Override

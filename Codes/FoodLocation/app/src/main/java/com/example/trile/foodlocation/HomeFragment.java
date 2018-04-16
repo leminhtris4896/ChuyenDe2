@@ -9,10 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.Toast;
 
 import com.example.trile.foodlocation.Adapter.AdapterPlace;
 import com.example.trile.foodlocation.Adapter.AdapterPost;
 import com.example.trile.foodlocation.Models.mdBusiness;
+import com.example.trile.foodlocation.Models.mdComment;
 import com.example.trile.foodlocation.Models.mdPost;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +30,6 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-
 
 
     // Array of AdapterPlace
@@ -73,17 +75,22 @@ public class HomeFragment extends Fragment {
         recyclerBusiness = (RecyclerView) view.findViewById(R.id.recyclerView_Business);
         recyclerPost = (RecyclerView) view.findViewById(R.id.recyclerView_Post);
 
-        /*mdProductHome vuaocPost = new mdProductHome("Giới thiệu quán Vua ốc","Nhiều người vẫn hay nói đùa rằng đến Sài Gòn mà không một lần được ăn ốc thì coi như chưa đến Sài Gòn. \n" +
+        final CheckBox cbx_unlike = (CheckBox)  view.findViewById(R.id.cbx_unlike);
+      /*ArrayList<mdComment> arrayListCommmentPost = new ArrayList<>();
+        mdComment cm1 = new mdComment("https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", "mon1 kha1 ngon");
+        mdComment cm2 = new mdComment("https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", "mon1 kha1 ngon");
+        arrayListCommmentPost.add(cm1);
+        arrayListCommmentPost.add(cm2);
+        ArrayList<mdPost> mdPostArrayList = new ArrayList<>();
+        mdPostArrayList.add(new mdPost("0","Giới thiệu quán Vua ốc", "Nhiều người vẫn hay nói đùa rằng đến Sài Gòn mà không một lần được ăn ốc thì coi như chưa đến Sài Gòn. \n" +
                 "Nói vậy để thấy rằng ốc đối với người Sài Gòn như một thức quà hấp dẫn và cũng không kém phần đặc biệt.\n" +
                 " Thế nhưng những loại ốc ở siêu thị ốc vua ốc còn đặc biệt hơn nữa khi ở đây mang tới cho thực khách hàng\n" +
                 " loạt loại ốc lạ lẫm, hiếm có như ốc trinh nữ, ốc chung tình, ốc xối xả, ốc tê tái, nghêu tình nhân, ốc cổ đại, ốc vú nàng,\n" +
                 " ốc sung, ốc chúa, ốc heo, ốc tai tượng, ốc bàn tay, ốc mặt trăng, ốc núi, ốc cầu gai, ốc móng chân, ốc ma nữ,…\n" +
-                " Ấn tượng ngay từ những cái tên, siêu thị ốc vua ốc đã đủ hấp dẫn bạn chưa?","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/sieuthiocvuaoc_post.jpg?alt=media&token=7b2b6e63-4766-450b-9206-69f838d611b5","40","3","3");
-        databaseReference.child("Post").push().setValue(vuaocPost);*/
-        /*mdProductHome nuongbiadaomappost = new mdProductHome("Giới thiệu quán Nướng và bia đạo mập 2","Là một trong những quán nhậu nổi tiếng ở Thủ Đức với rất nhiều món nướng hấp dẫn cùng bia tươi mát lạnh lúc nào cũng sẵn sàng. Có thể kể tên một số món nướng tại đây được nhiều người ưu thích như chân gà, sụn gà, mề gà, răng mực, lưỡi vịt, thịt nai, thịt đà điểu, heo rừng, bò, bạch tuộc, tôm nướng,… Điều đặc biệt nhất của quán là thời gian mở cừa từ 15h đến tận nửa đêm nên bạn có thể thoải mái ngồi lai rai, hàn huyên cùng bạn bè mà không lo cuộc vui vị lỡ dở.","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/nuongvabiadaomap2_post.jpg?alt=media&token=7e63a545-508a-48a3-8312-04a4a89d429a","40","3","3");
-        databaseReference.child("Post").push().setValue(nuongbiadaomappost);
-        mdProductHome giangQuanPost = new mdProductHome("Giới thiệu Quán hải sản Giang ghẹ","Cũng là một trong những quán nướng đặc biệt đông khách tại Thủ Đức, thế nhưng Giang quán tập trung vào những món nướng hải sản rất hấp dẫn. Sò huyết, tôm nướng muối ớt, mực nướng sa tế, cá, lươn, tôm, hàu nướng phô mai,… tất cả đều được chế biến ngay tại bàn khiến những cái bụng đói meo phải sôi sục suốt cả bữa ăn. Một số loại lẩu của quán cũng được phản hồi rất tốt như lẩu cá lăng hay lẩu măng chua,…","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/giangquan_post.jpg?alt=media&token=1e345b69-506e-4e02-b2be-1575afdfc09b","40","3","3");
-        databaseReference.child("Post").push().setValue(giangQuanPost);*/
+                " Ấn tượng ngay từ những cái tên, siêu thị ốc vua ốc đã đủ hấp dẫn bạn chưa?", "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/sieuthiocvuaoc_post.jpg?alt=media&token=7b2b6e63-4766-450b-9206-69f838d611b5", "40", "3", "3", false, true, "Khram 2e", arrayListCommmentPost));
+       mdPostArrayList.add(new mdPost("1","Giới thiệu quán Nướng và bia đạo mập 2", "Là một trong những quán nhậu nổi tiếng ở Thủ Đức với rất nhiều món nướng hấp dẫn cùng bia tươi mát lạnh lúc nào cũng sẵn sàng. Có thể kể tên một số món nướng tại đây được nhiều người ưu thích như chân gà, sụn gà, mề gà, răng mực, lưỡi vịt, thịt nai, thịt đà điểu, heo rừng, bò, bạch tuộc, tôm nướng,… Điều đặc biệt nhất của quán là thời gian mở cừa từ 15h đến tận nửa đêm nên bạn có thể thoải mái ngồi lai rai, hàn huyên cùng bạn bè mà không lo cuộc vui vị lỡ dở.", "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/nuongvabiadaomap2_post.jpg?alt=media&token=7e63a545-508a-48a3-8312-04a4a89d429a", "40", "3", "3", false, true, "Khram 2e", arrayListCommmentPost));
+       mdPostArrayList.add(new mdPost("2","Giới thiệu Quán hải sản Giang ghẹ", "Cũng là một trong những quán nướng đặc biệt đông khách tại Thủ Đức, thế nhưng Giang quán tập trung vào những món nướng hải sản rất hấp dẫn. Sò huyết, tôm nướng muối ớt, mực nướng sa tế, cá, lươn, tôm, hàu nướng phô mai,… tất cả đều được chế biến ngay tại bàn khiến những cái bụng đói meo phải sôi sục suốt cả bữa ăn. Một số loại lẩu của quán cũng được phản hồi rất tốt như lẩu cá lăng hay lẩu măng chua,…", "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/giangquan_post.jpg?alt=media&token=1e345b69-506e-4e02-b2be-1575afdfc09b", "40", "3", "3", false, true, "Khram 2e", arrayListCommmentPost));
+        databaseReference.child("Post").setValue(mdPostArrayList);*/
         // RecyclerView 1
         CustomLinearLayout layoutManagertop = new CustomLinearLayout(getActivity(), 500);
         layoutManagertop.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -96,21 +103,9 @@ public class HomeFragment extends Fragment {
         recyclerPost.setLayoutManager(layoutManager);
 
 
-        // Array of AdapterPlace
-
-        /*arrBusiness = new ArrayList<mdTopLocation>();
-        arrBusiness.add(new mdTopLocation(R.mipmap.trasua,"Trà Sữa Apa","44D/1B Ấp Đồng An , ..."));
-        arrBusiness.add(new mdTopLocation(R.mipmap.cafe,"Cà phê Napoli","66A Chương Dương , ..."));
-        arrBusiness.add(new mdTopLocation(R.mipmap.lau,"Lẩu thái Khamge","74/2/6 Linh Đông , ..."));
-        arrBusiness.add(new mdTopLocation(R.mipmap.trasua,"Trà Sữa Apa","44D/1B Ấp Đồng An , ..."));
-        arrBusiness.add(new mdTopLocation(R.mipmap.cafe,"Cà phê Napoli","66A Chương Dương , ..."));
-        arrBusiness.add(new mdTopLocation(R.mipmap.lau,"Lẩu thái Khamge","74/2/6 Linh Đông , ..."));*/
 
         // Array of HomeProduct
         arrPost = new ArrayList<mdPost>();
-        /*arrPost.add(new mdProductHome("Trà Sữa Socola","Rất béo ngậy , rất thơm ngon",R.mipmap.trasua,"12","13","100"));
-        arrPost.add(new mdProductHome("Lẩu thái","Rất béo ngậy , rất thơm ngon",R.mipmap.lau,"12","13","100"));
-        arrPost.add(new mdProductHome("Cà phê nóng","Rất béo ngậy , rất thơm ngon",R.mipmap.cafe,"12","13","100"));*/
 
         // Adapter of AdapterPlace
         arrBusiness = new ArrayList<mdBusiness>();
@@ -127,7 +122,6 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
@@ -155,7 +149,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 final mdPost mdPost = dataSnapshot.getValue(mdPost.class);
-                arrPost.add(new mdPost(mdPost.getNameProduct(), mdPost.getDescriptionProduct(), mdPost.getImgProduct(), mdPost.getnNumberLike(), mdPost.getnNumberUnlike(), mdPost.getnNumberComment()));
+                arrPost.add(new mdPost(mdPost.getPostID(),mdPost.getNameProduct(), mdPost.getDescriptionProduct(), mdPost.getImgProduct(), mdPost.getnNumberLike(), mdPost.getnNumberUnlike(), mdPost.getnNumberComment(), mdPost.isCheckLike(), mdPost.isCheckUnLike(), mdPost.getLienKetDiaDiem(), mdPost.getArrayListCommentPost()));
                 adapterPost.notifyDataSetChanged();
             }
 
@@ -179,42 +173,8 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        // sự kiện click bài post
-        recyclerPost.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), recyclerPost, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent myIntent = new Intent(getActivity().getBaseContext(),PostDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("detailPost", arrPost.get(position).getNameProduct());
-                myIntent.putExtra("bundle", bundle);
-                getActivity().startActivity(myIntent);
-            }
 
-            @Override
-            public void onLongItemClick(View view, int position) {
-                // do whatever
-            }
-        }
-        ));
-        // sự kiện click địa điểm
-        recyclerBusiness.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), recyclerBusiness, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent myIntent = new Intent(getActivity().getBaseContext(),BusinessDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("detailBusiness", arrBusiness.get(position).getStrName());
-                myIntent.putExtra("bundle", bundle);
-                getActivity().startActivity(myIntent);
-            }
-
-            @Override
-            public void onLongItemClick(View view, int position) {
-                // do whatever
-            }
-        }
-        ));
         scrollByTime();
-
 
         return view;
     }
