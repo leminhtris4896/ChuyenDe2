@@ -67,16 +67,19 @@
                 <EditText
                     android:drawableLeft="@drawable/ic_text_name"
                     android:hint="@string/hint_product"
+                    android:singleLine="true"
                     style="@style/edt_custom"/>
 
                 <EditText
                     android:drawableLeft="@drawable/ic_text_money"
                     android:hint="@string/hint_price"
+                    android:singleLine="true"
                     style="@style/edt_custom"/>
 
                 <EditText
                     android:drawableLeft="@drawable/ic_text_desciption"
                     android:hint="@string/hint_desciption"
+                    android:singleLine="true"
                     style="@style/edt_custom"/>
 
                 <Button

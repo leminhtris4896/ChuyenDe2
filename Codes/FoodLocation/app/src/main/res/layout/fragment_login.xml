@@ -32,6 +32,7 @@
             <EditText
                 android:id="@+id/edt_mail_login"
                 android:drawableLeft="@drawable/ic_mail"
+                android:singleLine="true"
                 android:hint="@string/hint_mail"
                 style="@style/edt_custom"/>
 
@@ -39,6 +40,7 @@
                 android:id="@+id/edt_pass_login"
                 android:inputType="textPassword"
                 android:drawableLeft="@drawable/ic_pass"
+                android:singleLine="true"
                 android:hint="@string/hint_pass"
                 style="@style/edt_custom"/>
 

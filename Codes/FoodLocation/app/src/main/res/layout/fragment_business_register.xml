@@ -23,6 +23,7 @@
                 <EditText
                     android:id="@+id/edt_mail_business"
                     android:drawableLeft="@drawable/ic_mail"
+                    android:singleLine="true"
                     android:hint="@string/hint_mail"
                     style="@style/edt_custom"/>
 
@@ -30,12 +31,14 @@
                     android:id="@+id/edt_pass_business"
                     android:inputType="textPassword"
                     android:drawableLeft="@drawable/ic_pass"
+                    android:singleLine="true"
                     android:hint="@string/hint_pass"
                     style="@style/edt_custom"/>
 
                 <EditText
                     android:id="@+id/edt_business_name"
                     android:drawableLeft="@drawable/ic_business"
+                    android:singleLine="true"
                     android:hint="@string/hint_pass_business_name"
                     style="@style/edt_custom"/>
 
@@ -43,6 +46,7 @@
                     android:id="@+id/edt_business_phone"
                     android:inputType="number"
                     android:drawableLeft="@drawable/ic_phone"
+                    android:singleLine="true"
                     android:hint="@string/hint_pass_business_phone"
                     style="@style/edt_custom"/>
 
@@ -50,6 +54,7 @@
                     android:id="@+id/edt_time"
                     android:drawableLeft="@drawable/ic_time"
                     android:hint="@string/hint_time"
+                    android:singleLine="true"
                     style="@style/edt_custom"/>
 
                 <LinearLayout

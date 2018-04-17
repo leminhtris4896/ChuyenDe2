@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.trile.foodlocation.UpdateInforActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:gravity="center|left"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/update_infor"
+                android:drawablePadding="10dp"
+                android:text="@string/title_update"
+                android:textColor="@android:color/white"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCloseUpdate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="right"
+                android:layout_marginRight="10dp"
+                android:text="@string/function_close"
+                android:textColor="@android:color/white"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:layout_marginTop="2dp"
+            android:paddingTop="70dp"
+            android:gravity="center|top"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_choosen"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginBottom="10dp"
+                android:src="@mipmap/image"/>
+
+            <EditText
+                android:id="@+id/edt_business_addess"
+                android:singleLine="true"
+                android:drawableLeft="@drawable/ic_business"
+                android:hint="@string/hint_business_address"
+                style="@style/edt_custom"/>
+
+            <EditText
+                android:id="@+id/edt_business_name"
+                android:singleLine="true"
+                android:drawableLeft="@drawable/ic_business"
+                android:hint="@string/hint_pass_business_name"
+                style="@style/edt_custom"/>
+
+            <EditText
+                android:id="@+id/edt_business_phone"
+                android:inputType="number"
+                android:singleLine="true"
+                android:drawableLeft="@drawable/ic_phone"
+                android:hint="@string/hint_pass_business_phone"
+                style="@style/edt_custom"/>
+
+            <EditText
+                android:id="@+id/edt_time"
+                android:drawableLeft="@drawable/ic_time"
+                android:singleLine="true"
+                android:hint="@string/hint_time"
+                style="@style/edt_custom"/>
+
+            <Button
+                android:id="@+id/btn_login"
+                android:text="@string/btn_update"
+                style="@style/btn_custom"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

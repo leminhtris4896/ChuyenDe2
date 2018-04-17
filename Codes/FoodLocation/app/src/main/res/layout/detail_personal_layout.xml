@@ -78,7 +78,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="56dp"
                         android:gravity="center"
                         android:orientation="horizontal">
 
@@ -86,7 +86,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="5"
-                            android:gravity="center|left"
+                            android:gravity="top|left"
                             android:orientation="vertical">
 
                             <TextView
@@ -98,7 +98,7 @@
                                 android:drawableLeft="@drawable/title_size"
                                 android:textStyle="bold"
                                 android:text="Trà Sữa BopBy"
-                                android:textSize="22sp" />
+                                android:textSize="18sp" />
 
                         </LinearLayout>
 
@@ -106,12 +106,12 @@
                             android:id="@+id/tv_vote"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/favorite_size"
+                            android:drawableTop="@drawable/favorite_size"
                             android:drawablePadding="5dp"
                             android:gravity="center"
                             android:text="4.5"
                             android:textColor="@color/vote"
-                            android:textSize="20dp"
+                            android:textSize="15dp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -120,6 +120,7 @@
                         style="@style/text_detail"
                         android:text="74/2/6 Đường 6 , P.Linh Đông , Quận Thủ Đức "
                         android:textColor="@color/tv_address"
+                        android:textSize="15dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -130,7 +131,7 @@
                         android:layout_marginTop="10dp"
                         android:text="7h00 - 8h00"
                         android:textColor="@color/time"
-                        android:textSize="17dp"
+                        android:textSize="15dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -141,7 +142,7 @@
                         android:drawablePadding="5dp"
                         android:text="0908668620"
                         android:textColor="@color/phone"
-                        android:textSize="17dp"
+                        android:textSize="15dp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -155,13 +156,14 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/btnUpdateInfor"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimary"
                 android:gravity="center"
                 android:padding="10dp"
                 android:textStyle="bold"
-                android:textSize="23dp"
+                android:textSize="20dp"
                 android:textColor="@android:color/white"
                 android:text="Cập nhật thông tin"/>
 

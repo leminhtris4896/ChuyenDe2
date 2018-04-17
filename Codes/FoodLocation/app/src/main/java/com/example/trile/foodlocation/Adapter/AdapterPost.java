@@ -266,12 +266,13 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
 
                         if (mdPosts.get(position).isCheckUnLike() == false) {
                             mdPosts.get(position).setCheckUnLike(true);
+                            //databaseReference.child("Post").child(mdPostOject.getPostID()).child("checkUnLike").setValue(true);
 
                             if (mdPostOject.getNameProduct().equalsIgnoreCase(mdPosts.get(position).getNameProduct())) {
 
                                 databaseReference.child("Post").child(mdPostOject.getPostID()).child("nNumberUnlike").setValue(Integer.toString(UnLike + 1));
                                 holder.tvNumberUnlike.setText(Integer.toString(UnLike + 1));
-                                databaseReference.child("Post").child(mdPostOject.getPostID()).child("checkUnLike").setValue("true".toString());
+
                                 databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
                                     @Override
                                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -308,11 +309,12 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
 
                         } else if (mdPosts.get(position).isCheckUnLike() == true) {
                             mdPosts.get(position).setCheckUnLike(false);
+                            //databaseReference.child("Post").child(mdPostOject.getPostID()).child("checkUnLike").setValue(false);
                             if (mdPostOject.getNameProduct().equalsIgnoreCase(mdPosts.get(position).getNameProduct())) {
 
                                 databaseReference.child("Post").child(mdPostOject.getPostID()).child("nNumberUnlike").setValue(Integer.toString(UnLike - 1));
                                 holder.tvNumberUnlike.setText(Integer.toString(UnLike - 1));
-                                databaseReference.child("Post").child(mdPostOject.getPostID()).child("checkUnLike").setValue("false");
+
                                 databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
                                     @Override
                                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
