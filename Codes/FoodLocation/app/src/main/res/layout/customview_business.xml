@@ -3,6 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
+    android:padding="1dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
 
@@ -20,7 +21,7 @@
 
             <ImageView
                 android:id="@+id/imgTopLocation"
-                android:layout_width="120dp"
+                android:layout_width="140dp"
                 android:layout_height="100dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/cafe" />
@@ -57,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:maxWidth="110dp"
+                android:maxWidth="140dp"
                 android:text="44D/1B Thị Xã Thuận An"
                 android:textColor="@color/tv_address"
                 android:textSize="12dp"

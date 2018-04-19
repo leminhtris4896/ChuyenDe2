@@ -355,13 +355,36 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                                             }
                                         }
 
+<<<<<<< HEAD
                                     }
                                 }
+=======
+                        if (mdPosts.get(position).isCheckUnLike() == false) {
+                            mdPosts.get(position).setCheckUnLike(true);
+                            //databaseReference.child("Post").child(mdPostOject.getPostID()).child("checkUnLike").setValue(true);
+>>>>>>> e5bf6c278e8e11f341ef59dd4f9bb704c61070af
 
                                 @Override
                                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
+<<<<<<< HEAD
                                 }
+=======
+                                databaseReference.child("Post").child(mdPostOject.getPostID()).child("nNumberUnlike").setValue(Integer.toString(UnLike + 1));
+                                holder.tvNumberUnlike.setText(Integer.toString(UnLike + 1));
+
+                                databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
+                                    @Override
+                                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                        final mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+                                        if (mdUser.getUserMail().equalsIgnoreCase(firebaseAuth.getCurrentUser().getEmail())) {
+                                            String newHistoryActivity = mdUser.getUserMail() + " vừa mới nhấn không thích bài viết " + mdPostOject.getNameProduct() + " " + currentTime.toString();
+                                            ArrayList<String> newArrayListLichSuHoatDong = mdUser.getArrayListLichSuHoatDong();
+                                            newArrayListLichSuHoatDong.add(newHistoryActivity);
+                                            databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListLichSuHoatDong").setValue(newArrayListLichSuHoatDong);
+                                        }
+                                    }
+>>>>>>> e5bf6c278e8e11f341ef59dd4f9bb704c61070af
 
                                 @Override
                                 public void onChildRemoved(DataSnapshot dataSnapshot) {
@@ -385,6 +408,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
+<<<<<<< HEAD
                     }
 
                     @Override
@@ -506,6 +530,25 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                                                     });
                                                 }
                                             }
+=======
+                        } else if (mdPosts.get(position).isCheckUnLike() == true) {
+                            mdPosts.get(position).setCheckUnLike(false);
+                            //databaseReference.child("Post").child(mdPostOject.getPostID()).child("checkUnLike").setValue(false);
+                            if (mdPostOject.getNameProduct().equalsIgnoreCase(mdPosts.get(position).getNameProduct())) {
+
+                                databaseReference.child("Post").child(mdPostOject.getPostID()).child("nNumberUnlike").setValue(Integer.toString(UnLike - 1));
+                                holder.tvNumberUnlike.setText(Integer.toString(UnLike - 1));
+
+                                databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
+                                    @Override
+                                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                        final mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+                                        if (mdUser.getUserMail().equalsIgnoreCase(firebaseAuth.getCurrentUser().getEmail())) {
+                                            String newHistoryActivity = mdUser.getUserMail() + " vừa mới hủy unlike bài viết " + mdPostOject.getNameProduct() + " " + currentTime.toString();
+                                            ArrayList<String> newArrayListLichSuHoatDong = mdUser.getArrayListLichSuHoatDong();
+                                            newArrayListLichSuHoatDong.add(newHistoryActivity);
+                                            databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListLichSuHoatDong").setValue(newArrayListLichSuHoatDong);
+>>>>>>> e5bf6c278e8e11f341ef59dd4f9bb704c61070af
                                         }
 
                                     }

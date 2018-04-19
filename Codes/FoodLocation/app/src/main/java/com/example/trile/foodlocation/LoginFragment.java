@@ -63,6 +63,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+
                 final String email = edtMail.getText().toString();
                 final String password = edtPass.getText().toString();
 

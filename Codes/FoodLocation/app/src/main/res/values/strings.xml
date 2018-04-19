@@ -46,7 +46,7 @@
     <string name="hint_product">Tên sản phẩm</string>
     <string name="hint_price">Giá sản phẩm</string>
     <string name="hint_desciption">Mô tả</string>
-    <string name="btn_add">THÊM</string>
+    <string name="btn_add">Thêm</string>
     <!-- EDIT , ADD PRODUCT -->
     <string name="btn_accept_add">Thêm sản phẩm</string>
     <string name="btn_accept_edit">Chỉnh sửa sản phẩm</string>
