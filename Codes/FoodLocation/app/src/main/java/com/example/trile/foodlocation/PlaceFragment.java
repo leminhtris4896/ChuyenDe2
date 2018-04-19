@@ -5,13 +5,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import com.example.trile.foodlocation.Adapter.AdapterMenuPlace;
+import com.example.trile.foodlocation.Adapter.AdapterPlace;
 import com.example.trile.foodlocation.Adapter.AdapterSpinnerPlace;
 import com.example.trile.foodlocation.Models.mdBusiness;
 import com.example.trile.foodlocation.Models.mdSpinnerPlace;
@@ -22,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 /**
@@ -36,6 +41,8 @@ public class PlaceFragment extends Fragment {
     private Spinner spinnerPlace;
     private AdapterSpinnerPlace adapterSpinnerPlace;
     private DatabaseReference mData;
+    AdapterMenuPlace adapterBussine = null;
+    ArrayList<mdBusiness> searchFoodsArrayList = new ArrayList<mdBusiness>();
     //
     int posision;
 
@@ -50,7 +57,7 @@ public class PlaceFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_place, container, false);
         mData = FirebaseDatabase.getInstance().getReference();
-
+        setHasOptionsMenu(true);
         recyclePlace = (RecyclerView) view.findViewById(R.id.recyclerViewPlace);
         spinnerPlace = (Spinner) view.findViewById(R.id.spinnerType);
         // Spinner
@@ -150,6 +157,41 @@ public class PlaceFragment extends Fragment {
         spinnerPlace.setAdapter(adapterSpinnerPlace);
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_search,menu);
+        final SearchView searchView = (SearchView) menu.findItem(R.id.menuSearch).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String s) {
+                s = s.toLowerCase(Locale.getDefault());
+                searchFoodsArrayList.clear();
+                if ( s.length() == 0)
+                {
+                    searchFoodsArrayList.addAll(arrProductPlace);
+                }
+                else
+                {
+                    for ( mdBusiness mdBusiness : arrProductPlace)
+                    {
+                        if ( mdBusiness.getStrName().toLowerCase(Locale.getDefault()).contains(s) )
+                        {
+                            searchFoodsArrayList.add(mdBusiness);
+                        }
+                    }
+                }
+                adapterBussine = new AdapterMenuPlace(searchFoodsArrayList, getContext());
+                recyclePlace.setAdapter(adapterBussine);
+                //lvPostAdapter.filter(s);
+                return false;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
 }

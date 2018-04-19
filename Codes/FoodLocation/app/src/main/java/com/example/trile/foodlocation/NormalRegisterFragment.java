@@ -15,7 +15,9 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import com.example.trile.foodlocation.Models.mdPost;
 import com.example.trile.foodlocation.Models.mdUser;
+import com.example.trile.foodlocation.Models.mdUserStatusPost;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -62,9 +64,9 @@ public class NormalRegisterFragment extends Fragment {
         //Get FireBasae
         mAuth = FirebaseAuth.getInstance();
 
-        mData = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDataUser = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        mDataUser = FirebaseDatabase.getInstance().getReference();
+        mData = FirebaseDatabase.getInstance().getReference();
 
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -106,12 +108,45 @@ public class NormalRegisterFragment extends Fragment {
                                 current_user_id.child("name").setValue(email);
                                 current_user_id.child("password").setValue(pass);*/
                                 final Date currentTime = Calendar.getInstance().getTime();
-                                ArrayList<String> arrayListListSuHoatDong = new ArrayList<>();
+                                final ArrayList<String> arrayListListSuHoatDong = new ArrayList<>();
                                 arrayListListSuHoatDong.add(email + " vừa mới đăng kí tài khoản - " + currentTime.toString());
-                                mdUser mdUserNew = new mdUser(email + "", pass + "", "0", arrayListListSuHoatDong);
-                                ArrayList<mdUser> arrayListUser = new ArrayList<>();
-                                arrayListUser.add(mdUserNew);
-                                mDataUser.child("Users").setValue(arrayListUser);
+                                final String idNewUser = mDataUser.push().getKey();
+                                final ArrayList<String> arrayListKey = new ArrayList<>();
+                                final ArrayList<mdUserStatusPost> arrayListUserStatusPost = new ArrayList<>();
+                                mData.child("Post").addChildEventListener(new ChildEventListener() {
+                                    @Override
+                                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                        mdPost mdPost = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdPost.class);
+                                        arrayListKey.add(mdPost.getPostID());
+                                        arrayListUserStatusPost.clear();
+                                        for (int i = 0; i < arrayListKey.size();i++) {
+                                            mdUserStatusPost mdUserStatusPost = new mdUserStatusPost(arrayListKey.get(i),false,false);
+                                            arrayListUserStatusPost.add(mdUserStatusPost);
+                                        }
+                                        mdUser mdUserNew = new mdUser(email + "", pass + "", idNewUser+"", arrayListListSuHoatDong,arrayListUserStatusPost);
+                                        mDataUser.child(idNewUser).setValue(mdUserNew);
+                                    }
+
+                                    @Override
+                                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
                             }
                         }
                     });

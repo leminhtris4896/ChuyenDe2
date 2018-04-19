@@ -1,16 +1,18 @@
 package com.example.trile.foodlocation;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.Toast;
 
 import com.example.trile.foodlocation.Adapter.AdapterPlace;
 import com.example.trile.foodlocation.Adapter.AdapterPost;
@@ -24,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 /**
@@ -42,6 +45,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerPost;
     // Firebase
     DatabaseReference databaseReference;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -76,7 +80,7 @@ public class HomeFragment extends Fragment {
         recyclerPost = (RecyclerView) view.findViewById(R.id.recyclerView_Post);
 
         final CheckBox cbx_unlike = (CheckBox)  view.findViewById(R.id.cbx_unlike);
-      /*ArrayList<mdComment> arrayListCommmentPost = new ArrayList<>();
+     /* ArrayList<mdComment> arrayListCommmentPost = new ArrayList<>();
         mdComment cm1 = new mdComment("https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", "mon1 kha1 ngon");
         mdComment cm2 = new mdComment("https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", "mon1 kha1 ngon");
         arrayListCommmentPost.add(cm1);
@@ -178,5 +182,7 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+
+
 
 }

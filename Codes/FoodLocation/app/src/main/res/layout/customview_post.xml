@@ -118,7 +118,7 @@
                         android:id="@+id/cbx_unlike"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:button="@drawable/custom_cbx_evaluate_unlike"/>
+                        />
                     <TextView
                         android:id="@+id/tv_number_unlike"
                         android:layout_width="wrap_content"

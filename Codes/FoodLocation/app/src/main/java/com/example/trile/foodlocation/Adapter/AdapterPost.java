@@ -139,7 +139,8 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
 
 
         final Date currentTime = Calendar.getInstance().getTime();
-        holder.cbxPostLike.setOnClickListener(new View.OnClickListener() {
+
+        /*holder.cbxPostLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 databaseReference.child("Post").addChildEventListener(new ChildEventListener() {
@@ -147,11 +148,14 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         final mdPost mdPostOject = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdPost.class);
                         final int LikeCount = Integer.parseInt(mdPostOject.getnNumberLike());
-                        if (mdPosts.get(position).isCheckLike() == false) {
-                            mdPosts.get(position).setCheckLike(true);
-                            if (mdPostOject.getNameProduct().equalsIgnoreCase(mdPosts.get(position).getNameProduct())) {
+
+                        if (mdPostOject.getNameProduct().equalsIgnoreCase(mdPosts.get(position).getNameProduct())) {
+
+                            if (mdPostOject.isCheckLike() == false) {
+                                databaseReference.child("Post").child(mdPostOject.getPostID()).child("checkLike").setValue(true);
                                 databaseReference.child("Post").child(mdPostOject.getPostID()).child("nNumberLike").setValue(Integer.toString(LikeCount + 1));
                                 holder.tvNumberLike.setText(Integer.toString(LikeCount + 1));
+                                holder.cbxPostLike.setButtonDrawable(R.drawable.ic_like);
                                 databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
                                     @Override
                                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -161,6 +165,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                                             ArrayList<String> newArrayListLichSuHoatDong = mdUser.getArrayListLichSuHoatDong();
                                             newArrayListLichSuHoatDong.add(newHistoryActivity);
                                             databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListLichSuHoatDong").setValue(newArrayListLichSuHoatDong);
+
                                         }
                                     }
 
@@ -184,13 +189,11 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
 
                                     }
                                 });
-                            }
-
-                        } else if (mdPosts.get(position).isCheckLike() == true) {
-                            mdPosts.get(position).setCheckLike(false);
-                            if (mdPostOject.getNameProduct().equalsIgnoreCase(mdPosts.get(position).getNameProduct())) {
+                            } else if (mdPostOject.isCheckLike() == true) {
+                                databaseReference.child("Post").child(mdPostOject.getPostID()).child("checkLike").setValue(false);
                                 databaseReference.child("Post").child(mdPostOject.getPostID()).child("nNumberLike").setValue(Integer.toString(LikeCount - 1));
                                 holder.tvNumberLike.setText(Integer.toString(LikeCount - 1));
+                                holder.cbxPostLike.setButtonDrawable(R.drawable.ic_nulllike);
                                 databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
                                     @Override
                                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -227,6 +230,158 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                         }
                     }
 
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+
+        });*/
+        holder.cbxPostLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseReference.child("Post").addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        final mdPost mdPostOject = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdPost.class);
+
+                        if (mdPostOject.getNameProduct().equalsIgnoreCase(mdPosts.get(position).getNameProduct())) {
+                            final int LikeCount = Integer.parseInt(mdPostOject.getnNumberLike());
+                            databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                    final mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+                                    if (mdUser.getUserMail().equalsIgnoreCase(firebaseAuth.getCurrentUser().getEmail())) {
+                                        for (int i = 0; i < mdUser.getArrayListUserStatusPost().size(); i++) {
+                                            if (mdUser.getArrayListUserStatusPost().get(i).getStrIDPost().equalsIgnoreCase(mdPosts.get(position).getPostID())) {
+                                                if (mdUser.getArrayListUserStatusPost().get(i).isStrStatusLike() == false) {
+                                                    if (mdPostOject.getPostID().equalsIgnoreCase(mdUser.getArrayListUserStatusPost().get(i).getStrIDPost())) {
+                                                        databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusPost").child(mdUser.getArrayListUserStatusPost().get(i).getStrIDPost()).child("strStatusLike").setValue(true);
+                                                    }
+                                                    databaseReference.child("Post").child(mdPostOject.getPostID()).child("nNumberLike").setValue(Integer.toString(LikeCount + 1));
+                                                    holder.tvNumberLike.setText(Integer.toString(LikeCount + 1));
+                                                    holder.cbxPostLike.setButtonDrawable(R.drawable.ic_like);
+                                                    databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
+                                                        @Override
+                                                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                                            final mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+                                                            if (mdUser.getUserMail().equalsIgnoreCase(firebaseAuth.getCurrentUser().getEmail())) {
+                                                                String newHistoryActivity = mdUser.getUserMail() + " vừa mới thích bài viết " + mdPostOject.getNameProduct() + " " + currentTime.toString();
+                                                                ArrayList<String> newArrayListLichSuHoatDong = mdUser.getArrayListLichSuHoatDong();
+                                                                newArrayListLichSuHoatDong.add(newHistoryActivity);
+                                                                databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListLichSuHoatDong").setValue(newArrayListLichSuHoatDong);
+
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(DatabaseError databaseError) {
+
+                                                        }
+                                                    });
+                                                } else if (mdUser.getArrayListUserStatusPost().get(i).isStrStatusLike() == true) {
+                                                    if (mdPostOject.getPostID().equalsIgnoreCase(mdUser.getArrayListUserStatusPost().get(i).getStrIDPost())) {
+                                                        databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusPost").child(mdUser.getArrayListUserStatusPost().get(i).getStrIDPost()).child("strStatusLike").setValue(false);
+                                                    }
+                                                    databaseReference.child("Post").child(mdPostOject.getPostID()).child("nNumberLike").setValue(Integer.toString(LikeCount - 1));
+                                                    holder.tvNumberLike.setText(Integer.toString(LikeCount - 1));
+                                                    holder.cbxPostLike.setButtonDrawable(R.drawable.ic_nulllike);
+                                                    databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
+                                                        @Override
+                                                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                                            final mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+                                                            if (mdUser.getUserMail().equalsIgnoreCase(firebaseAuth.getCurrentUser().getEmail())) {
+                                                                String newHistoryActivity = mdUser.getUserMail() + " vừa mới bỏ thích bài viết " + mdPostOject.getNameProduct() + " " + currentTime.toString();
+                                                                ArrayList<String> newArrayListLichSuHoatDong = mdUser.getArrayListLichSuHoatDong();
+                                                                newArrayListLichSuHoatDong.add(newHistoryActivity);
+                                                                databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListLichSuHoatDong").setValue(newArrayListLichSuHoatDong);
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(DatabaseError databaseError) {
+
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                }
+
+                                @Override
+                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                }
+
+                                @Override
+                                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                }
+
+                                @Override
+                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    }
+
+
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
@@ -261,91 +416,121 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         final mdPost mdPostOject = dataSnapshot.getValue(mdPost.class);
-                        final int UnLike = Integer.parseInt(mdPostOject.getnNumberUnlike());
+                        if (mdPostOject.getNameProduct().equalsIgnoreCase(mdPosts.get(position).getNameProduct())) {
+                            final int UnLikeCount = Integer.parseInt(mdPostOject.getnNumberUnlike());
+                            databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                    final mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+                                    if (mdUser.getUserMail().equalsIgnoreCase(firebaseAuth.getCurrentUser().getEmail())) {
+                                        for (int i = 0; i < mdUser.getArrayListUserStatusPost().size(); i++) {
+                                            if (mdUser.getArrayListUserStatusPost().get(i).getStrIDPost().equalsIgnoreCase(mdPosts.get(position).getPostID())) {
+                                                if (mdUser.getArrayListUserStatusPost().get(i).isStrStatusUnlikeLike() == false) {
+                                                    if (mdPostOject.getPostID().equalsIgnoreCase(mdUser.getArrayListUserStatusPost().get(i).getStrIDPost())) {
+                                                        databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusPost").child(mdUser.getArrayListUserStatusPost().get(i).getStrIDPost()).child("strStatusUnlikeLike").setValue(true);
+                                                    }
+                                                    databaseReference.child("Post").child(mdPostOject.getPostID()).child("nNumberUnlike").setValue(Integer.toString(UnLikeCount + 1));
+                                                    holder.tvNumberUnlike.setText(Integer.toString(UnLikeCount + 1));
+                                                    holder.cbxPostUnLike.setButtonDrawable(R.drawable.ic_unlike);
+                                                    databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
+                                                        @Override
+                                                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                                            final mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+                                                            if (mdUser.getUserMail().equalsIgnoreCase(firebaseAuth.getCurrentUser().getEmail())) {
+                                                                String newHistoryActivity = mdUser.getUserMail() + " vừa nhấn không thích bài viết " + mdPostOject.getNameProduct() + " " + currentTime.toString();
+                                                                ArrayList<String> newArrayListLichSuHoatDong = mdUser.getArrayListLichSuHoatDong();
+                                                                newArrayListLichSuHoatDong.add(newHistoryActivity);
+                                                                databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListLichSuHoatDong").setValue(newArrayListLichSuHoatDong);
 
+                                                            }
+                                                        }
 
-                        if (mdPosts.get(position).isCheckUnLike() == false) {
-                            mdPosts.get(position).setCheckUnLike(true);
+                                                        @Override
+                                                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                            if (mdPostOject.getNameProduct().equalsIgnoreCase(mdPosts.get(position).getNameProduct())) {
+                                                        }
 
-                                databaseReference.child("Post").child(mdPostOject.getPostID()).child("nNumberUnlike").setValue(Integer.toString(UnLike + 1));
-                                holder.tvNumberUnlike.setText(Integer.toString(UnLike + 1));
-                                databaseReference.child("Post").child(mdPostOject.getPostID()).child("checkUnLike").setValue("true".toString());
-                                databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
-                                    @Override
-                                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                        final mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
-                                        if (mdUser.getUserMail().equalsIgnoreCase(firebaseAuth.getCurrentUser().getEmail())) {
-                                            String newHistoryActivity = mdUser.getUserMail() + " vừa mới nhấn không thích bài viết " + mdPostOject.getNameProduct() + " " + currentTime.toString();
-                                            ArrayList<String> newArrayListLichSuHoatDong = mdUser.getArrayListLichSuHoatDong();
-                                            newArrayListLichSuHoatDong.add(newHistoryActivity);
-                                            databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListLichSuHoatDong").setValue(newArrayListLichSuHoatDong);
+                                                        @Override
+                                                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(DatabaseError databaseError) {
+
+                                                        }
+                                                    });
+                                                } else if (mdUser.getArrayListUserStatusPost().get(i).isStrStatusUnlikeLike() == true) {
+                                                    if (mdPostOject.getPostID().equalsIgnoreCase(mdUser.getArrayListUserStatusPost().get(i).getStrIDPost())) {
+                                                        databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusPost").child(mdUser.getArrayListUserStatusPost().get(i).getStrIDPost()).child("strStatusUnlikeLike").setValue(false);
+                                                    }
+                                                    databaseReference.child("Post").child(mdPostOject.getPostID()).child("nNumberUnlike").setValue(Integer.toString(UnLikeCount - 1));
+                                                    holder.tvNumberUnlike.setText(Integer.toString(UnLikeCount - 1));
+                                                    holder.cbxPostUnLike.setButtonDrawable(R.drawable.ic_nullunlike);
+                                                    databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
+                                                        @Override
+                                                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                                            final mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+                                                            if (mdUser.getUserMail().equalsIgnoreCase(firebaseAuth.getCurrentUser().getEmail())) {
+                                                                String newHistoryActivity = mdUser.getUserMail() + " vừa bỏ không thích bài viết " + mdPostOject.getNameProduct() + " " + currentTime.toString();
+                                                                ArrayList<String> newArrayListLichSuHoatDong = mdUser.getArrayListLichSuHoatDong();
+                                                                newArrayListLichSuHoatDong.add(newHistoryActivity);
+                                                                databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListLichSuHoatDong").setValue(newArrayListLichSuHoatDong);
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(DatabaseError databaseError) {
+
+                                                        }
+                                                    });
+                                                }
+                                            }
                                         }
-                                    }
-
-                                    @Override
-                                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
                                     }
+                                }
 
-                                    @Override
-                                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                                @Override
+                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                                    }
+                                }
 
-                                    @Override
-                                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                                @Override
+                                public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                                    }
+                                }
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
+                                @Override
+                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-                                    }
-                                });
-                            }
+                                }
 
-                        } else if (mdPosts.get(position).isCheckUnLike() == true) {
-                            mdPosts.get(position).setCheckUnLike(false);
-                            if (mdPostOject.getNameProduct().equalsIgnoreCase(mdPosts.get(position).getNameProduct())) {
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                                databaseReference.child("Post").child(mdPostOject.getPostID()).child("nNumberUnlike").setValue(Integer.toString(UnLike - 1));
-                                holder.tvNumberUnlike.setText(Integer.toString(UnLike - 1));
-                                databaseReference.child("Post").child(mdPostOject.getPostID()).child("checkUnLike").setValue("false");
-                                databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
-                                    @Override
-                                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                        final mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
-                                        if (mdUser.getUserMail().equalsIgnoreCase(firebaseAuth.getCurrentUser().getEmail())) {
-                                            String newHistoryActivity = mdUser.getUserMail() + " vừa mới hủy unlike bài viết " + mdPostOject.getNameProduct() + " " + currentTime.toString();
-                                            ArrayList<String> newArrayListLichSuHoatDong = mdUser.getArrayListLichSuHoatDong();
-                                            newArrayListLichSuHoatDong.add(newHistoryActivity);
-                                            databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListLichSuHoatDong").setValue(newArrayListLichSuHoatDong);
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                                    }
-
-                                    @Override
-                                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                                    }
-
-                                    @Override
-                                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-                            }
+                                }
+                            });
                         }
                     }
 
@@ -396,6 +581,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         final mdPost mdPostOject = dataSnapshot.getValue(mdPost.class);
                         if (mdPostOject.getNameProduct().equalsIgnoreCase(mdPosts.get(position).getNameProduct())) {
+
                             adapterComment = new AdapterComment(context, mdPostOject.getArrayListCommentPost());
                             recyclerViewComment.setAdapter(adapterComment);
                             recyclerViewComment.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener());
@@ -409,6 +595,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                                     arrayListComment.add(cm);
                                     databaseReference.child("Post").child(mdPostOject.getPostID()).child("arrayListCommentPost").setValue(arrayListComment);
                                     edtCommentContext.setText("");
+
                                     adapterComment.notifyDataSetChanged();
                                     databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
                                         @Override
@@ -483,8 +670,63 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
             }
         });
 
+        /*if (mdPosts.get(position).isCheckUnLike() == false) {
+            holder.cbxPostUnLike.setButtonDrawable(R.drawable.ic_nullunlike);
+        } else {
+            holder.cbxPostUnLike.setButtonDrawable(R.drawable.ic_unlike);
+        }*/
+
+
+        databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+                if (mdUser.getUserMail().equalsIgnoreCase(firebaseAuth.getCurrentUser().getEmail())) {
+                    for (int i = 0; i < mdUser.getArrayListUserStatusPost().size(); i++) {
+                        if (mdUser.getArrayListUserStatusPost().get(i).getStrIDPost().equalsIgnoreCase(mdPosts.get(position).getPostID())) {
+                            if (mdUser.getArrayListUserStatusPost().get(i).isStrStatusLike() == false) {
+                                holder.cbxPostUnLike.setButtonDrawable(R.drawable.ic_nullunlike);
+                            } else {
+                                holder.cbxPostUnLike.setButtonDrawable(R.drawable.ic_unlike);
+                            }
+
+                            if (mdUser.getArrayListUserStatusPost().get(i).isStrStatusUnlikeLike() == false) {
+                                holder.cbxPostLike.setButtonDrawable(R.drawable.ic_nulllike);
+                            } else {
+                                holder.cbxPostLike.setButtonDrawable(R.drawable.ic_like);
+                            }
+                            if (i > 2) {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
+
 
     @Override
     public int getItemCount() {

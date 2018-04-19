@@ -5,43 +5,6 @@ package com.example.trile.foodlocation.Models;
  */
 
 public class mdBusiness {
-    /*private int imgLocation;
-    private String nameBusiness;
-    private String addressBusiness;
-
-    public mdBusiness() {
-        // Return
-    }
-
-    public mdBusiness(int imgLocation, String nameBusiness, String addressBusiness) {
-        this.imgLocation = imgLocation;
-        this.nameBusiness = nameBusiness;
-        this.addressBusiness = addressBusiness;
-    }
-
-    public int getImgLocation() {
-        return imgLocation;
-    }
-
-    public void setImgLocation(int imgLocation) {
-        this.imgLocation = imgLocation;
-    }
-
-    public String getNameBusiness() {
-        return nameBusiness;
-    }
-
-    public void setNameBusiness(String nameBusiness) {
-        this.nameBusiness = nameBusiness;
-    }
-
-    public String getAddressBusiness() {
-        return addressBusiness;
-    }
-
-    public void setAddressBusiness(String addressBusiness) {
-        this.addressBusiness = addressBusiness;
-    }*/
     private String strEmail;
     private String strPass;
     private String strImage;

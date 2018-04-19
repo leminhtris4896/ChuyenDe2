@@ -12,16 +12,20 @@ public class mdUser {
     private String UserID;
     private ArrayList<String> arrayListLichSuHoatDong;
 
+    private ArrayList<mdUserStatusPost> arrayListUserStatusPost;
+
     public mdUser() {
         //
     }
 
-    public mdUser(String userMail, String userPass, String userID, ArrayList<String> arrayListLichSuHoatDong) {
+    public mdUser(String userMail, String userPass, String userID, ArrayList<String> arrayListLichSuHoatDong, ArrayList<mdUserStatusPost> arrayListUserStatusPost) {
         UserMail = userMail;
         UserPass = userPass;
         UserID = userID;
         this.arrayListLichSuHoatDong = arrayListLichSuHoatDong;
+        this.arrayListUserStatusPost = arrayListUserStatusPost;
     }
+
 
     public String getUserMail() {
         return UserMail;
@@ -53,5 +57,13 @@ public class mdUser {
 
     public void setArrayListLichSuHoatDong(ArrayList<String> arrayListLichSuHoatDong) {
         this.arrayListLichSuHoatDong = arrayListLichSuHoatDong;
+    }
+
+    public ArrayList<mdUserStatusPost> getArrayListUserStatusPost() {
+        return arrayListUserStatusPost;
+    }
+
+    public void setArrayListUserStatusPost(ArrayList<mdUserStatusPost> arrayListUserStatusPost) {
+        this.arrayListUserStatusPost = arrayListUserStatusPost;
     }
 }
