@@ -10,9 +10,6 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
-<<<<<<< HEAD
-import com.google.firebase.auth.FirebaseAuth;
-=======
 import com.example.trile.foodlocation.Models.mdUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -20,18 +17,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
->>>>>>> f470897c7982987f1a8b0e7654e816b314158fd5
 
 public class HomeActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
-<<<<<<< HEAD
     private Dialog dialogChangePass;
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-=======
     DatabaseReference mData;
     FirebaseAuth mAuth;
->>>>>>> f470897c7982987f1a8b0e7654e816b314158fd5
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -69,7 +61,6 @@ public class HomeActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_user:
 
-<<<<<<< HEAD
                     // DIALOG CHANGE PASSWOD
                     dialogChangePass = new Dialog(HomeActivity.this);
                     dialogChangePass.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
@@ -93,7 +84,6 @@ public class HomeActivity extends AppCompatActivity {
                         fragmentTransaction6.commit();
                         return true;
                     }
-=======
                     // Select user page fragment
                     mData.addChildEventListener(new ChildEventListener() {
                         @Override
@@ -137,7 +127,6 @@ public class HomeActivity extends AppCompatActivity {
                         }
                     });
 
->>>>>>> f470897c7982987f1a8b0e7654e816b314158fd5
             }
             return false;
         }
