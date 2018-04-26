@@ -696,19 +696,16 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                 if (mdUser.getUserMail().equalsIgnoreCase(firebaseAuth.getCurrentUser().getEmail())) {
                     for (int i = 0; i < mdUser.getArrayListUserStatusPost().size(); i++) {
                         if (mdUser.getArrayListUserStatusPost().get(i).getStrIDPost().equalsIgnoreCase(mdPosts.get(position).getPostID())) {
-                            if (mdUser.getArrayListUserStatusPost().get(i).isStrStatusLike() == false) {
+                            if (mdUser.getArrayListUserStatusPost().get(i).isStrStatusUnlikeLike() == false) {
                                 holder.cbxPostUnLike.setButtonDrawable(R.drawable.ic_nullunlike);
                             } else {
                                 holder.cbxPostUnLike.setButtonDrawable(R.drawable.ic_unlike);
                             }
 
-                            if (mdUser.getArrayListUserStatusPost().get(i).isStrStatusUnlikeLike() == false) {
+                            if (mdUser.getArrayListUserStatusPost().get(i).isStrStatusLike() == false) {
                                 holder.cbxPostLike.setButtonDrawable(R.drawable.ic_nulllike);
                             } else {
                                 holder.cbxPostLike.setButtonDrawable(R.drawable.ic_like);
-                            }
-                            if (i > 2) {
-                                break;
                             }
                         }
                     }

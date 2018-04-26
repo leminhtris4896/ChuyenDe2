@@ -24,8 +24,13 @@ public class LoginActivity extends AppCompatActivity {
         mViewPager.setAdapter(new AdapterTabLogin(getSupportFragmentManager()));
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutLogin);
         tabLayout.setupWithViewPager(mViewPager);
+<<<<<<< HEAD
         if (mAuth.getCurrentUser() != null) {
             Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+=======
+        if(mAuth.getCurrentUser() != null) {
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+>>>>>>> f470897c7982987f1a8b0e7654e816b314158fd5
             startActivity(intent);
         }
     }

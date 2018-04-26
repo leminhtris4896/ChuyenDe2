@@ -43,6 +43,8 @@ public class AdapterPlace extends RecyclerView.Adapter<AdapterPlace.ViewHolder> 
         Picasso.with(context).load(arrBusiness.get(position).getStrImage()).into(holder.imgTopLocation);
         holder.tvAddTopLocation.setText(mdBusiness.getStrAddress());
         holder.tvNameTopLocation.setText(mdBusiness.getStrName());
+
+
     }
 
     @Override

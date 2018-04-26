@@ -5,6 +5,8 @@ package com.example.trile.foodlocation.Models;
  */
 
 public class mdBusiness {
+
+    private String strID;
     private String strEmail;
     private String strPass;
     private String strImage;
@@ -17,10 +19,8 @@ public class mdBusiness {
     private String strListProductList;
     private String strListCommentList;
 
-    public mdBusiness() {
-    }
-
-    public mdBusiness(String strEmail, String strPass, String strImage, String strName, String strPhone, String strAddress, String strBusinessType, String strOpenTime, String strScoreRating, String strListProductList, String strListCommentList) {
+    public mdBusiness(String strID, String strEmail, String strPass, String strImage, String strName, String strPhone, String strAddress, String strBusinessType, String strOpenTime, String strScoreRating, String strListProductList, String strListCommentList, Double dbLatitude, Double dbLongitude) {
+        this.strID = strID;
         this.strEmail = strEmail;
         this.strPass = strPass;
         this.strImage = strImage;
@@ -32,6 +32,41 @@ public class mdBusiness {
         this.strScoreRating = strScoreRating;
         this.strListProductList = strListProductList;
         this.strListCommentList = strListCommentList;
+        this.dbLatitude = dbLatitude;
+        this.dbLongitude = dbLongitude;
+    }
+
+    public Double getDbLatitude() {
+        return dbLatitude;
+    }
+
+    public void setDbLatitude(Double dbLatitude) {
+        this.dbLatitude = dbLatitude;
+    }
+
+    public Double getDbLongitude() {
+        return dbLongitude;
+    }
+
+    public void setDbLongitude(Double dbLongitude) {
+        this.dbLongitude = dbLongitude;
+    }
+
+    private Double dbLatitude;
+    private Double dbLongitude;
+
+
+
+
+    public mdBusiness() {
+
+    }
+    public String getStrID() {
+        return strID;
+    }
+
+    public void setStrID(String strID) {
+        this.strID = strID;
     }
 
     public String getStrEmail() {
@@ -121,4 +156,6 @@ public class mdBusiness {
     public void setStrListCommentList(String strListCommentList) {
         this.strListCommentList = strListCommentList;
     }
+
+
 }

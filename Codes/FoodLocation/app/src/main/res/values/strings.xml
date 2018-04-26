@@ -5,7 +5,7 @@
     <string name="title_area">Khu vực</string>
     <string name="title_user">Cá nhân</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- API MAP -->
     <string name="api_key">AIzaSyA8frbNP4UuiUrzFWHhnzybHG5Dwn_SPPE</string>
@@ -13,7 +13,7 @@
 
     <!-- Login layout and Register layout and Update information-->
     <string name="id_login">Email</string>
-    <string name="pass_login">Mật khẩu</string>
+    <string name="pass_login">Mật khẩu</string>ê ô
     <string name="pass_login_again">Nhập lại mật khẩu</string>
     <string name="button_register">Đăng Kí</string>
     <string name="button_login">Đăng Nhập</string>

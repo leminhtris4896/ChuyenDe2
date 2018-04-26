@@ -128,20 +128,4 @@ public class mdPost {
         this.postID = postID;
     }
 
-
-    /*public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("nameProduct", nameProduct);
-        result.put("descriptionProduct", descriptionProduct);
-        result.put("imgProduct", imgProduct);
-        result.put("nNumberLike", nNumberLike);
-        result.put("nNumberUnlike", nNumberUnlike);
-        result.put("nNumberComment", nNumberComment);
-        result.put("isCheckLike", isCheckLike);
-        result.put("isCheckUnLike", isCheckUnLike);
-        result.put("lienKetDiaDiem", lienKetDiaDiem);
-        result.put("arrayListCommentPost", arrayListCommentPost);
-
-        return result;
-    }*/
 }

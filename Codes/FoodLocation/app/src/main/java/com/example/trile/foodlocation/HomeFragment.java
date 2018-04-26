@@ -1,6 +1,7 @@
 package com.example.trile.foodlocation;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -76,7 +77,7 @@ public class HomeFragment extends Fragment {
         recyclerBusiness = (RecyclerView) view.findViewById(R.id.recyclerView_Business);
         recyclerPost = (RecyclerView) view.findViewById(R.id.recyclerView_Post);
 
-        final CheckBox cbx_unlike = (CheckBox)  view.findViewById(R.id.cbx_unlike);
+        final CheckBox cbx_unlike = (CheckBox) view.findViewById(R.id.cbx_unlike);
      /* ArrayList<mdComment> arrayListCommmentPost = new ArrayList<>();
         mdComment cm1 = new mdComment("https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", "mon1 kha1 ngon");
         mdComment cm2 = new mdComment("https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", "mon1 kha1 ngon");
@@ -92,6 +93,18 @@ public class HomeFragment extends Fragment {
        mdPostArrayList.add(new mdPost("1","Giới thiệu quán Nướng và bia đạo mập 2", "Là một trong những quán nhậu nổi tiếng ở Thủ Đức với rất nhiều món nướng hấp dẫn cùng bia tươi mát lạnh lúc nào cũng sẵn sàng. Có thể kể tên một số món nướng tại đây được nhiều người ưu thích như chân gà, sụn gà, mề gà, răng mực, lưỡi vịt, thịt nai, thịt đà điểu, heo rừng, bò, bạch tuộc, tôm nướng,… Điều đặc biệt nhất của quán là thời gian mở cừa từ 15h đến tận nửa đêm nên bạn có thể thoải mái ngồi lai rai, hàn huyên cùng bạn bè mà không lo cuộc vui vị lỡ dở.", "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/nuongvabiadaomap2_post.jpg?alt=media&token=7e63a545-508a-48a3-8312-04a4a89d429a", "40", "3", "3", false, true, "Khram 2e", arrayListCommmentPost));
        mdPostArrayList.add(new mdPost("2","Giới thiệu Quán hải sản Giang ghẹ", "Cũng là một trong những quán nướng đặc biệt đông khách tại Thủ Đức, thế nhưng Giang quán tập trung vào những món nướng hải sản rất hấp dẫn. Sò huyết, tôm nướng muối ớt, mực nướng sa tế, cá, lươn, tôm, hàu nướng phô mai,… tất cả đều được chế biến ngay tại bàn khiến những cái bụng đói meo phải sôi sục suốt cả bữa ăn. Một số loại lẩu của quán cũng được phản hồi rất tốt như lẩu cá lăng hay lẩu măng chua,…", "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/giangquan_post.jpg?alt=media&token=1e345b69-506e-4e02-b2be-1575afdfc09b", "40", "3", "3", false, true, "Khram 2e", arrayListCommmentPost));
         databaseReference.child("Post").setValue(mdPostArrayList);*/
+        /*ArrayList<mdBusiness> arrProductPlace = new ArrayList<mdBusiness>();
+
+        arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_cafe.jpg?alt=media&token=3e0f0894-b78b-4109-a2a1-0882df2675b8","Napoli","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán nước","07h00 - 22h00","4.5","",""));
+        arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_gongcha.jpg?alt=media&token=9a3209fa-c90b-4a0d-878d-43231b561628","Apola","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán nước","07h00 - 22h00","4","",""));
+        arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_lau.jpg?alt=media&token=529767db-3fcc-4ba3-9bd8-3cc79eedd3a7","Lẩu Giấy","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán ăn","07h00 - 22h00","4","",""));
+        arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_nuong.jpg?alt=media&token=2245dbdb-e671-49d0-b766-f6309c9a303c","Set Nướng","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán ăn","07h00 - 22h00","3.5","",""));
+        arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_trasua.jpg?alt=media&token=b4dfc766-4840-4976-a65c-ab1f07e47d1a","Apache","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán nước","07h00 - 22h00","4","",""));
+        arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_nhau1.JPG?alt=media&token=9cfb41fc-afa4-4343-a8cc-2c89b636ee94","O2 Quán","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán nước","07h00 - 22h00","4","",""));
+        arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_nuong.jpg?alt=media&token=2245dbdb-e671-49d0-b766-f6309c9a303c","Khram 2e","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán nước","07h00 - 22h00","4","",""));
+        arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/banh-mi-tho-nhy-ki.jpg?alt=media&token=b52f8b98-fafb-4f6b-822c-adfd6af05538","Bánh Mỳ Thổ Nhỹ Kỳ Kebab Tiếp Cruise","097 744 66 86","309/93 Võ Văn Ngân, P. Linh Chiểu, Quận Thủ Đức","Quán ăn","09:00 - 21:00","4","",""));
+        databaseReference.child("Business").setValue(arrProductPlace);
+        databaseReference.child("Business").setValue(arrProductPlace);*/
         // RecyclerView 1
         CustomLinearLayout layoutManagertop = new CustomLinearLayout(getActivity(), 500);
         layoutManagertop.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -102,7 +115,6 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerPost.setHasFixedSize(true);
         recyclerPost.setLayoutManager(layoutManager);
-
 
 
         // Array of HomeProduct
@@ -117,7 +129,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 final mdBusiness mdBusiness = dataSnapshot.getValue(mdBusiness.class);
-                arrBusiness.add(new mdBusiness(mdBusiness.getStrEmail(), mdBusiness.getStrPass(), mdBusiness.getStrImage(), mdBusiness.getStrName(), mdBusiness.getStrPhone(), mdBusiness.getStrAddress(), mdBusiness.getStrBusinessType(), mdBusiness.getStrOpenTime(), mdBusiness.getStrScoreRating(), mdBusiness.getStrListProductList(), mdBusiness.getStrListCommentList()));
+                arrBusiness.add(new mdBusiness(mdBusiness.getStrID(),mdBusiness.getStrEmail(), mdBusiness.getStrPass(), mdBusiness.getStrImage(), mdBusiness.getStrName(), mdBusiness.getStrPhone(), mdBusiness.getStrAddress(), mdBusiness.getStrBusinessType(), mdBusiness.getStrOpenTime(), mdBusiness.getStrScoreRating(), mdBusiness.getStrListProductList(), mdBusiness.getStrListCommentList(),mdBusiness.getDbLatitude(),mdBusiness.getDbLongitude()));
                 adapterBusiness.notifyDataSetChanged();
             }
 
@@ -150,7 +162,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 final mdPost mdPost = dataSnapshot.getValue(mdPost.class);
-                arrPost.add(new mdPost(mdPost.getPostID(),mdPost.getNameProduct(), mdPost.getDescriptionProduct(), mdPost.getImgProduct(), mdPost.getnNumberLike(), mdPost.getnNumberUnlike(), mdPost.getnNumberComment(), mdPost.isCheckLike(), mdPost.isCheckUnLike(), mdPost.getLienKetDiaDiem(), mdPost.getArrayListCommentPost()));
+                arrPost.add(new mdPost(mdPost.getPostID(), mdPost.getNameProduct(), mdPost.getDescriptionProduct(), mdPost.getImgProduct(), mdPost.getnNumberLike(), mdPost.getnNumberUnlike(), mdPost.getnNumberComment(), mdPost.isCheckLike(), mdPost.isCheckUnLike(), mdPost.getLienKetDiaDiem(), mdPost.getArrayListCommentPost()));
                 adapterPost.notifyDataSetChanged();
             }
 
@@ -175,11 +187,27 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        recyclerBusiness.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), recyclerBusiness, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent myIntent = new Intent(getActivity().getBaseContext(), BusinessDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("detailBusiness", arrBusiness.get(position).getStrName());
+                myIntent.putExtra("bundle", bundle);
+                getActivity().startActivity(myIntent);
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+                // do whatever
+            }
+        }
+        ));
+
         scrollByTime();
 
         return view;
     }
-
 
 
 }

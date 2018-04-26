@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.trile.foodlocation.BusinessDetailActivity">
+    tools:context="com.example.trile.foodlocation.DetailPlaceActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,10 +66,10 @@
                         android:background="@android:color/white">
 
                         <ImageView
-                            android:id="@+id/businessImage"
+                            android:id="@+id/imgBusiness"
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
-                            android:src="@mipmap/trasua" />
+                            android:src="@mipmap/trasua"/>
 
                     </LinearLayout>
 
@@ -85,70 +85,62 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="40dp"
+                                android:gravity="center"
                                 android:orientation="horizontal">
 
                                 <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="5"
+                                    android:gravity="center|left"
                                     android:orientation="vertical">
 
                                     <TextView
-                                        android:id="@+id/businessName"
+                                        android:id="@+id/tv_business_name"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Trà Sữa BoBaPop"
-                                        android:textSize="20dp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:id="@+id/businessOpenTime"
-                                        style="@style/text_detail"
-                                        android:drawableLeft="@drawable/ic_working_time"
-                                        android:text="07h00 - 22h00"
-                                        android:textColor="@color/colorAccent" />
+                                        android:textColor="@color/colorAccent"
+                                        android:drawablePadding="5dp"
+                                        android:drawableLeft="@drawable/title_size"
+                                        android:textStyle="bold"
+                                        android:text="Trà Sữa BopBy"
+                                        android:textSize="22sp" />
 
                                 </LinearLayout>
 
-                                <FrameLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1">
-
-                                    <ImageView
-                                        android:layout_width="40dp"
-                                        android:layout_height="40dp"
-                                        android:background="@drawable/custom_bg_circle"/>
-
-                                    <ImageView
-                                        android:layout_width="17dp"
-                                        android:layout_height="17dp"
-                                        android:layout_marginLeft="11dp"
-                                        android:src="@drawable/ic_vote"/>
-
-                                    <TextView
-                                        android:id="@+id/rating"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="15dp"
-                                        android:layout_marginTop="15dp"
-                                        android:textStyle="bold"
-                                        android:textSize="17dp"
-                                        android:textColor="@android:color/white"
-                                        android:text="5"/>
-
-                                </FrameLayout>
+                                <TextView
+                                    android:id="@+id/tv_vote"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawableLeft="@drawable/favorite_size"
+                                    android:drawablePadding="5dp"
+                                    android:gravity="center"
+                                    android:text="4.5"
+                                    android:textColor="@color/vote"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
 
                             </LinearLayout>
 
                             <TextView
-                                android:id="@+id/businessDiaChi"
+                                android:id="@+id/tvBusinessAddress"
                                 style="@style/text_detail"
-                                android:textColor="@color/adrress"
-                                android:text="74/2/6 Đường 6 , P.Linh Đông , Quận Thủ Đức "
-                                android:drawableLeft="@drawable/map"/>
+                                android:textColor="@color/tv_address"
+                                android:textStyle="bold"
+                                android:text="74/2/6 Đường 6 , P.Linh Đông , Quận Thủ Đức " />
 
+                            <TextView
+                                android:id="@+id/tv_workingtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableLeft="@drawable/hourglass"
+                                android:layout_marginTop="7dp"
+                                android:textStyle="bold"
+                                android:text="7h00 - 8h00"
+                                android:textSize="17dp"
+                                android:textColor="@color/time" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -192,42 +184,29 @@
 
                     <LinearLayout
                         style="@style/linear"
-                        android:gravity="center">
+                        android:gravity="center|top"
+                        android:orientation="horizontal">
 
-                        <CheckBox
+                        <RatingBar
+                            android:id="@+id/ratingBar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:button="@drawable/custom_cbx_vote"/>
+                            android:numStars="5"
+                            />
 
-                        <CheckBox
+                        <TextView
+                            android:id="@+id/numberRating"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:button="@drawable/custom_cbx_vote"/>
-
-                        <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:button="@drawable/custom_cbx_vote"/>
-
-                        <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:button="@drawable/custom_cbx_vote"/>
-
-                        <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:button="@drawable/custom_cbx_vote"/>
-
+                            android:textColor="@android:color/black"
+                            android:text="0.0"/>
 
                     </LinearLayout>
 
                     <LinearLayout
                         style="@style/linear"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:background="@android:color/white">
 
                         <TextView
@@ -236,6 +215,7 @@
                             android:textSize="20dp"
                             android:gravity="center"
                             android:textStyle="bold"
+                            android:textColor="@color/bg_login"
                             android:text="Danh sách sản phẩm"/>
 
                     </LinearLayout>
