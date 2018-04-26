@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="230dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/click_user"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_chat_title"/>
+
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_weight="10"
+                android:text="Đổi mật khẩu"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:gravity="center|left"
+                android:drawablePadding="10dp"
+                android:layout_marginLeft="5dp"/>
+
+            <TextView
+                android:id="@+id/tvExitComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="@string/function_choosen_close"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:textColor="@android:color/white"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical"
+            android:gravity="center|top"
+            android:background="@color/click_user">
+
+            <EditText
+                android:id="@+id/edt_pass_change"
+                android:drawableLeft="@drawable/password"
+                android:singleLine="true"
+                android:hint="@string/dialog_hint_change_pass"
+                style="@style/edt_custom"/>
+
+            <EditText
+                android:id="@+id/edt_pass_change_againt"
+                android:drawableLeft="@drawable/password"
+                android:singleLine="true"
+                android:hint="@string/dialog_hint_change_pass_againt"
+                style="@style/edt_custom"/>
+
+            <Button
+                android:id="@+id/btn_change_pass"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_edt_white"
+                android:textSize="17sp"
+                android:textAllCaps="false"
+                android:text="Thay đổi"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

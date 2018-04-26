@@ -3,6 +3,7 @@ package com.example.trile.foodlocation;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -15,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import com.example.trile.foodlocation.Adapter.AdapterMenuPlace;
-import com.example.trile.foodlocation.Adapter.AdapterPlace;
 import com.example.trile.foodlocation.Adapter.AdapterSpinnerPlace;
 import com.example.trile.foodlocation.Models.mdBusiness;
 import com.example.trile.foodlocation.Models.mdSpinnerPlace;
@@ -56,6 +56,7 @@ public class PlaceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_place, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         mData = FirebaseDatabase.getInstance().getReference();
         setHasOptionsMenu(true);
         recyclePlace = (RecyclerView) view.findViewById(R.id.recyclerViewPlace);

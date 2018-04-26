@@ -47,12 +47,13 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
     private Button btnSentComment;
     private EditText edtCommentContext;
     private Dialog dialog;
+    private Dialog dialogLogin;
     // COMMENT
     private TextView tvExitComment;
     private FirebaseAuth firebaseAuth;
     //
     DatabaseReference databaseReference;
-
+    private FirebaseAuth mAuth;
 
     public AdapterPost(ArrayList<mdPost> arrmdPosts, Context context) {
         this.mdPosts = arrmdPosts;
@@ -69,13 +70,17 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-
+        mAuth = FirebaseAuth.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
         // COMMENT
         dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
         dialog.setContentView(R.layout.dialog_comment);
+
+        dialogLogin = new Dialog(context);
+        dialogLogin.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
+        dialogLogin.setContentView(R.layout.dialog_login_request);
 
         btnSentComment = (Button) dialog.findViewById(R.id.btnSentComment);
         edtCommentContext = (EditText) dialog.findViewById(R.id.edtCM);
@@ -255,6 +260,8 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
             }
 
         });*/
+
+
         holder.cbxPostLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -415,6 +422,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         final mdPost mdPostOject = dataSnapshot.getValue(mdPost.class);
+
                         if (mdPostOject.getNameProduct().equalsIgnoreCase(mdPosts.get(position).getNameProduct())) {
                             final int UnLikeCount = Integer.parseInt(mdPostOject.getnNumberUnlike());
                             databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
@@ -531,6 +539,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                                 }
                             });
                         }
+
                     }
 
                     @Override
@@ -584,16 +593,17 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                             recyclerViewComment.setAdapter(adapterComment);
                             recyclerViewComment.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener());
                             dialog.show();
+
                             btnSentComment.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+
                                     String cmn = edtCommentContext.getText().toString();
                                     mdComment cm = new mdComment("https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", "" + cmn);
                                     ArrayList<mdComment> arrayListComment = mdPostOject.getArrayListCommentPost();
                                     arrayListComment.add(cm);
                                     databaseReference.child("Post").child(mdPostOject.getPostID()).child("arrayListCommentPost").setValue(arrayListComment);
                                     edtCommentContext.setText("");
-
                                     adapterComment.notifyDataSetChanged();
                                     databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
                                         @Override
@@ -627,8 +637,11 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
 
                                         }
                                     });
+
+
                                 }
                             });
+
                         }
 
                     }
@@ -679,6 +692,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+
                 if (mdUser.getUserMail().equalsIgnoreCase(firebaseAuth.getCurrentUser().getEmail())) {
                     for (int i = 0; i < mdUser.getArrayListUserStatusPost().size(); i++) {
                         if (mdUser.getArrayListUserStatusPost().get(i).getStrIDPost().equalsIgnoreCase(mdPosts.get(position).getPostID())) {

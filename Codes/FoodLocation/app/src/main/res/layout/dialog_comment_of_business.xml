@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/business_vote"
+            android:background="@color/click_user"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -28,7 +28,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_weight="10"
-                android:text="Bình luận về bạn ( doanh nghiệp )"
+                android:text="Bình luận về bạn"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"

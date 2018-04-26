@@ -6,10 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -17,7 +14,6 @@ import android.widget.CheckBox;
 import com.example.trile.foodlocation.Adapter.AdapterPlace;
 import com.example.trile.foodlocation.Adapter.AdapterPost;
 import com.example.trile.foodlocation.Models.mdBusiness;
-import com.example.trile.foodlocation.Models.mdComment;
 import com.example.trile.foodlocation.Models.mdPost;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 
 /**
@@ -75,6 +70,8 @@ public class HomeFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_layout, container, false);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
         recyclerBusiness = (RecyclerView) view.findViewById(R.id.recyclerView_Business);
         recyclerPost = (RecyclerView) view.findViewById(R.id.recyclerView_Post);

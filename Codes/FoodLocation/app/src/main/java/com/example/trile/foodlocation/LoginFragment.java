@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +29,7 @@ public class LoginFragment extends Fragment {
     private Button btn_login;
     private EditText edtMail;
     private EditText edtPass;
+    private TextView next_no_login;
     // FIREBASE
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -50,6 +52,15 @@ public class LoginFragment extends Fragment {
         btn_login = (Button) view.findViewById(R.id.btn_login);
         edtMail = (EditText) view.findViewById(R.id.edt_mail_login);
         edtPass = (EditText) view.findViewById(R.id.edt_pass_login);
+        next_no_login = (TextView) view.findViewById(R.id.next_no_login);
+
+        next_no_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(),HomeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Get Firebase
         mAuth = FirebaseAuth.getInstance();

@@ -53,7 +53,8 @@
     <!-- USER SCREEN -->
     <string name="user_personal"> Trang cá nhân </string>
     <string name="user_product_manager"> Quản lý sản phẩm </string>
-    <string name="user_comment_manager"> Bình luận về trang </string>
+    <string name="user_manager_comment"> Bình luận về trang </string>
+    <string name="user_change_passwork"> Đổi mật khẩu </string>
     <string name="user_logout"> Đăng xuất </string>
     <string name="user_about_us"> Về chúng tôi </string>
     <string name="user_exit"> Thoát </string>
@@ -62,10 +63,12 @@
     <string name="function_choosen_close">Đóng</string>
     <string name="choosen_img_camera">Máy ảnh</string>
     <string name="choosen_img_library">Thư viện</string>
-    <!-- DIALOG COMMENT-->
+    <!-- DIALOG -->
     <string name="function_title">Bình luận</string>
     <string name="function_close">Đóng</string>
     <string name="dialog_hint_edt">Viết bình luận</string>
+    <string name="dialog_hint_change_pass">Mật khẩu mới</string>
+    <string name="dialog_hint_change_pass_againt">Nhập lại mật khẩu mới</string>
     <!-- ABOUT US-->
     <string name="title_name"> MÓN NGON </string>
     <string name="title_1">Giới thiệu : </string>
@@ -85,5 +88,13 @@
     <string name="title_detail_product"> Chi tiết sản phẩm </string>
     <string name="title_detail_business"> Chi tiết doanh nghiệp </string>
     <string name="title_detail_personal"> Trang cá nhân </string>
+    <!-- DIALOG NO LOGIN-->
+    <string name="dialog_no_login"> Bạn chưa đăng nhập tài khoản . Đăng nhập để sử dụng chức năng này </string>
 
+
+    <string name="notification_text">Tracking, tap to cancel</string>
+    <string name="transport_id" translatable="false">123</string>
+    <string name="firebase_path" translatable="false">locations</string>
+    <string name="firebase_email" translatable="false">test@example.com</string>
+    <string name="firebase_password" translatable="false">password</string>
 </resources>

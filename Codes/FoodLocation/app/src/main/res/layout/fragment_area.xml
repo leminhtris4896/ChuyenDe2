@@ -1,13 +1,68 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AreaFragment">
 
-    <fragment
-        android:id="@+id/myMap"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/myMap"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:id="@+id/relaytiveSearch"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:elevation="10dp"
+            android:background="@drawable/white_border">
+
+            <ImageView
+                android:id="@+id/ic_search"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/search_map"/>
+            
+            <EditText
+                android:id="@+id/edt_search_map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/ic_search"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:textSize="15sp"
+                android:background="@null"
+                android:singleLine="true"
+                android:drawableRight="@drawable/clear_text"
+                android:paddingRight="10dp"
+                android:drawablePadding="5dp"
+                android:hint="Nhập địa chỉ , thành phố"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/img_set_gps"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/relaytiveSearch"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/ic_gps"/>
+
+    </RelativeLayout>
+
+    
 
 </FrameLayout>

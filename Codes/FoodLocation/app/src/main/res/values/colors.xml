@@ -18,5 +18,5 @@
     <color name="phone">#ac6955</color>
     <!-- USER -->
     <color name="click_user">#fa8f54</color>
-    <color name="click_choosen_user">#ffbe9a</color>
+    <color name="click_choosen_user">#fccaae</color>
 </resources>

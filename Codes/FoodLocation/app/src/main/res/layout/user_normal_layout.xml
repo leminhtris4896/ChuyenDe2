@@ -1,0 +1,180 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.trile.foodlocation.UserNormalFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_main"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/man"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textSize="17dp"
+                android:text="Lê Minh Trí"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linear_personal"
+            style="@style/choosen_user"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="12"
+                android:gravity="center|left">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_user_menu"/>
+                <TextView
+                    style="@style/text_user"
+                    android:text="Chỉnh sửa thông tin"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_next_personal"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_change_passwork"
+            style="@style/choosen_user"
+            android:background="@drawable/custom_cick_user"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center|left">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/user_password"/>
+                <TextView
+                    style="@style/text_user"
+                    android:text="@string/user_change_passwork"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_next_personal"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_aboutus"
+            style="@style/choosen_user"
+            android:orientation="horizontal"
+            android:layout_marginBottom="2dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center|left">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_aboutus"/>
+                <TextView
+                    style="@style/text_user"
+                    android:text="@string/user_about_us"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_next_personal"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_logout"
+            style="@style/choosen_user"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center|left">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_logout"/>
+                <TextView
+                    style="@style/text_user"
+                    android:text="@string/user_logout"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_next_personal"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>

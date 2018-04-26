@@ -13,55 +13,206 @@
 
         <LinearLayout
             android:id="@+id/linear_personal"
-            style="@style/choosen_user">
+            style="@style/choosen_user"
+            android:orientation="horizontal">
 
-            <ImageView
-                style="@style/img_user"
-                android:src="@drawable/ic_user_menu"/>
-            <TextView
-                style="@style/text_user"
-                android:text="@string/user_personal"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="12"
+                android:gravity="center|left">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_user_menu"/>
+                <TextView
+                    style="@style/text_user"
+                    android:text="@string/user_personal"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_next_personal"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linear_product_manager"
-            style="@style/choosen_user">
+            style="@style/choosen_user"
+            android:orientation="horizontal">
 
-            <ImageView
-                style="@style/img_user"
-                android:src="@drawable/ic_manager"/>
-            <TextView
-                style="@style/text_user"
-                android:text="@string/user_product_manager"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center|left">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_manager"/>
+                <TextView
+                    style="@style/text_user"
+                    android:text="@string/user_product_manager"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_next_personal"/>
+
+            </LinearLayout>
 
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linear_comment_manager"
+            style="@style/choosen_user"
+            android:background="@drawable/custom_cick_user"
+            android:orientation="horizontal">
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center|left">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_user_personal"/>
+                <TextView
+                    style="@style/text_user"
+                    android:text="@string/user_manager_comment"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_next_personal"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linear_change_passwork"
+            style="@style/choosen_user"
+            android:background="@drawable/custom_cick_user"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center|left">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/user_password"/>
+                <TextView
+                    style="@style/text_user"
+                    android:text="@string/user_change_passwork"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_next_personal"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/linear_aboutus"
             style="@style/choosen_user"
-            android:layout_marginBottom="8dp">
+            android:orientation="horizontal"
+            android:layout_marginBottom="2dp">
 
-            <ImageView
-                style="@style/img_user"
-                android:src="@drawable/ic_aboutus"/>
-            <TextView
-                style="@style/text_user"
-                android:text="@string/user_about_us"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center|left">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_aboutus"/>
+                <TextView
+                    style="@style/text_user"
+                    android:text="@string/user_about_us"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_next_personal"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linear_logout"
             style="@style/choosen_user"
-            android:layout_marginBottom="8dp">
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp">
 
-            <ImageView
-                style="@style/img_user"
-                android:src="@drawable/ic_logout"/>
-            <TextView
-                style="@style/text_user"
-                android:text="@string/user_logout"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center|left">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_logout"/>
+                <TextView
+                    style="@style/text_user"
+                    android:text="@string/user_logout"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_next_personal"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
