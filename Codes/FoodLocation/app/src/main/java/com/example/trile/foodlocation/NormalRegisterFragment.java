@@ -11,13 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
+import com.example.trile.foodlocation.Models.mdBusiness;
 import com.example.trile.foodlocation.Models.mdPost;
 import com.example.trile.foodlocation.Models.mdUser;
 import com.example.trile.foodlocation.Models.mdUserStatusPost;
+import com.example.trile.foodlocation.Models.mdUserStatusRate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -60,7 +64,6 @@ public class NormalRegisterFragment extends Fragment {
         edtMail = (EditText) view.findViewById(R.id.edt_mail_login);
         edtPass = (EditText) view.findViewById(R.id.edt_pass_login);
         btnRegister = (Button) view.findViewById(R.id.btn_register);
-
         //Get FireBasae
         mAuth = FirebaseAuth.getInstance();
 
@@ -71,7 +74,7 @@ public class NormalRegisterFragment extends Fragment {
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 //Progressbar
                 mProgress = new ProgressDialog(getContext());
                 mProgress.setTitle("Đang tạo tài khoản");
@@ -111,20 +114,67 @@ public class NormalRegisterFragment extends Fragment {
                                 final ArrayList<String> arrayListListSuHoatDong = new ArrayList<>();
                                 arrayListListSuHoatDong.add(email + " vừa mới đăng kí tài khoản - " + currentTime.toString());
                                 final String idNewUser = mDataUser.push().getKey();
-                                final ArrayList<String> arrayListKey = new ArrayList<>();
+                                final ArrayList<String> arrayListKeyPost = new ArrayList<>();
+                                //arrayListKeyPost = mData.child("Post").getKey();
+                                final ArrayList<String> arrayListKeyBusiness = new ArrayList<>();
                                 final ArrayList<mdUserStatusPost> arrayListUserStatusPost = new ArrayList<>();
+                                final ArrayList<mdUserStatusRate> arrayListUserStatusRate = new ArrayList<>();
+
                                 mData.child("Post").addChildEventListener(new ChildEventListener() {
                                     @Override
                                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                                         mdPost mdPost = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdPost.class);
-                                        arrayListKey.add(mdPost.getPostID());
+                                        arrayListKeyPost.add(mdPost.getPostID());
                                         arrayListUserStatusPost.clear();
-                                        for (int i = 0; i < arrayListKey.size();i++) {
-                                            mdUserStatusPost mdUserStatusPost = new mdUserStatusPost(arrayListKey.get(i),false,false);
+                                        for (int i = 0; i < arrayListKeyPost.size(); i++) {
+                                            mdUserStatusPost mdUserStatusPost = new mdUserStatusPost(arrayListKeyPost.get(i), false, false);
                                             arrayListUserStatusPost.add(mdUserStatusPost);
                                         }
-                                        mdUser mdUserNew = new mdUser(email + "", pass + "", idNewUser+"", arrayListListSuHoatDong,arrayListUserStatusPost);
-                                        mDataUser.child(idNewUser).setValue(mdUserNew);
+                                        arrayListUserStatusRate.clear();
+                                        mData.child("Business").addChildEventListener(new ChildEventListener() {
+                                            @Override
+                                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                                mdBusiness mdBusiness = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdBusiness.class);
+
+                                                arrayListKeyBusiness.add(mdBusiness.getStrID());
+
+                                                if (arrayListUserStatusRate.size() == 0) {
+                                                    mdUserStatusRate userStatusRate = new mdUserStatusRate(mdBusiness.getStrID(), "0");
+                                                    arrayListUserStatusRate.add(userStatusRate);
+                                                } else {
+                                                    for (int i = 0; i < arrayListUserStatusRate.size(); i++) {
+                                                        if (ktTrung(arrayListUserStatusRate, mdBusiness.getStrID()) == false) {
+                                                            mdUserStatusRate userStatusRate = new mdUserStatusRate(mdBusiness.getStrID(), "0");
+                                                            arrayListUserStatusRate.add(userStatusRate);
+                                                        }
+                                                    }
+                                                }
+                                                mdUser mdUserNew = new mdUser(email + "", pass + "", idNewUser + "","normal" , arrayListListSuHoatDong, arrayListUserStatusPost, arrayListUserStatusRate);
+                                                mDataUser.child(idNewUser).setValue(mdUserNew);
+                                            }
+
+                                            @Override
+                                            public void onChildChanged(DataSnapshot
+                                                                               dataSnapshot, String s) {
+
+                                            }
+
+                                            @Override
+                                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                            }
+
+                                            @Override
+                                            public void onChildMoved(DataSnapshot dataSnapshot, String
+                                                    s) {
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -157,4 +207,15 @@ public class NormalRegisterFragment extends Fragment {
         });
         return view;
     }
+
+    public boolean ktTrung(ArrayList<mdUserStatusRate> strings, String chuoi) {
+        boolean kt = false;
+        for (int i = 0; i < strings.size(); i++) {
+            if (chuoi.equalsIgnoreCase(strings.get(i).getStrIDBusiness())) {
+                kt = true;
+            }
+        }
+        return kt;
+    }
+
 }

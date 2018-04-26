@@ -26,14 +26,6 @@
             android:theme="@style/title_bar"></activity>
 
         <activity
-            android:name=".DetailPlaceActivity"
-            android:theme="@style/title_bar" />
-
-        <activity
-            android:name=".DetailPostActivity"
-            android:theme="@style/title_bar" />
-
-        <activity
             android:name=".DetailPersonalActivity"
             android:theme="@style/title_bar"></activity>
 

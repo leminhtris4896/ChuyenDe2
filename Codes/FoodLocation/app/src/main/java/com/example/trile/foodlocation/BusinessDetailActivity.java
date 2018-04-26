@@ -1,22 +1,27 @@
 package com.example.trile.foodlocation;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.trile.foodlocation.Models.mdBusiness;
-import com.example.trile.foodlocation.Models.mdPost;
+import com.example.trile.foodlocation.Models.mdUser;
+import com.example.trile.foodlocation.Models.mdUserStatusRate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,40 +36,137 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
     private TextView BusinessOpenTime;
     private TextView BusinessAddress;
     private TextView tvCall;
+    public RatingBar ratingBar;
+    private TextView tvNumberRating;
+    private TextView tvVote;
     Intent intent;
     Bundle bundle;
 
     DatabaseReference databaseReference;
+
+    FirebaseAuth firebaseAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.business_detail_layout);
+        firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         Init();
+
+        databaseReference.child("Business").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                final mdBusiness mdBusiness = dataSnapshot.getValue(mdBusiness.class);
+                if (mdBusiness.getStrName().equalsIgnoreCase(bundle.getString("detailBusiness"))) {
+                    databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            final mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+                            if (mdUser.getUserMail().equalsIgnoreCase(firebaseAuth.getCurrentUser().getEmail())) {
+                                for (int i = 0; i < mdUser.getArrayListUserStatusRate().size(); i++) {
+                                    if (mdBusiness.getStrID().equalsIgnoreCase(mdUser.getArrayListUserStatusRate().get(i).getStrIDBusiness())) {
+                                        final mdUserStatusRate userStatusRate = mdUser.getArrayListUserStatusRate().get(i);
+                                        final String idStatusRate = Integer.toString(i);
+                                        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                                            @Override
+                                            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                                                tvNumberRating.setText(String.valueOf(ratingBar.getRating()));
+                                                    databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusRate").child(idStatusRate).child("strStartRate").setValue(String.valueOf(ratingBar.getRating()));
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    BusinessName.setText(mdBusiness.getStrName());
+                    BusinessAddress.setText(mdBusiness.getStrAddress());
+                    BusinessOpenTime.setText(mdBusiness.getStrOpenTime());
+                    Picasso.with(BusinessDetailActivity.this).load(mdBusiness.getStrImage()).into(BusinessImage);
+                    tvVote.setText(mdBusiness.getStrScoreRating());
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         SupportMapFragment mapFragmentDetail = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.myMapDetail);
         mapFragmentDetail.getMapAsync(BusinessDetailActivity.this);
         tvCall = (TextView) findViewById(R.id.btn_phone);
+        final Dialog dialog = new Dialog(BusinessDetailActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
+        dialog.setContentView(R.layout.dialog_callphone);
         tvCall.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("MissingPermission")
             @Override
             public void onClick(View view) {
-                Intent intentCall = new Intent(Intent.ACTION_CALL);
-                intentCall.setData(Uri.parse("tel:0978137250"));
-                startActivity(intentCall);
+                dialog.show();
+                TextView tvphone = (TextView) dialog.findViewById(R.id.ok_callphone);
+                tvphone.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("MissingPermission")
+                    @Override
+                    public void onClick(View view) {
+                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                        callIntent.setData(Uri.parse("tel:0985134519"));
+                        startActivity(callIntent);
+                    }
+                });
             }
         });
-        databaseReference = FirebaseDatabase.getInstance().getReference();
         loadDetailItemBusiness();
+
+
     }
 
     public void Init() {
-        BusinessImage = (ImageView) findViewById(R.id.businessImage);
-        BusinessName = (TextView) findViewById(R.id.businessName);
-        Rating = (TextView) findViewById(R.id.rating);
-        BusinessOpenTime = (TextView) findViewById(R.id.businessOpenTime);
-        BusinessAddress = (TextView) findViewById(R.id.businessDiaChi);
+        BusinessImage = (ImageView) findViewById(R.id.imgBusiness);
+        BusinessName = (TextView) findViewById(R.id.tv_business_name);
+        //Rating = (TextView) findViewById(R.id.rate_me);
+        BusinessOpenTime = (TextView) findViewById(R.id.tv_workingtime);
+        BusinessAddress = (TextView) findViewById(R.id.tvBusinessAddress);
         tvCall = (TextView) findViewById(R.id.btn_phone);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        tvNumberRating = (TextView) findViewById(R.id.numberRating);
+        tvVote = (TextView) findViewById(R.id.tv_vote);
     }
 
 
@@ -76,7 +178,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
         googleMap.addMarker(new MarkerOptions().position(sydney)
                 .title("Nhóm 3")
                 .snippet("Trường Cao Đẳng Công Nghệ Thủ Đức"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,15));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
     }
 
     public void loadDetailItemBusiness() {
@@ -88,11 +190,45 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 final mdBusiness mdBusiness = dataSnapshot.getValue(mdBusiness.class);
                 if (mdBusiness.getStrName().equalsIgnoreCase(bundle.getString("detailBusiness"))) {
+                    databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+                            if (mdUser.getUserMail().equalsIgnoreCase(firebaseAuth.getCurrentUser().getEmail())) {
+                                for (int i = 0; i < mdUser.getArrayListUserStatusRate().size(); i++) {
+                                    if (mdBusiness.getStrID().equalsIgnoreCase(mdUser.getArrayListUserStatusRate().get(i).getStrIDBusiness())) {
+                                        ratingBar.setRating(Float.parseFloat(mdUser.getArrayListUserStatusRate().get(i).getStrStartRate()));
+                                        ratingBar.setStepSize(0.1f);
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                     BusinessName.setText(mdBusiness.getStrName());
                     BusinessAddress.setText(mdBusiness.getStrAddress());
-                    Rating.setText(mdBusiness.getStrScoreRating());
                     BusinessOpenTime.setText(mdBusiness.getStrOpenTime());
                     Picasso.with(BusinessDetailActivity.this).load(mdBusiness.getStrImage()).into(BusinessImage);
+                    tvVote.setText(mdBusiness.getStrScoreRating());
                 }
             }
 

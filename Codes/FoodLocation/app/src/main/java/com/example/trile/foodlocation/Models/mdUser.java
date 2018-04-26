@@ -10,20 +10,40 @@ public class mdUser {
     private String UserMail;
     private String UserPass;
     private String UserID;
+    private String UserType;
     private ArrayList<String> arrayListLichSuHoatDong;
 
     private ArrayList<mdUserStatusPost> arrayListUserStatusPost;
+
+    public mdUser(String userMail, String userPass, String userID, String userType, ArrayList<String> arrayListLichSuHoatDong, ArrayList<mdUserStatusPost> arrayListUserStatusPost, ArrayList<mdUserStatusRate> arrayListUserStatusRate) {
+        UserMail = userMail;
+        UserPass = userPass;
+        UserID = userID;
+        UserType = userType;
+        this.arrayListLichSuHoatDong = arrayListLichSuHoatDong;
+        this.arrayListUserStatusPost = arrayListUserStatusPost;
+        this.arrayListUserStatusRate = arrayListUserStatusRate;
+    }
+
+    private ArrayList<mdUserStatusRate> arrayListUserStatusRate;
+    public ArrayList<mdUserStatusRate> getArrayListUserStatusRate() {
+        return arrayListUserStatusRate;
+    }
+
+    public void setArrayListUserStatusRate(ArrayList<mdUserStatusRate> arrayListUserStatusRate) {
+        this.arrayListUserStatusRate = arrayListUserStatusRate;
+    }
 
     public mdUser() {
         //
     }
 
-    public mdUser(String userMail, String userPass, String userID, ArrayList<String> arrayListLichSuHoatDong, ArrayList<mdUserStatusPost> arrayListUserStatusPost) {
-        UserMail = userMail;
-        UserPass = userPass;
-        UserID = userID;
-        this.arrayListLichSuHoatDong = arrayListLichSuHoatDong;
-        this.arrayListUserStatusPost = arrayListUserStatusPost;
+    public String getUserType() {
+        return UserType;
+    }
+
+    public void setUserType(String userType) {
+        UserType = userType;
     }
 
 
