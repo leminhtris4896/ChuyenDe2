@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -65,15 +67,12 @@ public class LoginFragment extends Fragment {
         //Get Firebase
         mAuth = FirebaseAuth.getInstance();
 
-        mProgress = new ProgressDialog(getContext());
-        mProgress.setTitle("Đang kết nối");
-        mProgress.setMessage("Vui lòng chờ");
-
-
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                mProgress = new ProgressDialog(getContext());
+                mProgress.setTitle("Đang kết nối");
+                mProgress.setMessage("Vui lòng chờ");
 
                 final String email = edtMail.getText().toString();
                 final String password = edtPass.getText().toString();
@@ -107,6 +106,25 @@ public class LoginFragment extends Fragment {
                     }
                 });
 
+            }
+        });
+
+        edtPass.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (edtPass.getRight() - edtPass.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        edtPass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                        return true;
+                    }
+                }
+                return false;
             }
         });
 

@@ -40,6 +40,7 @@
                 android:id="@+id/edt_pass_login"
                 android:inputType="textPassword"
                 android:drawableLeft="@drawable/ic_pass"
+                android:drawableRight="@drawable/eye"
                 android:singleLine="true"
                 android:hint="@string/hint_pass"
                 style="@style/edt_custom"/>

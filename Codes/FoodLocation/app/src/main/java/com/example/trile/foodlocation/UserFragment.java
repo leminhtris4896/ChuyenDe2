@@ -14,6 +14,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -32,11 +33,12 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class UserFragment extends Fragment {
 
-    LinearLayout personal, manager, aboutus, logout, change_password;
+    LinearLayout personal, manager,comment, aboutus, logout, change_password;
     // Authencation
     private FirebaseAuth mAuth;
     private Dialog dialog;
     private Dialog dialogChangePass;
+    private Dialog dialogCommentManager;
     private GoogleApiClient mGoogleApiClient;
     private DatabaseReference mData;
 
@@ -56,6 +58,7 @@ public class UserFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         personal = (LinearLayout) view.findViewById(R.id.linear_personal);
         manager = (LinearLayout) view.findViewById(R.id.linear_product_manager);
+        comment = (LinearLayout) view.findViewById(R.id.linear_comment_manager);
         aboutus = (LinearLayout) view.findViewById(R.id.linear_aboutus);
         logout = (LinearLayout) view.findViewById(R.id.linear_logout);
         change_password = (LinearLayout) view.findViewById(R.id.linear_change_passwork);
@@ -64,13 +67,23 @@ public class UserFragment extends Fragment {
         dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
         dialog.setContentView(R.layout.dialog_login_request);
+        dialog.setCanceledOnTouchOutside(false); // NO LICK OUTSIDE DIALOG
 
-        // DIALOG CHANGE PASSWOD
-        dialogChangePass = new Dialog(getContext());
-        dialogChangePass.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
-        dialogChangePass.setContentView(R.layout.dialog_change_passwork);
-        dialogChangePass.setCanceledOnTouchOutside(false);
+        comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // DIALOG COMMENT MANAGER
+                dialogCommentManager = new Dialog(getContext());
+                dialogCommentManager.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
+                dialogCommentManager.setContentView(R.layout.dialog_comment_of_business);
+                dialogCommentManager.setCanceledOnTouchOutside(false); // NO LICK OUTSIDE DIALOG
+                //
+                dialogCommentManager.show();
+            }
+        });
 
+
+        // Click logout account
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +102,7 @@ public class UserFragment extends Fragment {
 
             }
         });
-
+        // Click display personal page
         personal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +115,7 @@ public class UserFragment extends Fragment {
                 }
             }
         });
+        // Click manager product
         manager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,22 +128,34 @@ public class UserFragment extends Fragment {
                 }
             }
         });
+        // Click change password
         change_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // DIALOG CHANGE PASSWOD
+                dialogChangePass = new Dialog(getContext());
+                dialogChangePass.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
+                dialogChangePass.setContentView(R.layout.dialog_change_passwork);
+                dialogChangePass.setCanceledOnTouchOutside(false); // NO LICK OUTSIDE DIALOG
+                //
                 if (mAuth.getCurrentUser() == null) {
                     mAuth.signOut();
                     dialog.show();
                 } else {
+                    // display dialog change password
+
                     dialogChangePass.show();
                     final EditText edtPass = (EditText) dialogChangePass.findViewById(R.id.edt_pass_change);
                     final EditText edtPassAgaint = (EditText) dialogChangePass.findViewById(R.id.edt_pass_change_againt);
                     Button btnChange = (Button) dialogChangePass.findViewById(R.id.btn_change_pass);
+                    TextView tvCloseComment = dialogChangePass.findViewById(R.id.tvExitComment);
+                    // Click button accept change password
                     btnChange.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
-                            if (edtPass.getText().toString() == "" || edtPassAgaint.getText().toString() == "") {
+                            if (edtPass.getText().toString().trim().equalsIgnoreCase(edtPassAgaint.getText().toString().trim())) {
+                                edtPassAgaint.setError("Nhập lại không khớp");
+                            }else if (edtPass.getText().toString() == "" || edtPassAgaint.getText().toString() == "") {
                                 Toast.makeText(getContext(), "Điền đầy đủ", Toast.LENGTH_SHORT).show();
                             }else {
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -151,6 +177,7 @@ public class UserFragment extends Fragment {
                 }
             }
         });
+        // Click about us ( about group )
         aboutus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,4 +199,5 @@ public class UserFragment extends Fragment {
         mGoogleApiClient.connect();
         super.onStart();
     }
+
 }

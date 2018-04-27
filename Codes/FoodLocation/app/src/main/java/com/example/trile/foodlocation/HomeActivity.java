@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,29 +60,6 @@ public class HomeActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_user:
 
-                    // DIALOG CHANGE PASSWOD
-                    dialogChangePass = new Dialog(HomeActivity.this);
-                    dialogChangePass.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
-                    dialogChangePass.setContentView(R.layout.dialog_change_passwork);
-                    dialogChangePass.setCanceledOnTouchOutside(false);
-
-                    if (mAuth.getCurrentUser() == null) {
-                        mAuth.signOut();
-                        dialogChangePass.show();
-                    } else {
-                        // Select user page fragment
-                        UserFragment fragmentUser = new UserFragment();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction4 = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction4.replace(R.id.content, fragmentUser, "Fragment");
-                        fragmentTransaction4.commit();
-                        Toast.makeText(HomeActivity.this, "", Toast.LENGTH_SHORT).show();
-
-                        UserNormalFragment  fragment = new UserNormalFragment();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction6 = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction6.replace(R.id.content, fragmentUser, "Fragment");
-                        fragmentTransaction6.commit();
-                        return true;
-                    }
                     // Select user page fragment
                     mData.addChildEventListener(new ChildEventListener() {
                         @Override
@@ -96,8 +72,9 @@ public class HomeActivity extends AppCompatActivity {
                                     fragmentTransaction4.replace(R.id.content, fragmentUser, "Fragment");
                                     fragmentTransaction4.commit();
                                     Toast.makeText(HomeActivity.this, "business", Toast.LENGTH_SHORT).show();
+
                                 } else if (mdUser.getUserType().equalsIgnoreCase("normal")) {
-                                    BlankFragment fragmentUser = new BlankFragment();
+                                    UserNormalFragment fragmentUser = new UserNormalFragment();
                                     android.support.v4.app.FragmentTransaction fragmentTransaction5 = getSupportFragmentManager().beginTransaction();
                                     fragmentTransaction5.replace(R.id.content, fragmentUser, "Fragment");
                                     fragmentTransaction5.commit();
@@ -126,7 +103,7 @@ public class HomeActivity extends AppCompatActivity {
 
                         }
                     });
-
+                    return true;
             }
             return false;
         }

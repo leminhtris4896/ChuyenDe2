@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
-    android:layout_height="140dp"
+    android:layout_height="90dp"
     android:background="@color/bg_main">
 
     <LinearLayout
@@ -12,7 +12,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:background="@color/click_user"
+            android:background="@color/colorPrimary"
             android:layout_height="40dp"
             android:orientation="horizontal">
 
@@ -39,6 +39,7 @@
                 android:gravity="center|right">
 
                 <TextView
+                    android:id="@+id/tvCloseChoosenImg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
@@ -52,18 +53,7 @@
         </LinearLayout>
 
         <LinearLayout
-            style="@style/linear">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_camera"
-                android:drawablePadding="10dp"
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:text="@string/choosen_img_camera"/>
-        </LinearLayout>
-
-        <LinearLayout
+            android:id="@+id/linearOpenLibrary"
             android:layout_marginBottom="0dp"
             style="@style/linear">
 
@@ -79,5 +69,6 @@
         </LinearLayout>
 
     </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

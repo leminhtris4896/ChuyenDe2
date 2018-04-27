@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:background="@android:color/white"
+            android:background="@mipmap/abc"
             android:orientation="horizontal">
 
             <ImageView
@@ -36,7 +36,7 @@
 
 
         <LinearLayout
-            android:id="@+id/linear_personal"
+            android:id="@+id/linear_edit_personal"
             style="@style/choosen_user"
             android:orientation="horizontal">
 
