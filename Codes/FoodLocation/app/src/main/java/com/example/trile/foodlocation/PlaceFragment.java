@@ -71,17 +71,17 @@ public class PlaceFragment extends Fragment {
         // Add Place
         arrProductPlace = new ArrayList<mdBusiness>();
         loadData();
-        String key = mData.child("Business").push().getKey();
-        mdBusiness mdBusiness = new mdBusiness(key+"","","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_cafe.jpg?alt=media&token=3e0f0894-b78b-4109-a2a1-0882df2675b8","Napoli","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán nước","07h00 - 22h00","4.5","","",10.8373155,106.7449431);
+        /*String key = mData.child("Business").push().getKey();
+        mdBusiness mdBusiness = new mdBusiness(key+"","","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_cafe.jpg?alt=media&token=3e0f0894-b78b-4109-a2a1-0882df2675b8","Napoli","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán nước","07h00 - 22h00","4.5","","",10.8373155,106.7449431,0.0);
         mData.child("Business").child(key).setValue(mdBusiness);
 
         String key1 = mData.child("Business").push().getKey();
-        mdBusiness mdBusiness1 = new mdBusiness(key1+"","","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_gongcha.jpg?alt=media&token=9a3209fa-c90b-4a0d-878d-43231b561628","Apola","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán nước","07h00 - 22h00","4","","",10.8917252,106.7249331);
+        mdBusiness mdBusiness1 = new mdBusiness(key1+"","","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_gongcha.jpg?alt=media&token=9a3209fa-c90b-4a0d-878d-43231b561628","Apola","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán nước","07h00 - 22h00","4","","",10.8917252,106.7249331,0.0);
         mData.child("Business").child(key1).setValue(mdBusiness1);
 
         String key2 = mData.child("Business").push().getKey();
-        mdBusiness mdBusiness2 = new mdBusiness(key2+"","","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_lau.jpg?alt=media&token=529767db-3fcc-4ba3-9bd8-3cc79eedd3a7","Lẩu Giấy","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán ăn","07h00 - 22h00","4","","",10.89393766,106.72371001);
-        mData.child("Business").child(key2).setValue(mdBusiness2);
+        mdBusiness mdBusiness2 = new mdBusiness(key2+"","","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_lau.jpg?alt=media&token=529767db-3fcc-4ba3-9bd8-3cc79eedd3a7","Lẩu Giấy","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán ăn","07h00 - 22h00","4","","",10.89393766,106.72371001,0.0);
+        mData.child("Business").child(key2).setValue(mdBusiness2);*/
 
        return view;
     }
@@ -102,16 +102,16 @@ public class PlaceFragment extends Fragment {
                         final mdBusiness business = dataSnapshot.getValue(mdBusiness.class);
 
                         if (posision == 0){
-                            arrProductPlace.add(new mdBusiness(business.getStrID(),business.getStrEmail(),business.getStrPass(),business.getStrImage(),business.getStrName(),business.getStrPhone(),business.getStrAddress(),business.getStrBusinessType(),business.getStrOpenTime(),business.getStrScoreRating(),business.getStrListProductList(),business.getStrListCommentList(),business.getDbLatitude(),business.getDbLongitude()));
+                            arrProductPlace.add(new mdBusiness(business.getStrID(),business.getStrEmail(),business.getStrPass(),business.getStrImage(),business.getStrName(),business.getStrPhone(),business.getStrAddress(),business.getStrBusinessType(),business.getStrOpenTime(),business.getStrScoreRating(),business.getStrListProductList(),business.getStrListCommentList(),business.getDbLatitude(),business.getDbLongitude(),business.getnNumberRate()));
                             adapterMenuPlace.notifyDataSetChanged();
                         }else if (posision == 4 && business.getStrBusinessType().equalsIgnoreCase("Quán ăn")){
-                            arrProductPlace.add(new mdBusiness(business.getStrID(),business.getStrEmail(),business.getStrPass(),business.getStrImage(),business.getStrName(),business.getStrPhone(),business.getStrAddress(),business.getStrBusinessType(),business.getStrOpenTime(),business.getStrScoreRating(),business.getStrListProductList(),business.getStrListCommentList(),business.getDbLatitude(),business.getDbLongitude()));
+                            arrProductPlace.add(new mdBusiness(business.getStrID(),business.getStrEmail(),business.getStrPass(),business.getStrImage(),business.getStrName(),business.getStrPhone(),business.getStrAddress(),business.getStrBusinessType(),business.getStrOpenTime(),business.getStrScoreRating(),business.getStrListProductList(),business.getStrListCommentList(),business.getDbLatitude(),business.getDbLongitude(),business.getnNumberRate()));
                             adapterMenuPlace.notifyDataSetChanged();
                         }else if (posision == 3 && business.getStrBusinessType().equalsIgnoreCase("Quán nước")) {
-                            arrProductPlace.add(new mdBusiness(business.getStrID(),business.getStrEmail(),business.getStrPass(),business.getStrImage(),business.getStrName(),business.getStrPhone(),business.getStrAddress(),business.getStrBusinessType(),business.getStrOpenTime(),business.getStrScoreRating(),business.getStrListProductList(),business.getStrListCommentList(),business.getDbLatitude(),business.getDbLongitude()));
+                            arrProductPlace.add(new mdBusiness(business.getStrID(),business.getStrEmail(),business.getStrPass(),business.getStrImage(),business.getStrName(),business.getStrPhone(),business.getStrAddress(),business.getStrBusinessType(),business.getStrOpenTime(),business.getStrScoreRating(),business.getStrListProductList(),business.getStrListCommentList(),business.getDbLatitude(),business.getDbLongitude(),business.getnNumberRate()));
                             adapterMenuPlace.notifyDataSetChanged();
                         }else if (posision == 5 && business.getStrBusinessType().equalsIgnoreCase("Quán nhậu")) {
-                            arrProductPlace.add(new mdBusiness(business.getStrID(),business.getStrEmail(),business.getStrPass(),business.getStrImage(),business.getStrName(),business.getStrPhone(),business.getStrAddress(),business.getStrBusinessType(),business.getStrOpenTime(),business.getStrScoreRating(),business.getStrListProductList(),business.getStrListCommentList(),business.getDbLatitude(),business.getDbLongitude()));
+                            arrProductPlace.add(new mdBusiness(business.getStrID(),business.getStrEmail(),business.getStrPass(),business.getStrImage(),business.getStrName(),business.getStrPhone(),business.getStrAddress(),business.getStrBusinessType(),business.getStrOpenTime(),business.getStrScoreRating(),business.getStrListProductList(),business.getStrListCommentList(),business.getDbLatitude(),business.getDbLongitude(),business.getnNumberRate()));
                             adapterMenuPlace.notifyDataSetChanged();
                         }
                     }

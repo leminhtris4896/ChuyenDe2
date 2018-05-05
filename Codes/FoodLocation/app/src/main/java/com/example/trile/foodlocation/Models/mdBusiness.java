@@ -18,8 +18,11 @@ public class mdBusiness {
     private String strScoreRating;
     private String strListProductList;
     private String strListCommentList;
+    private Double dbLatitude;
+    private Double dbLongitude;
+    private Double nNumberRate;
 
-    public mdBusiness(String strID, String strEmail, String strPass, String strImage, String strName, String strPhone, String strAddress, String strBusinessType, String strOpenTime, String strScoreRating, String strListProductList, String strListCommentList, Double dbLatitude, Double dbLongitude) {
+    public mdBusiness(String strID, String strEmail, String strPass, String strImage, String strName, String strPhone, String strAddress, String strBusinessType, String strOpenTime, String strScoreRating, String strListProductList, String strListCommentList, Double dbLatitude, Double dbLongitude, Double nNumberRate) {
         this.strID = strID;
         this.strEmail = strEmail;
         this.strPass = strPass;
@@ -34,6 +37,16 @@ public class mdBusiness {
         this.strListCommentList = strListCommentList;
         this.dbLatitude = dbLatitude;
         this.dbLongitude = dbLongitude;
+        this.nNumberRate = nNumberRate;
+    }
+
+
+    public Double getnNumberRate() {
+        return nNumberRate;
+    }
+
+    public void setnNumberRate(Double nNumberRate) {
+        this.nNumberRate = nNumberRate;
     }
 
     public Double getDbLatitude() {
@@ -51,12 +64,6 @@ public class mdBusiness {
     public void setDbLongitude(Double dbLongitude) {
         this.dbLongitude = dbLongitude;
     }
-
-    private Double dbLatitude;
-    private Double dbLongitude;
-
-
-
 
     public mdBusiness() {
 

@@ -86,7 +86,7 @@ public class BusinessRegisterFragment extends Fragment {
                 final String name = edtName.getText().toString().trim();
                 final String phones = edtPhone.getText().toString().trim();
                 //final int phone = Integer.valueOf(phones);
-                final String time = edtPass.getText().toString().trim();
+                final String time = edtTime.getText().toString().trim();
                 final String cbx1 = cbxfood.getText().toString().trim();
                 final String cbx2 = cbxdrink.getText().toString().trim();
                 final String cbx3 = cbxpub.getText().toString().trim();
@@ -131,11 +131,25 @@ public class BusinessRegisterFragment extends Fragment {
                                 final Date currentTime = Calendar.getInstance().getTime();
                                 final ArrayList<String> arrayListListSuHoatDong = new ArrayList<>();
                                 arrayListListSuHoatDong.add("Doanh nghiệp " + name + " vừa mới đăng kí tài khoản - " + currentTime.toString());
-                                final String idNewUser = root.push().getKey();
+                                //final String idNewUser = root.push().getKey();
                                 final ArrayList<String> arrayListKeyPost = new ArrayList<>();
                                 final ArrayList<String> arrayListKeyBusiness = new ArrayList<>();
                                 final ArrayList<mdUserStatusPost> arrayListUserStatusPost = new ArrayList<>();
                                 final ArrayList<mdUserStatusRate> arrayListUserStatusRate = new ArrayList<>();
+
+                                String type = "";
+                                if (cbxfood.isChecked()) {
+                                    type = cbx1;
+                                } else if (cbxdrink.isChecked()) {
+                                    type = cbx2;
+                                } else if (cbxpub.isChecked()) {
+                                    type = cbx3;
+                                }
+
+                                final String newBusinessKey = mData.child("Business").push().getKey();
+                                final mdBusiness mdBusiness = new mdBusiness(newBusinessKey, email, pass, "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", name, phones, "", type, time, "", "", "", 0.0, 0.0, 0.0);
+                                mData.child("Business").child(newBusinessKey).setValue(mdBusiness);
+
                                 mData.child("Post").addChildEventListener(new ChildEventListener() {
                                     @Override
                                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -146,27 +160,24 @@ public class BusinessRegisterFragment extends Fragment {
                                             mdUserStatusPost mdUserStatusPost = new mdUserStatusPost(arrayListKeyPost.get(i), false, false);
                                             arrayListUserStatusPost.add(mdUserStatusPost);
                                         }
-                                        arrayListUserStatusRate.clear();
+                                        //arrayListUserStatusRate.clear();
                                         mData.child("Business").addChildEventListener(new ChildEventListener() {
                                             @Override
                                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                                                 mdBusiness mdBusiness = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdBusiness.class);
 
-                                                arrayListKeyBusiness.add(mdBusiness.getStrID());
 
                                                 if (arrayListUserStatusRate.size() == 0) {
-                                                    mdUserStatusRate userStatusRate = new mdUserStatusRate(mdBusiness.getStrID(), "0");
+                                                    mdUserStatusRate userStatusRate = new mdUserStatusRate(mdBusiness.getStrID(), "0", false);
                                                     arrayListUserStatusRate.add(userStatusRate);
                                                 } else {
-                                                    for (int i = 0; i < arrayListUserStatusRate.size(); i++) {
-                                                        if (ktTrung(arrayListUserStatusRate, mdBusiness.getStrID()) == false) {
-                                                            mdUserStatusRate userStatusRate = new mdUserStatusRate(mdBusiness.getStrID(), "0");
-                                                            arrayListUserStatusRate.add(userStatusRate);
-                                                        }
+                                                    if (ktTrung(arrayListUserStatusRate, mdBusiness.getStrID()) == false) {
+                                                        mdUserStatusRate userStatusRate = new mdUserStatusRate(mdBusiness.getStrID(), "0", false);
+                                                        arrayListUserStatusRate.add(userStatusRate);
                                                     }
                                                 }
-                                                mdUser mdUserNew = new mdUser(email + "", pass + "", idNewUser + "", "business", arrayListListSuHoatDong, arrayListUserStatusPost, arrayListUserStatusRate);
-                                                root.child(idNewUser).setValue(mdUserNew);
+                                                mdUser mdUserNew = new mdUser(email + "", pass + "", newBusinessKey + "", "business", arrayListListSuHoatDong, arrayListUserStatusPost, arrayListUserStatusRate);
+                                                root.child(newBusinessKey).setValue(mdUserNew);
                                             }
 
                                             @Override
@@ -225,12 +236,56 @@ public class BusinessRegisterFragment extends Fragment {
                                 } else if (cbxpub.isChecked()) {
                                     current_user_id.child("type").setValue(cbx3);
                                 }*/
+
+
+
+                               /* mData.child("Users").addChildEventListener(new ChildEventListener() {
+                                    @Override
+                                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                        mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+                                        ArrayList<mdUserStatusRate> newArrayListUserStatusRate = mdUser.getArrayListUserStatusRate();
+
+                                        if (ktTrung(newArrayListUserStatusRate, newBusinessKey) == false ) {
+                                            mdUserStatusRate userStatusRate = new mdUserStatusRate(newBusinessKey, "0", false);
+                                            newArrayListUserStatusRate.add(userStatusRate);
+                                            mData.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusRate").setValue(newArrayListUserStatusRate);
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });*/
                             }
                         }
                     });
                 }
                 edtMail.setText("");
                 edtPass.setText("");
+                edtName.setText("");
+                edtPhone.setText("");
+                edtTime.setText("");
+                cbxdrink.setChecked(false);
+                cbxfood.setChecked(false);
+                cbxpub.setChecked(false);
+
             }
         });
 
@@ -240,7 +295,7 @@ public class BusinessRegisterFragment extends Fragment {
     public boolean ktTrung(ArrayList<mdUserStatusRate> strings, String chuoi) {
         boolean kt = false;
         for (int i = 0; i < strings.size(); i++) {
-            if (chuoi.equalsIgnoreCase(strings.get(i).getStrIDBusiness())) {
+            if (strings.get(i).getStrIDBusiness().equalsIgnoreCase(chuoi) ) {
                 kt = true;
             }
         }

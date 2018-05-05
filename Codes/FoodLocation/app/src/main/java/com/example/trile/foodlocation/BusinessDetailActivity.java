@@ -29,6 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class BusinessDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
     private ImageView BusinessImage;
     private TextView BusinessName;
@@ -46,6 +48,14 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
 
     FirebaseAuth firebaseAuth;
 
+    Double NumberVote = 0.0;
+
+    Double Vote = 0.0;
+
+    Double TempVote = 0.0;
+
+    ArrayList<mdUser> arrayListUser = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +65,12 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
         databaseReference = FirebaseDatabase.getInstance().getReference();
         Init();
 
+        loadDetailItemBusiness();
         databaseReference.child("Business").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 final mdBusiness mdBusiness = dataSnapshot.getValue(mdBusiness.class);
-                if (mdBusiness.getStrName().equalsIgnoreCase(bundle.getString("detailBusiness"))) {
+                if (mdBusiness.getStrID().equalsIgnoreCase(bundle.getString("detailBusiness"))) {
                     databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -73,7 +84,11 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
                                             @Override
                                             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                                                 tvNumberRating.setText(String.valueOf(ratingBar.getRating()));
-                                                    databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusRate").child(idStatusRate).child("strStartRate").setValue(String.valueOf(ratingBar.getRating()));
+                                                databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusRate").child(idStatusRate).child("strStartRate").setValue(String.valueOf(ratingBar.getRating()));
+                                                if (userStatusRate.getStatusRate() == false && Double.parseDouble(userStatusRate.getStrStartRate()) == 0.0) {
+                                                    databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusRate").child(idStatusRate).child("statusRate").setValue(true);
+                                                    databaseReference.child("Business").child(mdBusiness.getStrID()).child("nNumberRate").setValue(mdBusiness.getnNumberRate() + 1);
+                                                }
                                             }
                                         });
                                     }
@@ -101,6 +116,8 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
 
                         }
                     });
+
+
                     BusinessName.setText(mdBusiness.getStrName());
                     BusinessAddress.setText(mdBusiness.getStrAddress());
                     BusinessOpenTime.setText(mdBusiness.getStrOpenTime());
@@ -129,7 +146,111 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
 
             }
         });
+        databaseReference.child("Business").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                mdBusiness mdBusiness = dataSnapshot.getValue(mdBusiness.class);
+                if (mdBusiness.getStrID().equalsIgnoreCase(bundle.getString("detailBusiness"))) {
+                    NumberVote = mdBusiness.getnNumberRate();
+                    databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            final mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+                            if (arrayListUser.size() == 0) {
+                                arrayListUser.add(mdUser);
+                            } else {
+                                if (ktTrung(arrayListUser, mdUser.getUserID()) == false) {
+                                    arrayListUser.add(mdUser);
+                                }
+                            }
+                            if (arrayListUser.size() != 0) {
+                                Vote = 0.0;
+                                TempVote = 0.0;
+                                for (int j = 0; j < arrayListUser.size(); j++) {
+                                    for (int i = 0; i < arrayListUser.get(j).getArrayListUserStatusRate().size(); i++) {
+                                        mdUserStatusRate userStatusRate = arrayListUser.get(j).getArrayListUserStatusRate().get(i);
+                                        if ((userStatusRate.getStrIDBusiness().equalsIgnoreCase(bundle.getString("detailBusiness"))) && ktTrung(arrayListUser, mdUser.getUserID()) == true) {
+                                            TempVote = TempVote + Double.parseDouble(userStatusRate.getStrStartRate());
+                                        }
+                                    }
+                                }
+                                Vote = Double.valueOf(Math.round((TempVote / NumberVote) * 10) / 10);
+                                databaseReference.child("Business").child(bundle.getString("detailBusiness")).child("strScoreRating").setValue(Vote.toString());
+                            }
+                        }
 
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    /*    databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
         SupportMapFragment mapFragmentDetail = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.myMapDetail);
         mapFragmentDetail.getMapAsync(BusinessDetailActivity.this);
         tvCall = (TextView) findViewById(R.id.btn_phone);
@@ -152,7 +273,6 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
                 });
             }
         });
-        loadDetailItemBusiness();
 
 
     }
@@ -189,7 +309,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 final mdBusiness mdBusiness = dataSnapshot.getValue(mdBusiness.class);
-                if (mdBusiness.getStrName().equalsIgnoreCase(bundle.getString("detailBusiness"))) {
+                if (mdBusiness.getStrID().equalsIgnoreCase(bundle.getString("detailBusiness"))) {
                     databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -199,6 +319,8 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
                                     if (mdBusiness.getStrID().equalsIgnoreCase(mdUser.getArrayListUserStatusRate().get(i).getStrIDBusiness())) {
                                         ratingBar.setRating(Float.parseFloat(mdUser.getArrayListUserStatusRate().get(i).getStrStartRate()));
                                         ratingBar.setStepSize(0.1f);
+                                        tvNumberRating.setText(mdUser.getArrayListUserStatusRate().get(i).getStrStartRate());
+                                        tvVote.setText(mdBusiness.getStrScoreRating());
                                     }
                                 }
                             }
@@ -253,4 +375,15 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
             }
         });
     }
+
+    public boolean ktTrung(ArrayList<mdUser> strings, String chuoi) {
+        boolean kt = false;
+        for (int i = 0; i < strings.size(); i++) {
+            if (strings.get(i).getUserID().equalsIgnoreCase(chuoi)) {
+                kt = true;
+            }
+        }
+        return kt;
+    }
+
 }

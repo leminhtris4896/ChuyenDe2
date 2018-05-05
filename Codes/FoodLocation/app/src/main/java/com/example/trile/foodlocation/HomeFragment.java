@@ -15,6 +15,7 @@ import android.widget.CheckBox;
 import com.example.trile.foodlocation.Adapter.AdapterPlace;
 import com.example.trile.foodlocation.Adapter.AdapterPost;
 import com.example.trile.foodlocation.Models.mdBusiness;
+import com.example.trile.foodlocation.Models.mdComment;
 import com.example.trile.foodlocation.Models.mdPost;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -78,7 +79,7 @@ public class HomeFragment extends Fragment {
         recyclerPost = (RecyclerView) view.findViewById(R.id.recyclerView_Post);
 
         final CheckBox cbx_unlike = (CheckBox) view.findViewById(R.id.cbx_unlike);
-     /* ArrayList<mdComment> arrayListCommmentPost = new ArrayList<>();
+      /*ArrayList<mdComment> arrayListCommmentPost = new ArrayList<>();
         mdComment cm1 = new mdComment("https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", "mon1 kha1 ngon");
         mdComment cm2 = new mdComment("https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", "mon1 kha1 ngon");
         arrayListCommmentPost.add(cm1);
@@ -92,7 +93,7 @@ public class HomeFragment extends Fragment {
                 " Ấn tượng ngay từ những cái tên, siêu thị ốc vua ốc đã đủ hấp dẫn bạn chưa?", "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/sieuthiocvuaoc_post.jpg?alt=media&token=7b2b6e63-4766-450b-9206-69f838d611b5", "40", "3", "3", false, true, "Khram 2e", arrayListCommmentPost));
        mdPostArrayList.add(new mdPost("1","Giới thiệu quán Nướng và bia đạo mập 2", "Là một trong những quán nhậu nổi tiếng ở Thủ Đức với rất nhiều món nướng hấp dẫn cùng bia tươi mát lạnh lúc nào cũng sẵn sàng. Có thể kể tên một số món nướng tại đây được nhiều người ưu thích như chân gà, sụn gà, mề gà, răng mực, lưỡi vịt, thịt nai, thịt đà điểu, heo rừng, bò, bạch tuộc, tôm nướng,… Điều đặc biệt nhất của quán là thời gian mở cừa từ 15h đến tận nửa đêm nên bạn có thể thoải mái ngồi lai rai, hàn huyên cùng bạn bè mà không lo cuộc vui vị lỡ dở.", "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/nuongvabiadaomap2_post.jpg?alt=media&token=7e63a545-508a-48a3-8312-04a4a89d429a", "40", "3", "3", false, true, "Khram 2e", arrayListCommmentPost));
        mdPostArrayList.add(new mdPost("2","Giới thiệu Quán hải sản Giang ghẹ", "Cũng là một trong những quán nướng đặc biệt đông khách tại Thủ Đức, thế nhưng Giang quán tập trung vào những món nướng hải sản rất hấp dẫn. Sò huyết, tôm nướng muối ớt, mực nướng sa tế, cá, lươn, tôm, hàu nướng phô mai,… tất cả đều được chế biến ngay tại bàn khiến những cái bụng đói meo phải sôi sục suốt cả bữa ăn. Một số loại lẩu của quán cũng được phản hồi rất tốt như lẩu cá lăng hay lẩu măng chua,…", "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/giangquan_post.jpg?alt=media&token=1e345b69-506e-4e02-b2be-1575afdfc09b", "40", "3", "3", false, true, "Khram 2e", arrayListCommmentPost));
-        databaseReference.child("Post").setValue(mdPostArrayList);*/
+        databaseReference.child("Post").setValue(mdPostArrayList);
         /*ArrayList<mdBusiness> arrProductPlace = new ArrayList<mdBusiness>();
 
         arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_cafe.jpg?alt=media&token=3e0f0894-b78b-4109-a2a1-0882df2675b8","Napoli","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán nước","07h00 - 22h00","4.5","",""));
@@ -129,7 +130,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 final mdBusiness mdBusiness = dataSnapshot.getValue(mdBusiness.class);
-                arrBusiness.add(new mdBusiness(mdBusiness.getStrID(),mdBusiness.getStrEmail(), mdBusiness.getStrPass(), mdBusiness.getStrImage(), mdBusiness.getStrName(), mdBusiness.getStrPhone(), mdBusiness.getStrAddress(), mdBusiness.getStrBusinessType(), mdBusiness.getStrOpenTime(), mdBusiness.getStrScoreRating(), mdBusiness.getStrListProductList(), mdBusiness.getStrListCommentList(),mdBusiness.getDbLatitude(),mdBusiness.getDbLongitude()));
+                arrBusiness.add(new mdBusiness(mdBusiness.getStrID(),mdBusiness.getStrEmail(), mdBusiness.getStrPass(), mdBusiness.getStrImage(), mdBusiness.getStrName(), mdBusiness.getStrPhone(), mdBusiness.getStrAddress(), mdBusiness.getStrBusinessType(), mdBusiness.getStrOpenTime(), mdBusiness.getStrScoreRating(), mdBusiness.getStrListProductList(), mdBusiness.getStrListCommentList(),mdBusiness.getDbLatitude(),mdBusiness.getDbLongitude(),mdBusiness.getnNumberRate()));
                 adapterBusiness.notifyDataSetChanged();
             }
 
@@ -192,7 +193,7 @@ public class HomeFragment extends Fragment {
             public void onItemClick(View view, int position) {
                 Intent myIntent = new Intent(getActivity().getBaseContext(), BusinessDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("detailBusiness", arrBusiness.get(position).getStrName());
+                bundle.putString("detailBusiness", arrBusiness.get(position).getStrID());
                 myIntent.putExtra("bundle", bundle);
                 getActivity().startActivity(myIntent);
             }

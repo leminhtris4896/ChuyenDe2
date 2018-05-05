@@ -139,12 +139,12 @@ public class NormalRegisterFragment extends Fragment {
                                                 arrayListKeyBusiness.add(mdBusiness.getStrID());
 
                                                 if (arrayListUserStatusRate.size() == 0) {
-                                                    mdUserStatusRate userStatusRate = new mdUserStatusRate(mdBusiness.getStrID(), "0");
+                                                    mdUserStatusRate userStatusRate = new mdUserStatusRate(mdBusiness.getStrID(), "0",false);
                                                     arrayListUserStatusRate.add(userStatusRate);
                                                 } else {
                                                     for (int i = 0; i < arrayListUserStatusRate.size(); i++) {
                                                         if (ktTrung(arrayListUserStatusRate, mdBusiness.getStrID()) == false) {
-                                                            mdUserStatusRate userStatusRate = new mdUserStatusRate(mdBusiness.getStrID(), "0");
+                                                            mdUserStatusRate userStatusRate = new mdUserStatusRate(mdBusiness.getStrID(), "0",false);
                                                             arrayListUserStatusRate.add(userStatusRate);
                                                         }
                                                     }
