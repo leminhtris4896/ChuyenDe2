@@ -24,7 +24,7 @@
 
                 <ImageView
                     style="@style/img_user"
-                    android:src="@drawable/ic_user_menu"/>
+                    android:src="@drawable/ic_text_infor"/>
                 <TextView
                     style="@style/text_user"
                     android:text="@string/user_personal"/>
@@ -58,7 +58,7 @@
 
                 <ImageView
                     style="@style/img_user"
-                    android:src="@drawable/ic_manager"/>
+                    android:src="@drawable/ic_text_infors"/>
                 <TextView
                     style="@style/text_user"
                     android:text="@string/user_product_manager"/>
@@ -92,7 +92,7 @@
 
                 <ImageView
                     style="@style/img_user"
-                    android:src="@drawable/ic_user_personal"/>
+                    android:src="@drawable/ic_text_managerchat"/>
                 <TextView
                     style="@style/text_user"
                     android:text="@string/user_manager_comment"/>
@@ -126,7 +126,7 @@
 
                 <ImageView
                     style="@style/img_user"
-                    android:src="@drawable/user_password"/>
+                    android:src="@drawable/ic_text_pass"/>
                 <TextView
                     style="@style/text_user"
                     android:text="@string/user_change_passwork"/>
@@ -160,7 +160,7 @@
 
                 <ImageView
                     style="@style/img_user"
-                    android:src="@drawable/ic_aboutus"/>
+                    android:src="@drawable/ic_text_aboutus"/>
                 <TextView
                     style="@style/text_user"
                     android:text="@string/user_about_us"/>
@@ -195,7 +195,7 @@
 
                 <ImageView
                     style="@style/img_user"
-                    android:src="@drawable/ic_logout"/>
+                    android:src="@drawable/ic_text_logout"/>
                 <TextView
                     style="@style/text_user"
                     android:text="@string/user_logout"/>

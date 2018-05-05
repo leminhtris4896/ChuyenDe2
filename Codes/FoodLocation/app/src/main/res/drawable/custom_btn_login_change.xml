@@ -3,6 +3,6 @@
 
     <corners android:radius="20dp"/>
     <size android:height="20dp" android:width="50dp"/>
-    <solid android:color="@color/click_user"/>
+    <solid android:color="@color/colorAccent"/>
 
 </shape>

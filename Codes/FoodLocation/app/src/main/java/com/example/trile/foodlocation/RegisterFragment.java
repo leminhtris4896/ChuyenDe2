@@ -36,7 +36,10 @@ public class RegisterFragment extends Fragment {
         rdbNormal.setChecked(true); //Here the radio button is checked
 
         // Display tab resgister normal user
-        TypeNormal();
+        NormalRegisterFragment fragmentUserNormal = new NormalRegisterFragment();
+        android.support.v4.app.FragmentTransaction fragmentTransactionUser = getFragmentManager().beginTransaction();
+        fragmentTransactionUser.replace(R.id.frame_type_login,fragmentUserNormal,"Fragment");
+        fragmentTransactionUser.commit();
         //
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -44,10 +47,16 @@ public class RegisterFragment extends Fragment {
             public void onCheckedChanged(RadioGroup radioGroup, int checkId) {
                 switch (checkId) {
                     case R.id.rdb_normal:
-                        TypeNormal();
+                        NormalRegisterFragment fragmentUserNormal = new NormalRegisterFragment();
+                        android.support.v4.app.FragmentTransaction fragmentTransactionUser = getFragmentManager().beginTransaction();
+                        fragmentTransactionUser.replace(R.id.frame_type_login,fragmentUserNormal,"Fragment");
+                        fragmentTransactionUser.commit();
                         break;
                     case R.id.rdb_business:
-                        TypeBusiness();
+                        BusinessRegisterFragment fragmentBusiness = new BusinessRegisterFragment();
+                        android.support.v4.app.FragmentTransaction fragmentTransactionBusiess = getFragmentManager().beginTransaction();
+                        fragmentTransactionBusiess.replace(R.id.frame_type_login,fragmentBusiness,"Fragment");
+                        fragmentTransactionBusiess.commit();
                         break;
                 }
             }
@@ -55,22 +64,4 @@ public class RegisterFragment extends Fragment {
 
         return view;
     }
-
-
-    // Open tab register of business
-    private void TypeBusiness() {
-        BusinessRegisterFragment fragmentBusiness = new BusinessRegisterFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransactionBusiess = getFragmentManager().beginTransaction();
-        fragmentTransactionBusiess.replace(R.id.frame_type_login,fragmentBusiness,"Fragment");
-        fragmentTransactionBusiess.commit();
-    }
-
-    // Open tab register of normal user
-    private void TypeNormal() {
-        NormalRegisterFragment fragmentUserNormal = new NormalRegisterFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransactionUser = getFragmentManager().beginTransaction();
-        fragmentTransactionUser.replace(R.id.frame_type_login,fragmentUserNormal,"Fragment");
-        fragmentTransactionUser.commit();
-    }
-
 }

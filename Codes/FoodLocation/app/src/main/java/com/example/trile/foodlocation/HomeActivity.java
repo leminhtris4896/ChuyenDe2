@@ -7,7 +7,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.trile.foodlocation.Models.mdUser;
 import com.google.firebase.auth.FirebaseAuth;
@@ -71,14 +70,14 @@ public class HomeActivity extends AppCompatActivity {
                                     android.support.v4.app.FragmentTransaction fragmentTransaction4 = getSupportFragmentManager().beginTransaction();
                                     fragmentTransaction4.replace(R.id.content, fragmentUser, "Fragment");
                                     fragmentTransaction4.commit();
-                                    Toast.makeText(HomeActivity.this, "business", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(HomeActivity.this, "business", Toast.LENGTH_SHORT).show();
 
                                 } else if (mdUser.getUserType().equalsIgnoreCase("normal")) {
                                     UserNormalFragment fragmentUser = new UserNormalFragment();
                                     android.support.v4.app.FragmentTransaction fragmentTransaction5 = getSupportFragmentManager().beginTransaction();
                                     fragmentTransaction5.replace(R.id.content, fragmentUser, "Fragment");
                                     fragmentTransaction5.commit();
-                                    Toast.makeText(HomeActivity.this, "normal", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(HomeActivity.this, "normal", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
