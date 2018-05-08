@@ -82,6 +82,4 @@ public class DialogComment extends AppCompatActivity {
         edtCommentContext = (EditText) findViewById(R.id.edt_comment);
         btnSentComment = (Button) findViewById(R.id.btnSentComment);
     }*/
-
-
 }
