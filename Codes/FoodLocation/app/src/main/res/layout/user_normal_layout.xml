@@ -30,7 +30,7 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
                 android:textSize="17dp"
-                android:text="Lê Minh Trí"/>
+                android:text="No Name"/>
 
         </LinearLayout>
 
@@ -48,10 +48,10 @@
 
                 <ImageView
                     style="@style/img_user"
-                    android:src="@drawable/ic_user_menu"/>
+                    android:src="@drawable/ic_text_infor"/>
                 <TextView
                     style="@style/text_user"
-                    android:text="Chỉnh sửa thông tin"/>
+                    android:text="Cập nhật thông tin"/>
 
             </LinearLayout>
 
@@ -83,7 +83,7 @@
 
                 <ImageView
                     style="@style/img_user"
-                    android:src="@drawable/user_password"/>
+                    android:src="@drawable/ic_text_pass"/>
                 <TextView
                     style="@style/text_user"
                     android:text="@string/user_change_passwork"/>
@@ -118,7 +118,7 @@
 
                 <ImageView
                     style="@style/img_user"
-                    android:src="@drawable/ic_aboutus"/>
+                    android:src="@drawable/ic_text_aboutus"/>
                 <TextView
                     style="@style/text_user"
                     android:text="@string/user_about_us"/>
@@ -153,7 +153,7 @@
 
                 <ImageView
                     style="@style/img_user"
-                    android:src="@drawable/ic_logout"/>
+                    android:src="@drawable/ic_text_logout"/>
                 <TextView
                     style="@style/text_user"
                     android:text="@string/user_logout"/>

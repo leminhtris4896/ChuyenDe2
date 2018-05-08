@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     tools:context="com.example.trile.foodlocation.LoginFragment">
 
     <LinearLayout
@@ -31,7 +30,7 @@
 
             <EditText
                 android:id="@+id/edt_mail_login"
-                android:drawableLeft="@drawable/ic_mail"
+                android:drawableLeft="@drawable/ic_text_mail"
                 android:singleLine="true"
                 android:hint="@string/hint_mail"
                 style="@style/edt_custom"/>
@@ -39,8 +38,8 @@
             <EditText
                 android:id="@+id/edt_pass_login"
                 android:inputType="textPassword"
-                android:drawableLeft="@drawable/ic_pass"
-                android:drawableRight="@drawable/eye"
+                android:drawableLeft="@drawable/ic_text_pass"
+                android:drawableRight="@drawable/ic_text_eye"
                 android:singleLine="true"
                 android:hint="@string/hint_pass"
                 style="@style/edt_custom"/>

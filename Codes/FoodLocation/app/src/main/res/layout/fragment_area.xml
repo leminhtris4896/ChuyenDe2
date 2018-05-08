@@ -33,7 +33,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/search_map"/>
             
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/edt_search_map"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

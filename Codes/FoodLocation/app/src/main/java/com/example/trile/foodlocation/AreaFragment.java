@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -22,17 +23,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.trile.foodlocation.Adapter.PlaceAutocompleteAdapter;
-import com.example.trile.foodlocation.Models.mdLocation;
+import com.example.trile.foodlocation.Models.mdBusiness;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -64,7 +66,7 @@ public class AreaFragment extends Fragment implements OnMapReadyCallback, Google
 
     private ImageView imgSetGPSLocation;
     // EDT search map
-    private EditText edtSearchMap;
+    private AutoCompleteTextView edtSearchMap;
     // MAP : Add Manifest
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COUASE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -85,8 +87,8 @@ public class AreaFragment extends Fragment implements OnMapReadyCallback, Google
     private ChildEventListener mChildEventListener;
     private DatabaseReference mLocations;
     Marker marker;
-    List<mdLocation> venueList;
-
+    List<mdBusiness> venueList;
+    ArrayList<mdBusiness> arrBusiness ;
     private GoogleApiClient mGoogleApiClient;
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
             new LatLng(-40, -168), new LatLng(71, 136));
@@ -97,14 +99,22 @@ public class AreaFragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        mGoogleApiClient.stopAutoManage(getActivity());
+        mGoogleApiClient.disconnect();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //getActivity().getActionBar().hide();
         View view = inflater.inflate(R.layout.fragment_area, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        edtSearchMap = (EditText) view.findViewById(R.id.edt_search_map);
+        edtSearchMap = (AutoCompleteTextView) view.findViewById(R.id.edt_search_map);
         imgSetGPSLocation = (ImageView) view.findViewById(R.id.img_set_gps);
+        arrBusiness = new ArrayList<>();
         edtSearchMap.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -125,15 +135,24 @@ public class AreaFragment extends Fragment implements OnMapReadyCallback, Google
         });
 
         getLocationPermisssion();
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(getContext())
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(getActivity(),0,this)
+                .build();
+        // Adapter autocomplete search location
+        placeAutocompleteAdapter = new PlaceAutocompleteAdapter(getContext(),mGoogleApiClient,LAT_LNG_BOUNDS,null);
         initMap();
+        edtSearchMap.setAdapter(placeAutocompleteAdapter);
         mLocations = FirebaseDatabase.getInstance().getReference();
         mLocations.push().setValue(marker);
-//        ArrayList<mdLocation> arrayList = new ArrayList<>();
-//        arrayList.add(new mdLocation("MAPs", 10.8373155, 106.7449431));
-//        arrayList.add(new mdLocation("MAPs1", 10.8917252, 106.7249331));
-//        arrayList.add(new mdLocation("MAPs2", 10.89393766, 106.72371001));
-//        mLocations.child("Locations").setValue(arrayList);
         return view;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     // Get location device , Show where we are
@@ -176,14 +195,7 @@ public class AreaFragment extends Fragment implements OnMapReadyCallback, Google
     }
 
     private void init() {
-//        mGoogleApiClient = new GoogleApiClient
-//                .Builder(getContext())
-//                .addApi(Places.GEO_DATA_API)
-//                .addApi(Places.PLACE_DETECTION_API)
-//                .enableAutoManage(getActivity(),this)
-//                .build();
-//        // Adapter autocomplete search location
-//        placeAutocompleteAdapter = new PlaceAutocompleteAdapter(getContext(),mGoogleApiClient,LAT_LNG_BOUNDS,null);
+
         // Edit search map , return location
         edtSearchMap.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -208,6 +220,8 @@ public class AreaFragment extends Fragment implements OnMapReadyCallback, Google
         // HIDE KEY
         hideKeySoftWindow();
     }
+
+
 
     // Search location
     private void geoLocation() {
@@ -237,7 +251,7 @@ public class AreaFragment extends Fragment implements OnMapReadyCallback, Google
     // Get map , Map successfull , Map Ready display
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Toast.makeText(getContext(), "Map is ready", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "Map is ready", Toast.LENGTH_SHORT).show();
         mMap = googleMap;
         if (mLocationPermissionGranted) {
             getDeviceLocation();
@@ -253,18 +267,27 @@ public class AreaFragment extends Fragment implements OnMapReadyCallback, Google
             init();
             // LOAD multi marker from Firebase
             googleMap.setOnMarkerClickListener(this);
-            mLocations.child("Locations").addListenerForSingleValueEvent(new ValueEventListener() {
+
+            mLocations.child("Business").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot s : dataSnapshot.getChildren()){
-                        final mdLocation venue = s.getValue(mdLocation.class);
-                        venueList  = new ArrayList<>();
+                        final mdBusiness venue = s.getValue(mdBusiness.class);
+                        venueList  = new ArrayList<mdBusiness>();
                         venueList.add(venue);
+
                         for (int i = 0; i < venueList.size(); i++)
                         {
-                            LatLng latLng = new LatLng(venue.getLatitude(),venue.getLongitude());
+                            mdBusiness mdBusiness = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdBusiness.class);
+                            LatLng latLng = new LatLng(venue.getDbLatitude(),venue.getDbLongitude());
                             if (mMap != null) {
-                                marker = mMap.addMarker(new MarkerOptions().position(latLng).title(venue.getName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.location_map)));
+                                if (venue.getStrBusinessType().equalsIgnoreCase("Quán ăn")) {
+                                    marker = mMap.addMarker(new MarkerOptions().position(latLng).title(venue.getStrName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+                                }else if (venue.getStrBusinessType().equalsIgnoreCase("Quán nước")){
+                                    marker = mMap.addMarker(new MarkerOptions().position(latLng).title(venue.getStrName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_drink)));
+                                }else {
+                                    marker = mMap.addMarker(new MarkerOptions().position(latLng).title(venue.getStrName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.beer)));
+                                }
                             }
                         }
                     }
@@ -273,6 +296,18 @@ public class AreaFragment extends Fragment implements OnMapReadyCallback, Google
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
+                }
+            });
+
+            arrBusiness = new ArrayList<mdBusiness>();
+            googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+//                    Intent myIntent = new Intent(getContext(), BusinessDetailActivity.class);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("detailBusiness", arrBusiness.getStrName());
+//                    myIntent.putExtra("bundle", bundle);
+//                    getContext().startActivity(myIntent);
                 }
             });
 
@@ -326,7 +361,7 @@ public class AreaFragment extends Fragment implements OnMapReadyCallback, Google
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        Toast.makeText(getActivity(), "Thành công", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Thành công", Toast.LENGTH_SHORT).show();
         return false;
     }
 }

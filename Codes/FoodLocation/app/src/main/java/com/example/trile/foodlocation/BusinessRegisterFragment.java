@@ -2,10 +2,13 @@ package com.example.trile.foodlocation;
 
 
 import android.app.ProgressDialog;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +35,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -39,7 +45,7 @@ import java.util.Date;
  */
 public class BusinessRegisterFragment extends Fragment {
 
-    private EditText edtMail, edtPass, edtName, edtPhone, edtTime;
+    private EditText edtMail, edtPass, edtName, edtPhone, edtTime, edtAddress;
     private Button btnRegister;
     private CheckBox cbxfood, cbxdrink, cbxpub;
     private ProgressDialog mProgress;
@@ -47,11 +53,13 @@ public class BusinessRegisterFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference root;
     private DatabaseReference mData;
+    // MAP
+
+    private List<Address> arr;
 
     public BusinessRegisterFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,6 +71,7 @@ public class BusinessRegisterFragment extends Fragment {
         edtPass = (EditText) view.findViewById(R.id.edt_pass_business);
         edtName = (EditText) view.findViewById(R.id.edt_business_name);
         edtPhone = (EditText) view.findViewById(R.id.edt_business_phone);
+        edtAddress = (EditText) view.findViewById(R.id.edt_address);
         edtTime = (EditText) view.findViewById(R.id.edt_time);
         cbxfood = (CheckBox) view.findViewById(R.id.cbxFood);
         cbxdrink = (CheckBox) view.findViewById(R.id.cbxDrink);
@@ -81,6 +90,7 @@ public class BusinessRegisterFragment extends Fragment {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 final String email = edtMail.getText().toString().trim();
                 final String pass = edtPass.getText().toString().trim();
                 final String name = edtName.getText().toString().trim();
@@ -109,6 +119,9 @@ public class BusinessRegisterFragment extends Fragment {
                     return;
                 } else if (TextUtils.isEmpty(time)) {
                     edtTime.setError("Không bỏ trống");
+                    return;
+                } else if (TextUtils.isEmpty(time)) {
+                    edtAddress.setError("Không bỏ trống");
                     return;
                 } else if (TextUtils.isEmpty(cbx1) || TextUtils.isEmpty(cbx2) || TextUtils.isEmpty(cbx3)) {
                     Toast.makeText(getContext(), "Chọn loại hình kinh doanh", Toast.LENGTH_SHORT).show();
@@ -146,9 +159,27 @@ public class BusinessRegisterFragment extends Fragment {
                                     type = cbx3;
                                 }
 
+                                // GET and SET coordinates from editext adress to firebase
+                                String searchString = edtAddress.getText().toString();
+                                Geocoder geocoder = new Geocoder(getContext());
+                                List<Address> list = new ArrayList<>();
+                                try {
+                                    list = geocoder.getFromLocationName(searchString, 1);
+                                } catch (Exception e) {
+                                    Log.e(TAG, "Not found location" + e.getMessage());
+                                }
+                                // List >0 character
+                                Address address = list.get(0);
+                                Log.e(TAG, "Found a location : " + address.toString());
+                                Log.e(TAG, "Lat : " + address.getLatitude());
+                                Log.e(TAG, "Lng : " + address.getLongitude());
+                                //Toast.makeText(this, "Lat : " + address.getLatitude() + "\n Lng : " + address.getLongitude() , Toast.LENGTH_SHORT).show();
+
+
                                 final String newBusinessKey = mData.child("Business").push().getKey();
-                                final mdBusiness mdBusiness = new mdBusiness(newBusinessKey, email, pass, "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", name, phones, "", type, time, "", "", "", 0.0, 0.0, 0.0);
+                                final mdBusiness mdBusiness = new mdBusiness(newBusinessKey, email, pass, "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", name, phones, "", type, time, "", "", "", address.getLatitude(), address.getLongitude(), 0.0);
                                 mData.child("Business").child(newBusinessKey).setValue(mdBusiness);
+
 
                                 mData.child("Post").addChildEventListener(new ChildEventListener() {
                                     @Override
@@ -295,7 +326,7 @@ public class BusinessRegisterFragment extends Fragment {
     public boolean ktTrung(ArrayList<mdUserStatusRate> strings, String chuoi) {
         boolean kt = false;
         for (int i = 0; i < strings.size(); i++) {
-            if (strings.get(i).getStrIDBusiness().equalsIgnoreCase(chuoi) ) {
+            if (strings.get(i).getStrIDBusiness().equalsIgnoreCase(chuoi)) {
                 kt = true;
             }
         }

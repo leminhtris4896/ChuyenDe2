@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,7 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserNormalFragment extends Fragment {
+public class UserNormalFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener {
 
     private LinearLayout editpersonal,aboutus, logout, change_password;
     private FirebaseAuth mAuth;
@@ -42,7 +42,6 @@ public class UserNormalFragment extends Fragment {
     public UserNormalFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +57,7 @@ public class UserNormalFragment extends Fragment {
         aboutus = (LinearLayout) view.findViewById(R.id.linear_aboutus);
         logout = (LinearLayout) view.findViewById(R.id.linear_logout);
         change_password = (LinearLayout) view.findViewById(R.id.linear_change_passwork);
+
 
         // EDIT INFORAMTION USER NORMAL
         editpersonal.setOnClickListener(new View.OnClickListener() {
@@ -81,14 +81,14 @@ public class UserNormalFragment extends Fragment {
                 if (mAuth.getCurrentUser() == null) {
                     Toast.makeText(getContext(), "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (mGoogleApiClient.isConnected()) {
-                        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-                        mGoogleApiClient.disconnect();
-                    } else {
+//                    if (mGoogleApiClient.isConnected()) {
+//                        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+//                        mGoogleApiClient.disconnect();
+//                    } else {
                         mAuth.signOut();
                         Toast.makeText(getActivity(), "Đăng xuất tài khoản thành công", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getActivity(), LoginActivity.class));
-                    }
+                    //}
                 }
             }
         });
@@ -145,4 +145,8 @@ public class UserNormalFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 }
