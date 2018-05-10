@@ -22,6 +22,8 @@ public class HomeActivity extends AppCompatActivity {
     private Dialog dialogChangePass;
     DatabaseReference mData;
     FirebaseAuth mAuth;
+    static final String STATE_USER = "user";
+    private String mUser;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -66,7 +68,7 @@ public class HomeActivity extends AppCompatActivity {
                             mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
                             if (mdUser.getUserMail().equalsIgnoreCase(mAuth.getCurrentUser().getEmail())) {
                                 if (mdUser.getUserType().equalsIgnoreCase("business")) {
-                                    UserFragment fragmentUser = new UserFragment();
+                                    UserBusinessFragment fragmentUser = new UserBusinessFragment();
                                     android.support.v4.app.FragmentTransaction fragmentTransaction4 = getSupportFragmentManager().beginTransaction();
                                     fragmentTransaction4.replace(R.id.content, fragmentUser, "Fragment");
                                     fragmentTransaction4.commit();
@@ -78,6 +80,13 @@ public class HomeActivity extends AppCompatActivity {
                                     fragmentTransaction5.replace(R.id.content, fragmentUser, "Fragment");
                                     fragmentTransaction5.commit();
                                     //Toast.makeText(HomeActivity.this, "normal", Toast.LENGTH_SHORT).show();
+                                }
+                                else if (mdUser.getUserType().equalsIgnoreCase("admin"))
+                                {
+                                    UserAdminFragment adminFragment = new UserAdminFragment();
+                                    android.support.v4.app.FragmentTransaction fragmentTransaction6 = getSupportFragmentManager().beginTransaction();
+                                    fragmentTransaction6.replace(R.id.content,adminFragment , "Fragment");
+                                    fragmentTransaction6.commit();
                                 }
                             }
                         }
@@ -122,6 +131,12 @@ public class HomeActivity extends AppCompatActivity {
         android.support.v4.app.FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
         fragmentTransaction1.replace(R.id.content, fragmentHome, "Fragment");
         fragmentTransaction1.commit();
+    }
+
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString(STATE_USER, mUser);
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
     }
 
 }

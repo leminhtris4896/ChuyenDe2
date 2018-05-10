@@ -37,7 +37,7 @@
                 android:layout_marginLeft="5dp"/>
 
             <TextView
-                android:id="@+id/tvExitComment"
+                android:id="@+id/tvCloseChangePass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"

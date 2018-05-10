@@ -1,5 +1,8 @@
 package com.example.trile.foodlocation.Models;
 
+import java.sql.Array;
+import java.util.ArrayList;
+
 /**
  * Created by TRILE on 09/03/2018.
  */
@@ -16,13 +19,13 @@ public class mdBusiness {
     private String strBusinessType;
     private String strOpenTime;
     private String strScoreRating;
-    private String strListProductList;
+    private ArrayList<mdProduct> ArrayListProductList;
     private String strListCommentList;
     private Double dbLatitude;
     private Double dbLongitude;
     private Double nNumberRate;
 
-    public mdBusiness(String strID, String strEmail, String strPass, String strImage, String strName, String strPhone, String strAddress, String strBusinessType, String strOpenTime, String strScoreRating, String strListProductList, String strListCommentList, Double dbLatitude, Double dbLongitude, Double nNumberRate) {
+    public mdBusiness(String strID, String strEmail, String strPass, String strImage, String strName, String strPhone, String strAddress, String strBusinessType, String strOpenTime, String strScoreRating, ArrayList<mdProduct> arrayListProductList, String strListCommentList, Double dbLatitude, Double dbLongitude, Double nNumberRate) {
         this.strID = strID;
         this.strEmail = strEmail;
         this.strPass = strPass;
@@ -33,13 +36,20 @@ public class mdBusiness {
         this.strBusinessType = strBusinessType;
         this.strOpenTime = strOpenTime;
         this.strScoreRating = strScoreRating;
-        this.strListProductList = strListProductList;
+        ArrayListProductList = arrayListProductList;
         this.strListCommentList = strListCommentList;
         this.dbLatitude = dbLatitude;
         this.dbLongitude = dbLongitude;
         this.nNumberRate = nNumberRate;
     }
 
+    public ArrayList<mdProduct> getArrayListProductList() {
+        return ArrayListProductList;
+    }
+
+    public void setArrayListProductList(ArrayList<mdProduct> arrayListProductList) {
+        ArrayListProductList = arrayListProductList;
+    }
 
     public Double getnNumberRate() {
         return nNumberRate;
@@ -112,9 +122,6 @@ public class mdBusiness {
         return strScoreRating;
     }
 
-    public String getStrListProductList() {
-        return strListProductList;
-    }
 
     public String getStrListCommentList() {
         return strListCommentList;
@@ -156,9 +163,7 @@ public class mdBusiness {
         this.strScoreRating = strScoreRating;
     }
 
-    public void setStrListProductList(String strListProductList) {
-        this.strListProductList = strListProductList;
-    }
+
 
     public void setStrListCommentList(String strListCommentList) {
         this.strListCommentList = strListCommentList;

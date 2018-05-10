@@ -61,32 +61,36 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/img_choosen"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:id="@+id/img_choosen_product_add"
+                    android:layout_width="300dp"
+                    android:layout_height="150dp"
                     android:src="@mipmap/image"/>
 
                 <EditText
+                    style="@style/edt_custom"
                     android:drawableLeft="@drawable/ic_text_name"
                     android:hint="@string/hint_product"
                     android:singleLine="true"
-                    style="@style/edt_custom"/>
+                    android:id="@+id/tv_name_product_add"/>
 
                 <EditText
                     android:drawableLeft="@drawable/ic_text_money"
                     android:hint="@string/hint_price"
                     android:singleLine="true"
-                    style="@style/edt_custom"/>
+                    style="@style/edt_custom"
+                    android:id="@+id/tv_price_product_add"/>
 
                 <EditText
                     android:drawableLeft="@drawable/ic_text_desciption"
                     android:hint="@string/hint_desciption"
                     android:singleLine="true"
-                    style="@style/edt_custom"/>
+                    style="@style/edt_custom"
+                    android:id="@+id/tv_description_product_add"/>
 
                 <Button
                     android:text="@string/btn_accept_add"
-                    style="@style/btn_custom"/>
+                    style="@style/btn_custom"
+                    android:id="@+id/btn_add_product"/>
 
             </LinearLayout>
             <LinearLayout

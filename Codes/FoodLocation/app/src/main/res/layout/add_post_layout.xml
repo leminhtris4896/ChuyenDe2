@@ -66,7 +66,7 @@
                 android:id="@+id/edt_business_addess"
                 android:singleLine="true"
                 android:drawableLeft="@drawable/ic_text_title"
-                android:hint="Tên doanh nghiệp"
+                android:hint="Tên món"
                 style="@style/edt_custom"/>
 
             <EditText
@@ -76,13 +76,6 @@
                 android:hint="Mô tả món ăn"
                 style="@style/edt_custom"/>
 
-            <EditText
-                android:id="@+id/edt_business_phone"
-                android:inputType="number"
-                android:singleLine="true"
-                android:drawableLeft="@drawable/ic_text_phone"
-                android:hint="Số điện thoại"
-                style="@style/edt_custom"/>
 
             <EditText
                 android:id="@+id/edt_time"

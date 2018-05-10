@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserAdminFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_main"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linear_post_manager"
+            style="@style/choosen_user"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center|left">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_text_infors"/>
+                <TextView
+                    style="@style/text_user"
+                    android:text="Quản lý bài post"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_next_personal"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_change_passwork"
+            style="@style/choosen_user"
+            android:background="@drawable/custom_cick_user"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center|left">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_text_pass"/>
+                <TextView
+                    style="@style/text_user"
+                    android:text="@string/user_change_passwork"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_next_personal"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linear_aboutus"
+            style="@style/choosen_user"
+            android:orientation="horizontal"
+            android:layout_marginBottom="2dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center|left">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_text_aboutus"/>
+                <TextView
+                    style="@style/text_user"
+                    android:text="@string/user_about_us"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_next_personal"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_logout"
+            style="@style/choosen_user"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center|left">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_text_logout"/>
+                <TextView
+                    style="@style/text_user"
+                    android:text="@string/user_logout"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_next_personal"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>

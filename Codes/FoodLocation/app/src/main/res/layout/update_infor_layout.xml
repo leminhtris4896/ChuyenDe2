@@ -48,12 +48,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8"
             android:layout_marginTop="2dp"
-            android:paddingTop="10dp"
-            android:gravity="center|top"
+            android:layout_weight="8"
             android:background="@color/colorAccent"
-            android:orientation="vertical">
+            android:gravity="center|top"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
 
             <ImageView
                 android:id="@+id/img_choosen"
@@ -64,37 +64,37 @@
 
             <EditText
                 android:id="@+id/edt_business_addess"
-                android:singleLine="true"
+                style="@style/edt_custom"
                 android:drawableLeft="@drawable/ic_text_address"
                 android:hint="@string/hint_business_address"
-                style="@style/edt_custom"/>
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/edt_business_name"
-                android:singleLine="true"
+                style="@style/edt_custom"
                 android:drawableLeft="@drawable/ic_text_infors"
                 android:hint="@string/hint_pass_business_name"
-                style="@style/edt_custom"/>
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/edt_business_phone"
-                android:inputType="number"
-                android:singleLine="true"
+                style="@style/edt_custom"
                 android:drawableLeft="@drawable/ic_text_phone"
                 android:hint="@string/hint_pass_business_phone"
-                style="@style/edt_custom"/>
+                android:inputType="number"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/edt_time"
+                style="@style/edt_custom"
                 android:drawableLeft="@drawable/ic_text_time"
-                android:singleLine="true"
                 android:hint="@string/hint_time"
-                style="@style/edt_custom"/>
+                android:singleLine="true" />
 
             <Button
-                android:id="@+id/btn_login"
-                android:text="@string/btn_update"
-                style="@style/btn_custom"/>
+                android:id="@+id/btn_update"
+                style="@style/btn_custom"
+                android:text="@string/btn_update" />
 
         </LinearLayout>
 

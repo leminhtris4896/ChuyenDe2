@@ -63,6 +63,7 @@
                     android:background="@android:color/white">
 
                     <ImageView
+                        android:id="@+id/img_business_pagePersonal"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:src="@mipmap/trasua"/>
@@ -90,7 +91,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/tv_business_name"
+                                android:id="@+id/tv_name_business_pagePersonal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/colorAccent"
@@ -103,7 +104,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/tv_vote"
+                            android:id="@+id/tv_vote_business_pagePersonal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableTop="@drawable/favorite_size"
@@ -117,6 +118,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tv_address_business_pagePersonal"
                         style="@style/text_detail"
                         android:text="74/2/6 Đường 6 , P.Linh Đông , Quận Thủ Đức "
                         android:textColor="@color/tv_address"
@@ -124,6 +126,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_time_business_pagePersonal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/hourglass"
@@ -135,6 +138,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_phone_business_pagePersonal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"

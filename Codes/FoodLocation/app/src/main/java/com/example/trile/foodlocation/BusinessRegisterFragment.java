@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.trile.foodlocation.Models.mdBusiness;
 import com.example.trile.foodlocation.Models.mdPost;
+import com.example.trile.foodlocation.Models.mdProduct;
 import com.example.trile.foodlocation.Models.mdUser;
 import com.example.trile.foodlocation.Models.mdUserStatusPost;
 import com.example.trile.foodlocation.Models.mdUserStatusRate;
@@ -177,7 +178,10 @@ public class BusinessRegisterFragment extends Fragment {
 
 
                                 final String newBusinessKey = mData.child("Business").push().getKey();
-                                final mdBusiness mdBusiness = new mdBusiness(newBusinessKey, email, pass, "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", name, phones, "", type, time, "", "", "", address.getLatitude(), address.getLongitude(), 0.0);
+                                mdProduct mdProduct = new mdProduct("Há Cảo","Món ăn từ Tàu, ngon miệng",20000,"https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/basic.png?alt=media&token=3d9e613b-fa54-4183-9e05-bde397b82024");
+                                ArrayList<mdProduct> productArrayList = new ArrayList<>();
+                                productArrayList.add(mdProduct);
+                                final mdBusiness mdBusiness = new mdBusiness(newBusinessKey, email, pass, "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/basic.png?alt=media&token=3d9e613b-fa54-4183-9e05-bde397b82024", name, phones, edtAddress.getText().toString()+"", type, time, "", productArrayList, "", address.getLatitude(), address.getLongitude(), 0.0);
                                 mData.child("Business").child(newBusinessKey).setValue(mdBusiness);
 
 

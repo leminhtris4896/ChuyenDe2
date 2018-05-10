@@ -130,7 +130,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 final mdBusiness mdBusiness = dataSnapshot.getValue(mdBusiness.class);
-                arrBusiness.add(new mdBusiness(mdBusiness.getStrID(),mdBusiness.getStrEmail(), mdBusiness.getStrPass(), mdBusiness.getStrImage(), mdBusiness.getStrName(), mdBusiness.getStrPhone(), mdBusiness.getStrAddress(), mdBusiness.getStrBusinessType(), mdBusiness.getStrOpenTime(), mdBusiness.getStrScoreRating(), mdBusiness.getStrListProductList(), mdBusiness.getStrListCommentList(),mdBusiness.getDbLatitude(),mdBusiness.getDbLongitude(),mdBusiness.getnNumberRate()));
+                arrBusiness.add(new mdBusiness(mdBusiness.getStrID(),mdBusiness.getStrEmail(), mdBusiness.getStrPass(), mdBusiness.getStrImage(), mdBusiness.getStrName(), mdBusiness.getStrPhone(), mdBusiness.getStrAddress(), mdBusiness.getStrBusinessType(), mdBusiness.getStrOpenTime(), mdBusiness.getStrScoreRating(), mdBusiness.getArrayListProductList(), mdBusiness.getStrListCommentList(),mdBusiness.getDbLatitude(),mdBusiness.getDbLongitude(),mdBusiness.getnNumberRate()));
                 adapterBusiness.notifyDataSetChanged();
             }
 
