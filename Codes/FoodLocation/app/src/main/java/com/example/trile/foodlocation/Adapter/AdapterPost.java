@@ -281,7 +281,8 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                                             if (mdUser.getArrayListUserStatusPost().get(i).getStrIDPost().equalsIgnoreCase(mdPosts.get(position).getPostID())) {
                                                 if (mdUser.getArrayListUserStatusPost().get(i).isStrStatusLike() == false) {
                                                     if (mdPostOject.getPostID().equalsIgnoreCase(mdUser.getArrayListUserStatusPost().get(i).getStrIDPost())) {
-                                                        databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusPost").child(mdUser.getArrayListUserStatusPost().get(i).getStrIDPost()).child("strStatusLike").setValue(true);
+                                                        //String keyStatusPost = mdUser.getArrayListUserStatusPost().get(i).toString().trim();
+                                                        databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusPost").child(i+"").child("strStatusLike").setValue(true);
                                                     }
                                                     databaseReference.child("Post").child(mdPostOject.getPostID()).child("nNumberLike").setValue(Integer.toString(LikeCount + 1));
                                                     holder.tvNumberLike.setText(Integer.toString(LikeCount + 1));
@@ -321,7 +322,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                                                     });
                                                 } else if (mdUser.getArrayListUserStatusPost().get(i).isStrStatusLike() == true) {
                                                     if (mdPostOject.getPostID().equalsIgnoreCase(mdUser.getArrayListUserStatusPost().get(i).getStrIDPost())) {
-                                                        databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusPost").child(mdUser.getArrayListUserStatusPost().get(i).getStrIDPost()).child("strStatusLike").setValue(false);
+                                                        databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusPost").child(i+"").child("strStatusLike").setValue(false);
                                                     }
                                                     databaseReference.child("Post").child(mdPostOject.getPostID()).child("nNumberLike").setValue(Integer.toString(LikeCount - 1));
                                                     holder.tvNumberLike.setText(Integer.toString(LikeCount - 1));
@@ -434,7 +435,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                                             if (mdUser.getArrayListUserStatusPost().get(i).getStrIDPost().equalsIgnoreCase(mdPosts.get(position).getPostID())) {
                                                 if (mdUser.getArrayListUserStatusPost().get(i).isStrStatusUnlikeLike() == false) {
                                                     if (mdPostOject.getPostID().equalsIgnoreCase(mdUser.getArrayListUserStatusPost().get(i).getStrIDPost())) {
-                                                        databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusPost").child(mdUser.getArrayListUserStatusPost().get(i).getStrIDPost()).child("strStatusUnlikeLike").setValue(true);
+                                                        databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusPost").child(i+"").child("strStatusUnlikeLike").setValue(true);
                                                     }
                                                     databaseReference.child("Post").child(mdPostOject.getPostID()).child("nNumberUnlike").setValue(Integer.toString(UnLikeCount + 1));
                                                     holder.tvNumberUnlike.setText(Integer.toString(UnLikeCount + 1));
@@ -474,7 +475,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.ViewHolder> {
                                                     });
                                                 } else if (mdUser.getArrayListUserStatusPost().get(i).isStrStatusUnlikeLike() == true) {
                                                     if (mdPostOject.getPostID().equalsIgnoreCase(mdUser.getArrayListUserStatusPost().get(i).getStrIDPost())) {
-                                                        databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusPost").child(mdUser.getArrayListUserStatusPost().get(i).getStrIDPost()).child("strStatusUnlikeLike").setValue(false);
+                                                        databaseReference.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusPost").child(i+"").child("strStatusUnlikeLike").setValue(false);
                                                     }
                                                     databaseReference.child("Post").child(mdPostOject.getPostID()).child("nNumberUnlike").setValue(Integer.toString(UnLikeCount - 1));
                                                     holder.tvNumberUnlike.setText(Integer.toString(UnLikeCount - 1));

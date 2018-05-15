@@ -10,13 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 
 import com.example.trile.foodlocation.Adapter.AdapterPlace;
 import com.example.trile.foodlocation.Adapter.AdapterPost;
 import com.example.trile.foodlocation.Models.mdBusiness;
 import com.example.trile.foodlocation.Models.mdComment;
 import com.example.trile.foodlocation.Models.mdPost;
+import com.example.trile.foodlocation.Models.mdProduct;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment {
     private AdapterPost adapterPost;
     private RecyclerView recyclerPost;
     // Firebase
-    DatabaseReference databaseReference;
+    DatabaseReference mData;
 
 
     public HomeFragment() {
@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        mData = FirebaseDatabase.getInstance().getReference();
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_layout, container, false);
@@ -78,34 +78,37 @@ public class HomeFragment extends Fragment {
         recyclerBusiness = (RecyclerView) view.findViewById(R.id.recyclerView_Business);
         recyclerPost = (RecyclerView) view.findViewById(R.id.recyclerView_Post);
 
-        final CheckBox cbx_unlike = (CheckBox) view.findViewById(R.id.cbx_unlike);
-      /*ArrayList<mdComment> arrayListCommmentPost = new ArrayList<>();
-        mdComment cm1 = new mdComment("https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", "mon1 kha1 ngon");
-        mdComment cm2 = new mdComment("https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", "mon1 kha1 ngon");
-        arrayListCommmentPost.add(cm1);
-        arrayListCommmentPost.add(cm2);
-        ArrayList<mdPost> mdPostArrayList = new ArrayList<>();
-        mdPostArrayList.add(new mdPost("0","Giới thiệu quán Vua ốc", "Nhiều người vẫn hay nói đùa rằng đến Sài Gòn mà không một lần được ăn ốc thì coi như chưa đến Sài Gòn. \n" +
-                "Nói vậy để thấy rằng ốc đối với người Sài Gòn như một thức quà hấp dẫn và cũng không kém phần đặc biệt.\n" +
-                " Thế nhưng những loại ốc ở siêu thị ốc vua ốc còn đặc biệt hơn nữa khi ở đây mang tới cho thực khách hàng\n" +
-                " loạt loại ốc lạ lẫm, hiếm có như ốc trinh nữ, ốc chung tình, ốc xối xả, ốc tê tái, nghêu tình nhân, ốc cổ đại, ốc vú nàng,\n" +
-                " ốc sung, ốc chúa, ốc heo, ốc tai tượng, ốc bàn tay, ốc mặt trăng, ốc núi, ốc cầu gai, ốc móng chân, ốc ma nữ,…\n" +
-                " Ấn tượng ngay từ những cái tên, siêu thị ốc vua ốc đã đủ hấp dẫn bạn chưa?", "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/sieuthiocvuaoc_post.jpg?alt=media&token=7b2b6e63-4766-450b-9206-69f838d611b5", "40", "3", "3", false, true, "Khram 2e", arrayListCommmentPost));
-       mdPostArrayList.add(new mdPost("1","Giới thiệu quán Nướng và bia đạo mập 2", "Là một trong những quán nhậu nổi tiếng ở Thủ Đức với rất nhiều món nướng hấp dẫn cùng bia tươi mát lạnh lúc nào cũng sẵn sàng. Có thể kể tên một số món nướng tại đây được nhiều người ưu thích như chân gà, sụn gà, mề gà, răng mực, lưỡi vịt, thịt nai, thịt đà điểu, heo rừng, bò, bạch tuộc, tôm nướng,… Điều đặc biệt nhất của quán là thời gian mở cừa từ 15h đến tận nửa đêm nên bạn có thể thoải mái ngồi lai rai, hàn huyên cùng bạn bè mà không lo cuộc vui vị lỡ dở.", "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/nuongvabiadaomap2_post.jpg?alt=media&token=7e63a545-508a-48a3-8312-04a4a89d429a", "40", "3", "3", false, true, "Khram 2e", arrayListCommmentPost));
-       mdPostArrayList.add(new mdPost("2","Giới thiệu Quán hải sản Giang ghẹ", "Cũng là một trong những quán nướng đặc biệt đông khách tại Thủ Đức, thế nhưng Giang quán tập trung vào những món nướng hải sản rất hấp dẫn. Sò huyết, tôm nướng muối ớt, mực nướng sa tế, cá, lươn, tôm, hàu nướng phô mai,… tất cả đều được chế biến ngay tại bàn khiến những cái bụng đói meo phải sôi sục suốt cả bữa ăn. Một số loại lẩu của quán cũng được phản hồi rất tốt như lẩu cá lăng hay lẩu măng chua,…", "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/giangquan_post.jpg?alt=media&token=1e345b69-506e-4e02-b2be-1575afdfc09b", "40", "3", "3", false, true, "Khram 2e", arrayListCommmentPost));
-        databaseReference.child("Post").setValue(mdPostArrayList);
-        /*ArrayList<mdBusiness> arrProductPlace = new ArrayList<mdBusiness>();
 
-        arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_cafe.jpg?alt=media&token=3e0f0894-b78b-4109-a2a1-0882df2675b8","Napoli","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán nước","07h00 - 22h00","4.5","",""));
-        arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_gongcha.jpg?alt=media&token=9a3209fa-c90b-4a0d-878d-43231b561628","Apola","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán nước","07h00 - 22h00","4","",""));
-        arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_lau.jpg?alt=media&token=529767db-3fcc-4ba3-9bd8-3cc79eedd3a7","Lẩu Giấy","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán ăn","07h00 - 22h00","4","",""));
-        arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_nuong.jpg?alt=media&token=2245dbdb-e671-49d0-b766-f6309c9a303c","Set Nướng","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán ăn","07h00 - 22h00","3.5","",""));
-        arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_trasua.jpg?alt=media&token=b4dfc766-4840-4976-a65c-ab1f07e47d1a","Apache","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán nước","07h00 - 22h00","4","",""));
-        arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_nhau1.JPG?alt=media&token=9cfb41fc-afa4-4343-a8cc-2c89b636ee94","O2 Quán","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán nước","07h00 - 22h00","4","",""));
-        arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/img_nuong.jpg?alt=media&token=2245dbdb-e671-49d0-b766-f6309c9a303c","Khram 2e","0908668620","74/2/6 Linh Đông , Thủ Đức","Quán nước","07h00 - 22h00","4","",""));
-        arrProductPlace.add(new mdBusiness("","","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/banh-mi-tho-nhy-ki.jpg?alt=media&token=b52f8b98-fafb-4f6b-822c-adfd6af05538","Bánh Mỳ Thổ Nhỹ Kỳ Kebab Tiếp Cruise","097 744 66 86","309/93 Võ Văn Ngân, P. Linh Chiểu, Quận Thủ Đức","Quán ăn","09:00 - 21:00","4","",""));
-        databaseReference.child("Business").setValue(arrProductPlace);
-        databaseReference.child("Business").setValue(arrProductPlace);*/
+        // Create new data
+
+        // món ăn mẫu trong arraylist
+       /* mdProduct mdProduct = new mdProduct("Há Cảo", "Món ăn từ Tàu, ngon miệng", 20000, "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/basic.png?alt=media&token=3d9e613b-fa54-4183-9e05-bde397b82024");
+        ArrayList<mdProduct> productArrayList = new ArrayList<>();
+        productArrayList.add(mdProduct);
+
+        // Create new user Business Saigon - Vieux Coffee
+        String key = mData.child("Business").push().getKey();
+        mdBusiness mdBusiness = new mdBusiness(key,"saigonvieuxcoffee@gmail.com","saigonvieuxcoffee","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/saigon_vieuxcoffee.jpg?alt=media&token=14d42bad-6b7d-4a5e-8a0e-b5e5f9c7caa8","Saigon - Vieux Coffee","098 910 46 33","Tầng 2,  Tầng 2, Chung Cư 42 Nguyễn Huệ,  Quận 1, TP. HCM","Quán nước","08:00 - 23:00","0.0",productArrayList,"",0.0,0.0,0.0);
+        mData.child("Business").child(key).setValue(mdBusiness);
+        // Create new user Business Boo Coffee 1 - Lầu 9 Chung Cư Nguyễn Huệ
+        String key1 = mData.child("Business").push().getKey();
+        mdBusiness mdBusiness1 = new mdBusiness(key1,"boocoffee1@gmail.com","boocoffee1","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/boocoffee.jpg?alt=media&token=ebe90ea0-e856-438d-b3cd-f14251635648","Boo Coffee 1 - Lầu 9 Chung Cư Nguyễn Huệ","090 198 42 98","Lầu 9, Chung Cư 42 Nguyễn Huệ,  Quận 1, TP. HCM","Quán nước","08:00 - 22:00","0.0",productArrayList,"",0.0,0.0,0.0);
+        mData.child("Business").child(key1).setValue(mdBusiness1);
+
+        // create arrayCommentPost mẫu
+        ArrayList<mdComment> mdComments = new ArrayList<>();
+        mdComments.add(new mdComment("https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", "Chúng tôi luôn lắng nghe ý kiến từ khách hàng để có thể phục vụ một cách tốt nhất !"));
+
+        //Create Saigon - Vieux Coffee post
+        String keypost = mData.child("Post").push().getKey();
+        mdPost mdPost = new mdPost(keypost,"Giới thiệu : Saigon - Vieux Coffee","Không gian thoáng và thoải mái. Có thể ngắm phố đi bộ từ trên cao. Phục vụ cafe và nhiều loại nước giải khát hấp dẫn.","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/saigon_vieuxcoffee_post.jpg?alt=media&token=5f08f478-a772-4984-8abb-7bb6bf7d33b1","0","0","0","Saigon - Vieux Coffee",mdComments);
+        mData.child("Post").child(keypost).setValue(mdPost);
+
+        //Create Boo Coffee 1 - Lầu 9 Chung Cư Nguyễn Huệ post
+        String keypost1 = mData.child("Post").push().getKey();
+        mdPost mdPost1 = new mdPost(keypost1,"Giới thiệu : Boo Coffee 1 - Lầu 9 Chung Cư Nguyễn Huệ","Phố đi bộ, địa điểm được khá nhiều người ưa chuộng. Tuy nhiên, để có thể thoải mái tụ tập bạn bè, vừa được hòa mình vào không khí rộn ràng của phố đi bộ, vừa được ngắm toàn cảnh Sài Gòn lý thú, bạn phải tìm đến Boo Coffee.","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/boocoffee_post.jpg?alt=media&token=0776d3c1-d77d-4336-9727-325aae323aac","0","0","0","Boo Coffee 1 - Lầu 9 Chung Cư Nguyễn Huệ",mdComments);
+        mData.child("Post").child(keypost1).setValue(mdPost1);*/
+
         // RecyclerView 1
         CustomLinearLayout layoutManagertop = new CustomLinearLayout(getActivity(), 500);
         layoutManagertop.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -126,7 +129,7 @@ public class HomeFragment extends Fragment {
         adapterBusiness = new AdapterPlace(arrBusiness, getContext());
         recyclerBusiness.setAdapter(adapterBusiness);
         recyclerBusiness.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener());
-        databaseReference.child("Business").addChildEventListener(new ChildEventListener() {
+        mData.child("Business").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 final mdBusiness mdBusiness = dataSnapshot.getValue(mdBusiness.class);
@@ -159,11 +162,11 @@ public class HomeFragment extends Fragment {
         adapterPost = new AdapterPost(arrPost, getContext());
         recyclerPost.setAdapter(adapterPost);
         recyclerPost.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener());
-        databaseReference.child("Post").addChildEventListener(new ChildEventListener() {
+        mData.child("Post").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 final mdPost mdPost = dataSnapshot.getValue(mdPost.class);
-                arrPost.add(new mdPost(mdPost.getPostID(), mdPost.getNameProduct(), mdPost.getDescriptionProduct(), mdPost.getImgProduct(), mdPost.getnNumberLike(), mdPost.getnNumberUnlike(), mdPost.getnNumberComment(), mdPost.isCheckLike(), mdPost.isCheckUnLike(), mdPost.getLienKetDiaDiem(), mdPost.getArrayListCommentPost()));
+                arrPost.add(new mdPost(mdPost.getPostID(), mdPost.getNameProduct(), mdPost.getDescriptionProduct(), mdPost.getImgProduct(), mdPost.getnNumberLike(), mdPost.getnNumberUnlike(), mdPost.getnNumberComment(),mdPost.getLienKetDiaDiem(), mdPost.getArrayListCommentPost()));
                 adapterPost.notifyDataSetChanged();
             }
 

@@ -130,23 +130,18 @@ public class NormalRegisterFragment extends Fragment {
                                             mdUserStatusPost mdUserStatusPost = new mdUserStatusPost(arrayListKeyPost.get(i), false, false);
                                             arrayListUserStatusPost.add(mdUserStatusPost);
                                         }
-                                        arrayListUserStatusRate.clear();
                                         mData.child("Business").addChildEventListener(new ChildEventListener() {
                                             @Override
                                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                                                 mdBusiness mdBusiness = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdBusiness.class);
 
-                                                arrayListKeyBusiness.add(mdBusiness.getStrID());
-
                                                 if (arrayListUserStatusRate.size() == 0) {
-                                                    mdUserStatusRate userStatusRate = new mdUserStatusRate(mdBusiness.getStrID(), "0",false);
+                                                    mdUserStatusRate userStatusRate = new mdUserStatusRate(mdBusiness.getStrID(), "0", false);
                                                     arrayListUserStatusRate.add(userStatusRate);
                                                 } else {
-                                                    for (int i = 0; i < arrayListUserStatusRate.size(); i++) {
-                                                        if (ktTrung(arrayListUserStatusRate, mdBusiness.getStrID()) == false) {
-                                                            mdUserStatusRate userStatusRate = new mdUserStatusRate(mdBusiness.getStrID(), "0",false);
-                                                            arrayListUserStatusRate.add(userStatusRate);
-                                                        }
+                                                    if (ktTrung(arrayListUserStatusRate, mdBusiness.getStrID()) == false) {
+                                                        mdUserStatusRate userStatusRate = new mdUserStatusRate(mdBusiness.getStrID(), "0", false);
+                                                        arrayListUserStatusRate.add(userStatusRate);
                                                     }
                                                 }
                                                 mdUser mdUserNew = new mdUser(email + "", pass + "", idNewUser + "","normal" , arrayListListSuHoatDong, arrayListUserStatusPost, arrayListUserStatusRate);

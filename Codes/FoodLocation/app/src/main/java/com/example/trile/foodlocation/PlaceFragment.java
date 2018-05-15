@@ -1,6 +1,7 @@
 package com.example.trile.foodlocation;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
@@ -68,6 +70,8 @@ public class PlaceFragment extends Fragment {
         recyclePlace.setHasFixedSize(true);
         recyclePlace.setLayoutManager(layoutManager);
 
+
+
         // Add Place
         arrProductPlace = new ArrayList<mdBusiness>();
         loadData();
@@ -85,6 +89,8 @@ public class PlaceFragment extends Fragment {
 
        return view;
     }
+
+
 
     private void loadData() {
         adapterMenuPlace = new AdapterMenuPlace(arrProductPlace,getContext());

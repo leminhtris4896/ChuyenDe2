@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.trile.foodlocation.Models.mdSpinnerPlace;
 import com.example.trile.foodlocation.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 

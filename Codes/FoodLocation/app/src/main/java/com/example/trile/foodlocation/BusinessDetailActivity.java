@@ -224,7 +224,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
         });
 
 
-    /*    databaseReference.child("Users").addChildEventListener(new ChildEventListener() {
+    /*    mData.child("Users").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);

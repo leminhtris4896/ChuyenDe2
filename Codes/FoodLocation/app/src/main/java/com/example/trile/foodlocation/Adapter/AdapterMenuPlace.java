@@ -5,6 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +27,7 @@ import java.util.ArrayList;
 public class AdapterMenuPlace extends RecyclerView.Adapter<AdapterMenuPlace.ViewHolder> {
     ArrayList<mdBusiness> arrBusiness;
     Context context;
+    private final static int FADE_DURATION = 3000;
 
     public AdapterMenuPlace(ArrayList<mdBusiness> arrTopLocation, Context context) {
         this.arrBusiness = arrTopLocation;
@@ -31,6 +38,8 @@ public class AdapterMenuPlace extends RecyclerView.Adapter<AdapterMenuPlace.View
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.customview_place,parent,false);
+
+
         return new ViewHolder(itemView);
     }
 
@@ -42,11 +51,35 @@ public class AdapterMenuPlace extends RecyclerView.Adapter<AdapterMenuPlace.View
         holder.tvAdd.setText(arrBusiness.get(position).getStrAddress());
         holder.tvTime.setText(arrBusiness.get(position).getStrOpenTime());
         holder.tvVote.setText(arrBusiness.get(position).getStrScoreRating());
+
+        Animation animation = AnimationUtils.loadAnimation(context,R.anim.anim_listview_place);
+        setFadeAnimation(holder.itemView);
+        setScaleAnimation(holder.itemView);
+        //setTranslateAnimation(holder.itemView);
     }
 
     @Override
     public int getItemCount() {
         return arrBusiness.size();
+    }
+
+    private void setFadeAnimation(View view) {
+        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(FADE_DURATION);
+        view.startAnimation(anim);
+    }
+
+    private void setScaleAnimation(View view) {
+        ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.ZORDER_BOTTOM, 0.5f, Animation.ZORDER_BOTTOM, 0.5f);
+        anim.setDuration(FADE_DURATION);
+        view.startAnimation(anim);
+    }
+
+    private void setTranslateAnimation(View view)
+    {
+        TranslateAnimation translateAnimation = new TranslateAnimation(Animation.ZORDER_BOTTOM,1.0f,Animation.ZORDER_BOTTOM,0.0f);
+        translateAnimation.setDuration(FADE_DURATION);
+        view.startAnimation(translateAnimation);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

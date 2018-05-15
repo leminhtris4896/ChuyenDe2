@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -48,12 +49,14 @@ public class BusinessRegisterFragment extends Fragment {
 
     private EditText edtMail, edtPass, edtName, edtPhone, edtTime, edtAddress;
     private Button btnRegister;
-    private CheckBox cbxfood, cbxdrink, cbxpub;
+    private CheckBox cbxdrink,cbxpub,cbxfood;
     private ProgressDialog mProgress;
     // FIREBASE
     private FirebaseAuth mAuth;
     private DatabaseReference root;
     private DatabaseReference mData;
+
+    private String type = "";
     // MAP
 
     private List<Address> arr;
@@ -76,7 +79,7 @@ public class BusinessRegisterFragment extends Fragment {
         edtTime = (EditText) view.findViewById(R.id.edt_time);
         cbxfood = (CheckBox) view.findViewById(R.id.cbxFood);
         cbxdrink = (CheckBox) view.findViewById(R.id.cbxDrink);
-        cbxpub = (CheckBox) view.findViewById(R.id.cbxPub);
+        cbxpub = (CheckBox) view.findViewById(R.id.cbxPubbb);
         btnRegister = (Button) view.findViewById(R.id.btn_register_business);
 
         //Get FireBasae
@@ -87,6 +90,33 @@ public class BusinessRegisterFragment extends Fragment {
         mProgress = new ProgressDialog(getContext());
         mProgress.setTitle("Đang tạo tài khoản");
         mProgress.setMessage("Xin vui lòng chờ");
+
+        cbxdrink.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    type = cbxdrink.getText().toString().trim();
+                }
+            }
+        });
+
+        cbxpub.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    type = cbxpub.getText().toString().trim();
+                }
+            }
+        });
+
+        cbxfood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    type = cbxfood.getText().toString().trim();;
+                }
+            }
+        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,10 +131,6 @@ public class BusinessRegisterFragment extends Fragment {
                 final String cbx1 = cbxfood.getText().toString().trim();
                 final String cbx2 = cbxdrink.getText().toString().trim();
                 final String cbx3 = cbxpub.getText().toString().trim();
-
-                if (cbxfood.isChecked()) {
-
-                }
 
                 if (TextUtils.isEmpty(email)) {
                     edtMail.setError("Không bỏ trống");
@@ -151,15 +177,6 @@ public class BusinessRegisterFragment extends Fragment {
                                 final ArrayList<mdUserStatusPost> arrayListUserStatusPost = new ArrayList<>();
                                 final ArrayList<mdUserStatusRate> arrayListUserStatusRate = new ArrayList<>();
 
-                                String type = "";
-                                if (cbxfood.isChecked()) {
-                                    type = cbx1;
-                                } else if (cbxdrink.isChecked()) {
-                                    type = cbx2;
-                                } else if (cbxpub.isChecked()) {
-                                    type = cbx3;
-                                }
-
                                 // GET and SET coordinates from editext adress to firebase
                                 String searchString = edtAddress.getText().toString();
                                 Geocoder geocoder = new Geocoder(getContext());
@@ -178,10 +195,10 @@ public class BusinessRegisterFragment extends Fragment {
 
 
                                 final String newBusinessKey = mData.child("Business").push().getKey();
-                                mdProduct mdProduct = new mdProduct("Há Cảo","Món ăn từ Tàu, ngon miệng",20000,"https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/basic.png?alt=media&token=3d9e613b-fa54-4183-9e05-bde397b82024");
+                                mdProduct mdProduct = new mdProduct("Há Cảo", "Món ăn từ Tàu, ngon miệng", 20000, "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/basic.png?alt=media&token=3d9e613b-fa54-4183-9e05-bde397b82024");
                                 ArrayList<mdProduct> productArrayList = new ArrayList<>();
                                 productArrayList.add(mdProduct);
-                                final mdBusiness mdBusiness = new mdBusiness(newBusinessKey, email, pass, "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/basic.png?alt=media&token=3d9e613b-fa54-4183-9e05-bde397b82024", name, phones, edtAddress.getText().toString()+"", type, time, "", productArrayList, "", address.getLatitude(), address.getLongitude(), 0.0);
+                                final mdBusiness mdBusiness = new mdBusiness(newBusinessKey, email, pass, "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/basic.png?alt=media&token=3d9e613b-fa54-4183-9e05-bde397b82024", name, phones, edtAddress.getText().toString() + "", type, time, "", productArrayList, "", address.getLatitude(), address.getLongitude(), 0.0);
                                 mData.child("Business").child(newBusinessKey).setValue(mdBusiness);
 
 
@@ -259,55 +276,6 @@ public class BusinessRegisterFragment extends Fragment {
 
                                     }
                                 });
-                                /*current_user_id.child("mail").setValue(email);
-                                current_user_id.child("password").setValue(pass);
-                                current_user_id.child("name").setValue(name);
-                                current_user_id.child("phone").setValue(phones);
-                                current_user_id.child("time").setValue(time);
-                                if (cbxfood.isChecked()) {
-                                    current_user_id.child("type").setValue(cbx1);
-                                } else if (cbxdrink.isChecked()) {
-                                    current_user_id.child("type").setValue(cbx2);
-                                } else if (cbxpub.isChecked()) {
-                                    current_user_id.child("type").setValue(cbx3);
-                                }*/
-
-
-
-                               /* mData.child("Users").addChildEventListener(new ChildEventListener() {
-                                    @Override
-                                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                        mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
-                                        ArrayList<mdUserStatusRate> newArrayListUserStatusRate = mdUser.getArrayListUserStatusRate();
-
-                                        if (ktTrung(newArrayListUserStatusRate, newBusinessKey) == false ) {
-                                            mdUserStatusRate userStatusRate = new mdUserStatusRate(newBusinessKey, "0", false);
-                                            newArrayListUserStatusRate.add(userStatusRate);
-                                            mData.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusRate").setValue(newArrayListUserStatusRate);
-
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                                    }
-
-                                    @Override
-                                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                                    }
-
-                                    @Override
-                                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });*/
                             }
                         }
                     });

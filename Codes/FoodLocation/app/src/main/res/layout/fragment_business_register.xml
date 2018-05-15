@@ -78,7 +78,7 @@
                         style="@style/business_type_checkbox"
                         android:text="@string/business_type_drink"/>
                     <CheckBox
-                        android:id="@+id/cbxPub"
+                        android:id="@+id/cbxPubbb"
                         style="@style/business_type_checkbox"
                         android:text="@string/business_type_pub"/>
 
@@ -89,6 +89,7 @@
                     android:text="@string/button_register"
                     style="@style/btn_custom"
                     android:layout_marginBottom="20dp"/>
+
 
             </LinearLayout>
 

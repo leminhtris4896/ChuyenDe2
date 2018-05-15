@@ -15,15 +15,15 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.7"
-            android:gravity="center|left"
             android:background="@color/colorPrimary"
+            android:gravity="center|left"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="8"
                 android:layout_marginLeft="10dp"
+                android:layout_weight="8"
                 android:drawableLeft="@drawable/update_infor"
                 android:drawablePadding="10dp"
                 android:text="Thêm bài post"
@@ -35,9 +35,9 @@
                 android:id="@+id/tvCloseUpdate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:layout_weight="3"
                 android:gravity="right"
-                android:layout_marginRight="10dp"
                 android:text="@string/function_close"
                 android:textColor="@android:color/white"
                 android:textSize="16dp"
@@ -48,47 +48,82 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8"
             android:layout_marginTop="2dp"
-            android:paddingTop="10dp"
-            android:gravity="center|top"
+            android:layout_weight="5"
             android:background="@color/colorAccent"
-            android:orientation="vertical">
+            android:gravity="center|top"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
 
             <ImageView
-                android:id="@+id/img_choosen"
+                android:id="@+id/img_add_post"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:layout_marginBottom="10dp"
                 android:src="@mipmap/image" />
 
             <EditText
-                android:id="@+id/edt_business_addess"
-                android:singleLine="true"
+                android:id="@+id/edt_name_post"
+                style="@style/edt_custom"
                 android:drawableLeft="@drawable/ic_text_title"
-                android:hint="Tên món"
-                style="@style/edt_custom"/>
+                android:hint="Tên bài đăng"
+                android:singleLine="true" />
 
             <EditText
-                android:id="@+id/edt_business_name"
-                android:singleLine="true"
+                android:id="@+id/edt_description_post"
+                style="@style/edt_custom"
                 android:drawableLeft="@drawable/ic_text_infors"
                 android:hint="Mô tả món ăn"
-                style="@style/edt_custom"/>
+                android:singleLine="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:background="@color/colorAccent">
+
+            <TextView
+                style="@style/edt_custom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chọn doanh nghiệp đăng bài"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/custom_spiner"
+                android:padding="10dp">
+                <Spinner
+                    android:id="@+id/spinner_Business"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"/>
+            </LinearLayout>
+
+        </LinearLayout>
 
 
-            <EditText
-                android:id="@+id/edt_time"
-                android:drawableLeft="@drawable/ic_text_address"
-                android:singleLine="true"
-                android:hint="Địa chỉ doang nghiệp"
-                style="@style/edt_custom"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorAccent"
+            android:gravity="center_horizontal|center_vertical">
 
             <Button
-                android:id="@+id/btn_login"
+                android:id="@+id/btn_Add_Post"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/custom_click_btn_login"
                 android:text="Thêm"
-                style="@style/btn_custom"/>
-
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
     </LinearLayout>

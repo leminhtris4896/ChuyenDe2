@@ -17,15 +17,13 @@ public class mdPost {
     private String nNumberLike;
     private String nNumberUnlike;
     private String nNumberComment;
-    private boolean isCheckLike;
-    private boolean isCheckUnLike;
     private String lienKetDiaDiem;
     private ArrayList<mdComment> arrayListCommentPost;
 
     public mdPost() {
     }
 
-    public mdPost(String postID, String nameProduct, String descriptionProduct, String imgProduct, String nNumberLike, String nNumberUnlike, String nNumberComment, boolean isCheckLike, boolean isCheckUnLike, String lienKetDiaDiem, ArrayList<mdComment> arrayListCommentPost) {
+    public mdPost(String postID, String nameProduct, String descriptionProduct, String imgProduct, String nNumberLike, String nNumberUnlike, String nNumberComment, String lienKetDiaDiem, ArrayList<mdComment> arrayListCommentPost) {
         this.postID = postID;
         this.nameProduct = nameProduct;
         this.descriptionProduct = descriptionProduct;
@@ -33,8 +31,6 @@ public class mdPost {
         this.nNumberLike = nNumberLike;
         this.nNumberUnlike = nNumberUnlike;
         this.nNumberComment = nNumberComment;
-        this.isCheckLike = isCheckLike;
-        this.isCheckUnLike = isCheckUnLike;
         this.lienKetDiaDiem = lienKetDiaDiem;
         this.arrayListCommentPost = arrayListCommentPost;
     }
@@ -88,21 +84,7 @@ public class mdPost {
         this.nNumberComment = nNumberComment;
     }
 
-    public boolean isCheckLike() {
-        return isCheckLike;
-    }
 
-    public void setCheckLike(boolean checkLike) {
-        isCheckLike = checkLike;
-    }
-
-    public boolean isCheckUnLike() {
-        return isCheckUnLike;
-    }
-
-    public void setCheckUnLike(boolean checkUnLike) {
-        isCheckUnLike = checkUnLike;
-    }
 
     public String getLienKetDiaDiem() {
         return lienKetDiaDiem;

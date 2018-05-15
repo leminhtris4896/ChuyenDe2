@@ -32,7 +32,7 @@ public class DialogComment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_comment);
-        /*databaseReference = FirebaseDatabase.getInstance().getReference();
+        /*mData = FirebaseDatabase.getInstance().getReference();
         init();
         intent = getIntent();
         bundle = intent.getBundleExtra("bundle");
@@ -40,7 +40,7 @@ public class DialogComment extends AppCompatActivity {
         btnSentComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseReference.child("Post").addChildEventListener(new ChildEventListener() {
+                mData.child("Post").addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         final mdPost mdPost = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdPost.class);
@@ -50,7 +50,7 @@ public class DialogComment extends AppCompatActivity {
                             //mdPostOject.getArrayListCommentPost().add(new mdComment("https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/badge.png?alt=media&token=d0362dde-7ddc-43f6-b480-0ad3aaa554d9", ""+edtCommentContext.getText().toString()));
                             //mdPostOject.setArrayListCommentPost(mdComments);
                             mdPost.getArrayListCommentPost().add(cm);
-                            databaseReference.child("Post").child(mdPost.getPostID()).child("arrayListCommentPost").setValue(mdPost.getArrayListCommentPost());
+                            mData.child("Post").child(mdPost.getPostID()).child("arrayListCommentPost").setValue(mdPost.getArrayListCommentPost());
                         }
                     }
 
