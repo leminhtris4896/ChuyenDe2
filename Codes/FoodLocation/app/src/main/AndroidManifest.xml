@@ -65,6 +65,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".UpdatePost"
+            android:theme="@style/title_bar"></activity>
     </application>
 
 </manifest>
