@@ -2,6 +2,7 @@ package com.example.trile.foodlocation.Adapter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.trile.foodlocation.Models.mdPost;
+import com.example.trile.foodlocation.Models.mdUser;
 import com.example.trile.foodlocation.R;
+import com.example.trile.foodlocation.UpdatePost;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -73,11 +76,47 @@ public class AdapterManagerPostShow extends RecyclerView.Adapter<AdapterManagerP
                         mData.child("Post").addChildEventListener(new ChildEventListener() {
                             @Override
                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                mdPost mdPost = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdPost.class);
+                                final mdPost mdPost = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdPost.class);
                                 if (mdPost.getPostID().equalsIgnoreCase(postArrayList.get(position).getPostID())) {
                                     mData.child("Post").child(mdPost.getPostID()).removeValue();
                                     dialogAcceptDelete.dismiss();
+                                    notifyDataSetChanged();
+
+                                    mData.child("Users").addChildEventListener(new ChildEventListener() {
+                                        @Override
+                                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                            mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+                                            for ( int i = 0; i < mdUser.getArrayListUserStatusPost().size(); i++)
+                                            {
+                                                if ( mdUser.getArrayListUserStatusPost().get(i).getStrIDPost().equalsIgnoreCase(mdPost.getPostID()))
+                                                {
+                                                    mData.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusPost").child(i+"").removeValue();
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                        }
+
+                                        @Override
+                                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                        }
+
+                                        @Override
+                                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
                                 }
+
                             }
 
                             @Override
@@ -111,6 +150,15 @@ public class AdapterManagerPostShow extends RecyclerView.Adapter<AdapterManagerP
                 });
             }
         });
+
+        holder.imageViewUpdatePost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, UpdatePost.class);
+                intent.putExtra("id_post_update",postArrayList.get(position).getPostID());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -126,6 +174,7 @@ public class AdapterManagerPostShow extends RecyclerView.Adapter<AdapterManagerP
         TextView tv_description_post_manager;
         TextView tv_address_post_manager;
         ImageView imageViewDeletePost;
+        ImageView imageViewUpdatePost;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -135,6 +184,7 @@ public class AdapterManagerPostShow extends RecyclerView.Adapter<AdapterManagerP
             tv_description_post_manager = (TextView) itemView.findViewById(R.id.tv_description_post_show_manager);
             tv_address_post_manager = (TextView) itemView.findViewById(R.id.tv_address_post_show_manager);
             imageViewDeletePost = (ImageView) itemView.findViewById(R.id.img_delete_post_show_manager);
+            imageViewUpdatePost = (ImageView) itemView.findViewById(R.id.img_update_post_show_manager);
         }
     }
 }

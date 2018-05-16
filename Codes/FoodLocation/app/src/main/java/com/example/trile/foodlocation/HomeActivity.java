@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
                     HomeFragment fragmentHome = new HomeFragment();
                     android.support.v4.app.FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction1.replace(R.id.content, fragmentHome, "Fragment");
-                    fragmentTransaction1.commit();
+                    fragmentTransaction1.commitAllowingStateLoss();
 
                     return true;
                 case R.id.navigation_flace:
@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
                     PlaceFragment fragmentList = new PlaceFragment();
                     android.support.v4.app.FragmentTransaction fragmentTransaction2 = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction2.replace(R.id.content, fragmentList, "Fragment");
-                    fragmentTransaction2.commit();
+                    fragmentTransaction2.commitAllowingStateLoss();
 
                     return true;
                 case R.id.navigation_area:
@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
                     AreaFragment fragmentArea = new AreaFragment();
                     android.support.v4.app.FragmentTransaction fragmentTransaction3 = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction3.replace(R.id.content, fragmentArea, "Fragment");
-                    fragmentTransaction3.commit();
+                    fragmentTransaction3.commitAllowingStateLoss();
 
                     return true;
                 case R.id.navigation_user:
@@ -71,14 +71,14 @@ public class HomeActivity extends AppCompatActivity {
                                     UserBusinessFragment fragmentUser = new UserBusinessFragment();
                                     android.support.v4.app.FragmentTransaction fragmentTransaction4 = getSupportFragmentManager().beginTransaction();
                                     fragmentTransaction4.replace(R.id.content, fragmentUser, "Fragment");
-                                    fragmentTransaction4.commit();
+                                    fragmentTransaction4.commitAllowingStateLoss();
                                     //Toast.makeText(HomeActivity.this, "business", Toast.LENGTH_SHORT).show();
 
                                 } else if (mdUser.getUserType().equalsIgnoreCase("normal")) {
                                     UserNormalFragment fragmentUser = new UserNormalFragment();
                                     android.support.v4.app.FragmentTransaction fragmentTransaction5 = getSupportFragmentManager().beginTransaction();
                                     fragmentTransaction5.replace(R.id.content, fragmentUser, "Fragment");
-                                    fragmentTransaction5.commit();
+                                    fragmentTransaction5.commitAllowingStateLoss();
                                     //Toast.makeText(HomeActivity.this, "normal", Toast.LENGTH_SHORT).show();
                                 }
                                 else if (mdUser.getUserType().equalsIgnoreCase("admin"))
@@ -86,7 +86,7 @@ public class HomeActivity extends AppCompatActivity {
                                     UserAdminFragment adminFragment = new UserAdminFragment();
                                     android.support.v4.app.FragmentTransaction fragmentTransaction6 = getSupportFragmentManager().beginTransaction();
                                     fragmentTransaction6.replace(R.id.content,adminFragment , "Fragment");
-                                    fragmentTransaction6.commit();
+                                    fragmentTransaction6.commitAllowingStateLoss();
                                 }
                             }
                         }
@@ -130,13 +130,19 @@ public class HomeActivity extends AppCompatActivity {
         HomeFragment fragmentHome = new HomeFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
         fragmentTransaction1.replace(R.id.content, fragmentHome, "Fragment");
-        fragmentTransaction1.commit();
+        fragmentTransaction1.commitAllowingStateLoss();
     }
 
-    public void onSaveInstanceState(Bundle savedInstanceState) {
+    /*public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putString(STATE_USER, mUser);
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
+    }*/
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
+        super.onSaveInstanceState(outState);
     }
 
 }

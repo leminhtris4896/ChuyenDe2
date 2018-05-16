@@ -47,6 +47,7 @@ public class AddPost extends AppCompatActivity {
     private ImageView imgPost;
     private EditText edtPostName;
     private EditText edtPostDescription;
+    private TextView tvDongAddPost;
     private Spinner spinnerBusiness;
     private Button btn_Add_Post;
 
@@ -120,8 +121,16 @@ public class AddPost extends AppCompatActivity {
 
                         // ADD NEW POST
                         final String keyNewPost = mData.child("Post").push().getKey();
-                        final mdPost mdPost = new mdPost(keyNewPost, edtPostName.getText().toString(), edtPostDescription.getText().toString(), uri + "", "0", "0", "0", spinnerBusiness.getSelectedItem().toString(),mdComments );
+                        final mdPost mdPost = new mdPost(keyNewPost, edtPostName.getText().toString(), edtPostDescription.getText().toString(), uri + "", "0", "0", "0", spinnerBusiness.getSelectedItem().toString(), mdComments);
                         mData.child("Post").child(keyNewPost).setValue(mdPost);
+
+                        // Clear layout resource
+
+                        edtPostDescription.setText("");
+                        edtPostName.setText("");
+                        spinnerBusiness.setSelection(0);
+                        imgPost.setImageResource(R.mipmap.image);
+
 
                         // ADD NEW POST TO ARRAYLIST STATUS POST IN EACH USER
                         arrayListStatusPostNew = new ArrayList<>();
@@ -130,7 +139,7 @@ public class AddPost extends AppCompatActivity {
                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                                 mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
                                 arrayListStatusPostNew = mdUser.getArrayListUserStatusPost();
-                                arrayListStatusPostNew.add(new mdUserStatusPost(keyNewPost,false,false));
+                                arrayListStatusPostNew.add(new mdUserStatusPost(keyNewPost, false, false));
                                 mData.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusPost").setValue(arrayListStatusPostNew);
                             }
 
@@ -156,6 +165,14 @@ public class AddPost extends AppCompatActivity {
                         });
                     }
                 });
+            }
+        });
+
+        tvDongAddPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddPost.this,ManagerPost.class);
+
             }
         });
     }
@@ -209,5 +226,6 @@ public class AddPost extends AppCompatActivity {
         edtPostName = (EditText) findViewById(R.id.edt_name_post);
         spinnerBusiness = (Spinner) findViewById(R.id.spinner_Business);
         btn_Add_Post = (Button) findViewById(R.id.btn_Add_Post);
+        tvDongAddPost = (TextView) findViewById(R.id.tvCloseAddPost);
     }
 }
