@@ -55,10 +55,10 @@ public class ProductManagerActivity extends AppCompatActivity {
                 if (firebaseAuth.getCurrentUser().getEmail().equalsIgnoreCase(mdBusiness.getStrEmail())) {
                     //mdProducts = mdBusiness.getArrayListProductList();
                     for (int i = 0; i < mdBusiness.getArrayListProductList().size(); i++) {
-                        mdProduct mdProduct = new mdProduct(mdBusiness.getArrayListProductList().get(i).getStrProductName(), mdBusiness.getArrayListProductList().get(i).getStrDescription(), mdBusiness.getArrayListProductList().get(i).getnPrice(), mdBusiness.getArrayListProductList().get(i).getStrURLImage());
+                        mdProduct mdProduct = new mdProduct(mdBusiness.getArrayListProductList().get(i).getStrProductName(), mdBusiness.getArrayListProductList().get(i).getStrDescription(), mdBusiness.getArrayListProductList().get(i).getnPrice(), mdBusiness.getArrayListProductList().get(i).getStrURLImage(),mdBusiness.getArrayListProductList().get(i).getStrID());
                         mdProducts.add(mdProduct);
+                        adapterProduct.notifyItemRangeInserted(adapterProduct.getItemCount(), mdProducts.size());
                     }
-                    adapterProduct.notifyItemRangeInserted(adapterProduct.getItemCount(), mdProducts.size());
                 }
             }
 

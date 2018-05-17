@@ -43,6 +43,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
     private TextView tvVote;
     Intent intent;
     Bundle bundle;
+    private TextView btnCloseDetailBusiness;
 
     DatabaseReference databaseReference;
 
@@ -64,6 +65,15 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         Init();
+
+        btnCloseDetailBusiness = (TextView) findViewById(R.id.btnCloseDetailBusiness);
+
+        btnCloseDetailBusiness.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         loadDetailItemBusiness();
         databaseReference.child("Business").addChildEventListener(new ChildEventListener() {

@@ -44,7 +44,7 @@
                     android:layout_weight="1"
                     android:gravity="center">
                     <Button
-                        android:id="@+id/btn_Yes_accept_delete_post"
+                        android:id="@+id/btn_Yes_accept_delete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -59,7 +59,7 @@
                     android:layout_weight="1"
                     android:gravity="center">
                     <Button
-                        android:id="@+id/btn_No_accept_delete_post"
+                        android:id="@+id/btn_No_accept_delete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"

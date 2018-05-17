@@ -1,5 +1,6 @@
 package com.example.trile.foodlocation;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -9,8 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +55,20 @@ public class AddProductActivity extends AppCompatActivity {
 
     Uri uri;
 
+    private TextView tvCloseChoosenImg;
+    private LinearLayout linearOpenLibrary;
+    private LinearLayout linearOpenCamera;
+
+    Dialog dialog;
+
+    // Check chụp camera or lấy ảnh từ thư viện
+    boolean takePhoToFromCamera = false;
+    boolean takePhoToFromLibrary = false;
+
+    // Biến check xem khi update có phải là hình  mới hay hình cũ
+    boolean CheckNewImageCamera = false;
+    boolean CheckNewImageLibrary = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,11 +84,49 @@ public class AddProductActivity extends AppCompatActivity {
 
         Init();
 
+        // Khởi tạo dialog chọn hình
+        dialog = new Dialog(AddProductActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
+        dialog.setContentView(R.layout.dialog_choosen_image);
+
         img_choosen_product_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent,REQUEST_CODE_IMAGE);
+                dialog.show();
+
+                tvCloseChoosenImg = (TextView) dialog.findViewById(R.id.tvCloseChoosenImg);
+                linearOpenLibrary = (LinearLayout) dialog.findViewById(R.id.linearOpenLibrary);
+                linearOpenCamera = (LinearLayout) dialog.findViewById(R.id.linearOpenCamera);
+
+
+                // Chọn ảnh từ thư viện
+                linearOpenLibrary.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        takePhoToFromLibrary = true;
+                        Intent intentLibrary = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                        startActivityForResult(intentLibrary, 100);
+                        dialog.dismiss();
+                    }
+                });
+
+                // Chọn ảnh từ camera
+                linearOpenCamera.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        takePhoToFromCamera = true;
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(intent, REQUEST_CODE_IMAGE);
+                    }
+                });
+
+                // sự kiện đóng dialog chọn hình
+                tvCloseChoosenImg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
 
@@ -120,7 +175,8 @@ public class AddProductActivity extends AppCompatActivity {
                                 if (mAuth.getCurrentUser().getEmail().equalsIgnoreCase(mdBusiness.getStrEmail()))
                                 {
                                     productArrayList = mdBusiness.getArrayListProductList();
-                                    mdProduct newProduct = new mdProduct(tv_name_product_add.getText().toString(),tv_description_product_add.getText().toString(),Integer.parseInt(tv_price_product_add.getText().toString()),uri+"");
+                                    final String newProductKey = mData.child("Business").child(mdBusiness.getStrID()).child("arrayListProductList").push().getKey();
+                                    mdProduct newProduct = new mdProduct(tv_name_product_add.getText().toString(),tv_description_product_add.getText().toString(),Integer.parseInt(tv_price_product_add.getText().toString()),uri+"",newProductKey);
                                     productArrayList.add(newProduct);
                                     mData.child("Business").child(mdBusiness.getStrID()).child("arrayListProductList").setValue(productArrayList);
 
@@ -161,9 +217,19 @@ public class AddProductActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_IMAGE /*&& requestCode == RESULT_OK */&& data != null) {
+        if (resultCode == RESULT_OK && requestCode == 100) {
+            // DISPLAY IMAGE FROM LIBRARY
+            CheckNewImageLibrary = true;
+            Uri imgUri = data.getData();
+            img_choosen_product_add.setImageURI(imgUri);
+            dialog.dismiss();
+        }
+
+        if (requestCode == REQUEST_CODE_IMAGE /*&& requestCode == RESULT_OK */ && data != null) {
+            CheckNewImageCamera = true;
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             img_choosen_product_add.setImageBitmap(bitmap);
+            dialog.dismiss();
         }
     }
 

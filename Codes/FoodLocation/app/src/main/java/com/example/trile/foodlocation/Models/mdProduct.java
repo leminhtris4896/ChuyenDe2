@@ -7,16 +7,26 @@ public class mdProduct  {
     private Integer nPrice;
     private String strURLImage;
 
-    public mdProduct() {
-    }
+    private String strID;
 
-    public mdProduct(String strProductName, String strDescription, Integer nPrice, String strURLImage) {
+    public mdProduct(String strProductName, String strDescription, Integer nPrice, String strURLImage, String strID) {
         this.strProductName = strProductName;
         this.strDescription = strDescription;
         this.nPrice = nPrice;
         this.strURLImage = strURLImage;
+        this.strID = strID;
     }
 
+    public mdProduct() {
+    }
+
+    public String getStrID() {
+        return strID;
+    }
+
+    public void setStrID(String strID) {
+        this.strID = strID;
+    }
     public String getStrProductName() {
         return strProductName;
     }

@@ -195,7 +195,8 @@ public class BusinessRegisterFragment extends Fragment {
 
 
                                 final String newBusinessKey = mData.child("Business").push().getKey();
-                                mdProduct mdProduct = new mdProduct("Há Cảo", "Món ăn từ Tàu, ngon miệng", 20000, "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/basic.png?alt=media&token=3d9e613b-fa54-4183-9e05-bde397b82024");
+                                final String newProductKey = mData.child("Business").child(newBusinessKey).child("arrayListProductList").push().getKey();
+                                mdProduct mdProduct = new mdProduct("Há Cảo", "Món ăn từ Tàu, ngon miệng", 20000, "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/basic.png?alt=media&token=3d9e613b-fa54-4183-9e05-bde397b82024",newProductKey);
                                 ArrayList<mdProduct> productArrayList = new ArrayList<>();
                                 productArrayList.add(mdProduct);
                                 final mdBusiness mdBusiness = new mdBusiness(newBusinessKey, email, pass, "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/basic.png?alt=media&token=3d9e613b-fa54-4183-9e05-bde397b82024", name, phones, edtAddress.getText().toString() + "", type, time, "", productArrayList, "", address.getLatitude(), address.getLongitude(), 0.0);

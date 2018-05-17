@@ -1,5 +1,6 @@
 package com.example.trile.foodlocation;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -8,10 +9,12 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +49,10 @@ public class UpdatePost extends AppCompatActivity {
     private Button btn_Add_Post_Update;
     private DatabaseReference mData;
 
+    private TextView tvCloseChoosenImg;
+    private LinearLayout linearOpenLibrary;
+    private LinearLayout linearOpenCamera;
+
     // ImageFireBase
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
@@ -56,68 +63,96 @@ public class UpdatePost extends AppCompatActivity {
     ArrayList<String> arrayList;
     ArrayAdapter<String> arrayAdapter;
 
-    // Check chụp camera
-    boolean CheckChup = false;
+    // nhận lấy id của bài post chuyển sáng từ trang quản lí bài post
+    String id_post_update;
+
+    // Check chụp camera or lấy ảnh từ thư viện
+    boolean takePhoToFromCamera = false;
+    boolean takePhoToFromLibrary = false;
+
+    // Biến check xem khi update có phải là hình  mới hay hình cũ
+    boolean CheckNewImageCamera = false;
+    boolean CheckNewImageLibrary = false;
+
+    private Dialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.update_post_layout);
 
+        // biến cần thiết dùng firebase
         mData = FirebaseDatabase.getInstance().getReference();
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
 
+        // khởi tạo các phần tử
         Init();
 
+        // load tên các doanh nghiệp lên spinner.
         spinnerPlace();
+
+        // mở dialog cho chọn ảnh từ thư viện
+        dialog = new Dialog(UpdatePost.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
+        dialog.setContentView(R.layout.dialog_choosen_image);
+
 
         imgUpdatePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, REQUEST_CODE_IMAGE);
+                dialog.show();
+
+                tvCloseChoosenImg = (TextView) dialog.findViewById(R.id.tvCloseChoosenImg);
+                linearOpenLibrary = (LinearLayout) dialog.findViewById(R.id.linearOpenLibrary);
+                linearOpenCamera = (LinearLayout) dialog.findViewById(R.id.linearOpenCamera);
+
+                // Chọn ảnh từ thư viện
+                linearOpenLibrary.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        takePhoToFromLibrary = true;
+                        Intent intentLibrary = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                        startActivityForResult(intentLibrary, 100);
+                        dialog.dismiss();
+                    }
+                });
+
+                // Chọn ảnh từ camera
+                linearOpenCamera.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        takePhoToFromCamera = true;
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(intent, REQUEST_CODE_IMAGE);
+                    }
+                });
+
+                // sự kiện đóng dialog chọn hình
+                tvCloseChoosenImg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
 
-        final String id_post_update = getIntent().getStringExtra("id_post_update");
+        // load data của bài post cần update từ trang quản lí bài post lên ac
+        loadDataBusineNeedUpdate();
 
-        mData.child("Post").addChildEventListener(new ChildEventListener() {
+
+        UpdatePostAction();
+
+        tvDongPostUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                mdPost mdPost = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdPost.class);
-                if (mdPost.getPostID().equalsIgnoreCase(id_post_update)) {
-                    Picasso.with(UpdatePost.this).load(mdPost.getImgProduct()).into(imgUpdatePost);
-                    edtPostDescriptionUpdate.setText(mdPost.getDescriptionProduct());
-                    edtPostNameUpdate.setText(mdPost.getNameProduct());
-                   for ( int i = 0; i < arrayList.size();i++) {
-                       if ( arrayList.get(i).equalsIgnoreCase(mdPost.getLienKetDiaDiem()))
-                       spinnerBusinessUpdate.setSelection(i);
-                   }
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void onClick(View view) {
+                finish();
             }
         });
+    }
 
+    public void UpdatePostAction() {
         btn_Add_Post_Update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,15 +188,23 @@ public class UpdatePost extends AppCompatActivity {
                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                                 mdPost mdPost = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdPost.class);
                                 if (mdPost.getPostID().equalsIgnoreCase(id_post_update)) {
-                                    if (CheckChup == true)
-                                    {
-                                        CheckChup = false;
-                                        mData.child("Post").child(mdPost.getPostID()).child("imgProduct").setValue(uri +"");
+                                    if (CheckNewImageLibrary == true) {
+                                        CheckNewImageLibrary = false;
+                                        mData.child("Post").child(mdPost.getPostID()).child("imgProduct").setValue(uri + "");
+                                    }
+                                    if (CheckNewImageCamera == true) {
+                                        CheckNewImageCamera = false;
+                                        mData.child("Post").child(mdPost.getPostID()).child("imgProduct").setValue(uri + "");
                                     }
                                     mData.child("Post").child(mdPost.getPostID()).child("descriptionProduct").setValue(edtPostDescriptionUpdate.getText().toString());
                                     mData.child("Post").child(mdPost.getPostID()).child("nameProduct").setValue(edtPostNameUpdate.getText().toString());
                                     mData.child("Post").child(mdPost.getPostID()).child("lienKetDiaDiem").setValue(spinnerBusinessUpdate.getSelectedItem().toString());
                                 }
+                                finish();
+                               /* edtPostNameUpdate.setText("");
+                                edtPostDescriptionUpdate.setText("");
+                                spinnerBusinessUpdate.setSelection(0);
+                                imgUpdatePost.setImageResource(R.mipmap.image);*/
                             }
 
                             @Override
@@ -193,10 +236,19 @@ public class UpdatePost extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 100) {
+            // DISPLAY IMAGE FROM LIBRARY
+            CheckNewImageLibrary = true;
+            Uri imgUri = data.getData();
+            imgUpdatePost.setImageURI(imgUri);
+            dialog.dismiss();
+        }
+
         if (requestCode == REQUEST_CODE_IMAGE /*&& requestCode == RESULT_OK */ && data != null) {
-            CheckChup = true;
+            CheckNewImageCamera = true;
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             imgUpdatePost.setImageBitmap(bitmap);
+            dialog.dismiss();
         }
     }
 
@@ -233,12 +285,53 @@ public class UpdatePost extends AppCompatActivity {
             }
         });
     }
+
     public void Init() {
         imgUpdatePost = (ImageView) findViewById(R.id.img_update_post);
         edtPostDescriptionUpdate = (EditText) findViewById(R.id.edt_update_description_post);
         edtPostNameUpdate = (EditText) findViewById(R.id.edt_update_name__post);
         spinnerBusinessUpdate = (Spinner) findViewById(R.id.spinner_update_Post);
         btn_Add_Post_Update = (Button) findViewById(R.id.btn_Update_Post);
-        tvDongPostUpdate = (TextView) findViewById(R.id.tvCloseUpdate);
+        tvDongPostUpdate = (TextView) findViewById(R.id.tvCloseUpdatePost);
+    }
+
+    public void loadDataBusineNeedUpdate() {
+        id_post_update = getIntent().getStringExtra("id_post_update");
+
+        mData.child("Post").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                mdPost mdPost = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdPost.class);
+                if (mdPost.getPostID().equalsIgnoreCase(id_post_update)) {
+                    Picasso.with(UpdatePost.this).load(mdPost.getImgProduct()).into(imgUpdatePost);
+                    edtPostDescriptionUpdate.setText(mdPost.getDescriptionProduct());
+                    edtPostNameUpdate.setText(mdPost.getNameProduct());
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        if (arrayList.get(i).equalsIgnoreCase(mdPost.getLienKetDiaDiem()))
+                            spinnerBusinessUpdate.setSelection(i);
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

@@ -1,5 +1,6 @@
 package com.example.trile.foodlocation;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -8,10 +9,12 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +53,10 @@ public class AddPost extends AppCompatActivity {
     private TextView tvDongAddPost;
     private Spinner spinnerBusiness;
     private Button btn_Add_Post;
+    private TextView tvCloseChoosenImg;
+    private LinearLayout linearOpenLibrary;
+    private LinearLayout linearOpenCamera;
+    private Dialog dialog;
 
     // arraylist status post new
     ArrayList<mdUserStatusPost> arrayListStatusPostNew;
@@ -65,6 +72,14 @@ public class AddPost extends AppCompatActivity {
     int REQUEST_CODE_IMAGE = 1;
     Uri uri;
 
+    // Check chụp camera or lấy ảnh từ thư viện
+    boolean takePhoToFromCamera = false;
+    boolean takePhoToFromLibrary = false;
+
+    // Biến check xem khi update có phải là hình  mới hay hình cũ
+    boolean CheckNewImageCamera = false;
+    boolean CheckNewImageLibrary = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,13 +91,53 @@ public class AddPost extends AppCompatActivity {
 
         Init();
 
+        // mở dialog cho chọn ảnh từ thư viện
+        dialog = new Dialog(AddPost.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
+        dialog.setContentView(R.layout.dialog_choosen_image);
+
+        // nhấn vào ảnh để hiện dialog cho chọn ảnh từ thư viện hay chụp
         imgPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, REQUEST_CODE_IMAGE);
+                dialog.show();
+
+                tvCloseChoosenImg = (TextView) dialog.findViewById(R.id.tvCloseChoosenImg);
+                linearOpenLibrary = (LinearLayout) dialog.findViewById(R.id.linearOpenLibrary);
+                linearOpenCamera = (LinearLayout) dialog.findViewById(R.id.linearOpenCamera);
+
+                // Chọn ảnh từ thư viện
+                linearOpenLibrary.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        takePhoToFromLibrary = true;
+                        Intent intentLibrary = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                        startActivityForResult(intentLibrary, 100);
+                        dialog.dismiss();
+                    }
+                });
+
+                // Chọn ảnh từ camera
+                linearOpenCamera.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        takePhoToFromCamera = true;
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(intent, REQUEST_CODE_IMAGE);
+                    }
+                });
+
+                // sự kiện đóng dialog chọn hình
+                tvCloseChoosenImg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
+
+        // lấy ảnh từ thư viện
 
         spinnerPlace();
 
@@ -171,8 +226,7 @@ public class AddPost extends AppCompatActivity {
         tvDongAddPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AddPost.this,ManagerPost.class);
-
+                finish();
             }
         });
     }
@@ -214,9 +268,19 @@ public class AddPost extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 100) {
+            // DISPLAY IMAGE FROM LIBRARY
+            CheckNewImageLibrary = true;
+            Uri imgUri = data.getData();
+            imgPost.setImageURI(imgUri);
+            dialog.dismiss();
+        }
+
         if (requestCode == REQUEST_CODE_IMAGE /*&& requestCode == RESULT_OK */ && data != null) {
+            CheckNewImageCamera = true;
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             imgPost.setImageBitmap(bitmap);
+            dialog.dismiss();
         }
     }
 

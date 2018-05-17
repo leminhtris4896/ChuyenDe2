@@ -28,6 +28,7 @@ public class DetailPersonalActivity extends AppCompatActivity {
     private TextView tv_adress_business_pagePersonal;
     private TextView tv_phone_business_pagePersonal;
     private TextView tv_time_business_pagePersonal;
+    private TextView tv_Close_Detail_Business;
     DatabaseReference mData;
     FirebaseAuth mAuth;
 
@@ -49,6 +50,13 @@ public class DetailPersonalActivity extends AppCompatActivity {
 
         mData = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
+
+        tv_Close_Detail_Business.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         mData.child("Business").addChildEventListener(new ChildEventListener() {
             @Override
@@ -93,5 +101,12 @@ public class DetailPersonalActivity extends AppCompatActivity {
         tv_time_business_pagePersonal = (TextView) findViewById(R.id.tv_time_business_pagePersonal);
         tv_phone_business_pagePersonal = (TextView) findViewById(R.id.tv_phone_business_pagePersonal);
         tv_adress_business_pagePersonal = (TextView) findViewById(R.id.tv_address_business_pagePersonal);
+        tv_Close_Detail_Business = (TextView) findViewById(R.id.tvCloseDetailBusiness);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //finish();
     }
 }

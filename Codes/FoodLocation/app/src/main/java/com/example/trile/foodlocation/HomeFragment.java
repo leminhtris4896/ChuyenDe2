@@ -82,17 +82,23 @@ public class HomeFragment extends Fragment {
         // Create new data
 
         // món ăn mẫu trong arraylist
-       /* mdProduct mdProduct = new mdProduct("Há Cảo", "Món ăn từ Tàu, ngon miệng", 20000, "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/basic.png?alt=media&token=3d9e613b-fa54-4183-9e05-bde397b82024");
-        ArrayList<mdProduct> productArrayList = new ArrayList<>();
-        productArrayList.add(mdProduct);
 
+/*
         // Create new user Business Saigon - Vieux Coffee
         String key = mData.child("Business").push().getKey();
+        final String newProductKey = mData.child("Business").child(key).child("arrayListProductList").push().getKey();
+        mdProduct mdProduct = new mdProduct("Há Cảo", "Món ăn từ Tàu, ngon miệng", 20000, "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/basic.png?alt=media&token=3d9e613b-fa54-4183-9e05-bde397b82024",newProductKey);
+        ArrayList<mdProduct> productArrayList = new ArrayList<>();
+        productArrayList.add(mdProduct);
         mdBusiness mdBusiness = new mdBusiness(key,"saigonvieuxcoffee@gmail.com","saigonvieuxcoffee","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/saigon_vieuxcoffee.jpg?alt=media&token=14d42bad-6b7d-4a5e-8a0e-b5e5f9c7caa8","Saigon - Vieux Coffee","098 910 46 33","Tầng 2,  Tầng 2, Chung Cư 42 Nguyễn Huệ,  Quận 1, TP. HCM","Quán nước","08:00 - 23:00","0.0",productArrayList,"",0.0,0.0,0.0);
         mData.child("Business").child(key).setValue(mdBusiness);
         // Create new user Business Boo Coffee 1 - Lầu 9 Chung Cư Nguyễn Huệ
         String key1 = mData.child("Business").push().getKey();
-        mdBusiness mdBusiness1 = new mdBusiness(key1,"boocoffee1@gmail.com","boocoffee1","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/boocoffee.jpg?alt=media&token=ebe90ea0-e856-438d-b3cd-f14251635648","Boo Coffee 1 - Lầu 9 Chung Cư Nguyễn Huệ","090 198 42 98","Lầu 9, Chung Cư 42 Nguyễn Huệ,  Quận 1, TP. HCM","Quán nước","08:00 - 22:00","0.0",productArrayList,"",0.0,0.0,0.0);
+        final String newProductKey1 = mData.child("Business").child(key1).child("arrayListProductList").push().getKey();
+        mdProduct mdProduct1 = new mdProduct("Há Cảo", "Món ăn từ Tàu, ngon miệng", 20000, "https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/basic.png?alt=media&token=3d9e613b-fa54-4183-9e05-bde397b82024",newProductKey1);
+        ArrayList<mdProduct> productArrayList1 = new ArrayList<>();
+        productArrayList.add(mdProduct1);
+        mdBusiness mdBusiness1 = new mdBusiness(key1,"boocoffee1@gmail.com","boocoffee1","https://firebasestorage.googleapis.com/v0/b/reviewfoodver10.appspot.com/o/boocoffee.jpg?alt=media&token=ebe90ea0-e856-438d-b3cd-f14251635648","Boo Coffee 1 - Lầu 9 Chung Cư Nguyễn Huệ","090 198 42 98","Lầu 9, Chung Cư 42 Nguyễn Huệ,  Quận 1, TP. HCM","Quán nước","08:00 - 22:00","0.0",productArrayList1,"",0.0,0.0,0.0);
         mData.child("Business").child(key1).setValue(mdBusiness1);
 
         // create arrayCommentPost mẫu

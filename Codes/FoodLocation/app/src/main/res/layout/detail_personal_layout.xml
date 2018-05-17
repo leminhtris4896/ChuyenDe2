@@ -40,7 +40,8 @@
                 android:text="@string/function_close"
                 android:textColor="@android:color/white"
                 android:textSize="16dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:id="@+id/tvCloseDetailBusiness"/>
 
         </LinearLayout>
 

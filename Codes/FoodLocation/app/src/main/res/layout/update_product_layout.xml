@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UpdateProduct">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:gravity="center|left"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/update_infor"
+                android:drawablePadding="10dp"
+                android:text="@string/title_update"
+                android:textColor="@android:color/white"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCloseUpdateProduct"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="right"
+                android:layout_marginRight="10dp"
+                android:text="@string/function_close"
+                android:textColor="@android:color/white"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="8"
+            android:background="@color/colorAccent"
+            android:gravity="center|top"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:id="@+id/img_update_product"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginBottom="10dp"
+                android:src="@mipmap/image" />
+
+
+            <EditText
+                android:id="@+id/edt_product_update_name"
+                style="@style/edt_custom"
+                android:drawableLeft="@drawable/ic_text_infors"
+                android:hint="Tên sản phẩm"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/edt_product_description_update"
+                style="@style/edt_custom"
+                android:drawableLeft="@drawable/ic_text_phone"
+                android:hint="Mô tả"
+                android:inputType="number"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/edt_price_product_update"
+                style="@style/edt_custom"
+                android:drawableLeft="@drawable/ic_text_time"
+                android:hint="Giá"
+                android:singleLine="true" />
+
+            <Button
+                android:id="@+id/btn_update_product"
+                style="@style/btn_custom"
+                android:text="@string/btn_update" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

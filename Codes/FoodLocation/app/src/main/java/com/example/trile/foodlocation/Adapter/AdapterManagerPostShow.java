@@ -57,8 +57,8 @@ public class AdapterManagerPostShow extends RecyclerView.Adapter<AdapterManagerP
         dialogAcceptDelete.setContentView(R.layout.custom_dialog_accept_delete_post);
         dialogAcceptDelete.setCanceledOnTouchOutside(false);
 
-        btn_Yes_Delete_Post = (Button) dialogAcceptDelete.findViewById(R.id.btn_Yes_accept_delete_post);
-        btn_No_Delete_Post = (Button) dialogAcceptDelete.findViewById(R.id.btn_No_accept_delete_post);
+        btn_Yes_Delete_Post = (Button) dialogAcceptDelete.findViewById(R.id.btn_Yes_accept_delete);
+        btn_No_Delete_Post = (Button) dialogAcceptDelete.findViewById(R.id.btn_No_accept_delete);
 
         Picasso.with(context).load(arrayPost.getImgProduct()).into(holder.img_post);
         holder.tv_id_post_maganer.setText(arrayPost.getPostID());
@@ -80,7 +80,6 @@ public class AdapterManagerPostShow extends RecyclerView.Adapter<AdapterManagerP
                                 if (mdPost.getPostID().equalsIgnoreCase(postArrayList.get(position).getPostID())) {
                                     mData.child("Post").child(mdPost.getPostID()).removeValue();
                                     dialogAcceptDelete.dismiss();
-                                    notifyDataSetChanged();
 
                                     mData.child("Users").addChildEventListener(new ChildEventListener() {
                                         @Override
