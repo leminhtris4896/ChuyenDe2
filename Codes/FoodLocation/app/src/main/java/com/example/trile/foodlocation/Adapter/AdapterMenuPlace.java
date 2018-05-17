@@ -1,6 +1,12 @@
 package com.example.trile.foodlocation.Adapter;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +30,14 @@ import java.util.ArrayList;
  * Created by TRILE on 08/03/2018.
  */
 
-public class AdapterMenuPlace extends RecyclerView.Adapter<AdapterMenuPlace.ViewHolder> {
+public class AdapterMenuPlace extends RecyclerView.Adapter<AdapterMenuPlace.ViewHolder> implements LocationListener {
     ArrayList<mdBusiness> arrBusiness;
     Context context;
+    double langtitude;
+    double longitude;
+    //
+    private LocationManager locationManager;
+
     private final static int FADE_DURATION = 3000;
 
     public AdapterMenuPlace(ArrayList<mdBusiness> arrTopLocation, Context context) {
@@ -45,7 +56,40 @@ public class AdapterMenuPlace extends RecyclerView.Adapter<AdapterMenuPlace.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+        onLocationChanged(location);
 
+        double earthRadius = 3958.75;
+        double dLat = Math.toRadians(arrBusiness.get(position).getDbLatitude() - langtitude);
+        double dLng = Math.toRadians(arrBusiness.get(position).getDbLongitude() - longitude);
+
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(langtitude))
+                * Math.cos(Math.toRadians(arrBusiness.get(position).getDbLatitude())) * Math.sin(dLng / 2)
+                * Math.sin(dLng / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        double dist = earthRadius * c;
+
+        int meterConversion = 1609;
+        a = Math.round((new Float(dist * meterConversion).floatValue()) / 2) * 2;
+        //Toast.makeText(this, ""+ new Float(dist * meterConversion).floatValue(), Toast.LENGTH_SHORT).show();
+        if (a > 1000) {
+            double kq = a / 1000;
+            //tvLocation.setText(kq + "" + "KM");
+            holder.tvNear.setText(kq + "" + "KM");
+        }else {
+            //tvLocation.setText(a + "" + "M");
+            holder.tvNear.setText(a + "" + "KM");
+        }
         Picasso.with(context).load(arrBusiness.get(position).getStrImage()).into(holder.img);
         holder.tvName.setText(arrBusiness.get(position).getStrName());
         holder.tvAdd.setText(arrBusiness.get(position).getStrAddress());
@@ -80,6 +124,27 @@ public class AdapterMenuPlace extends RecyclerView.Adapter<AdapterMenuPlace.View
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.ZORDER_BOTTOM,1.0f,Animation.ZORDER_BOTTOM,0.0f);
         translateAnimation.setDuration(FADE_DURATION);
         view.startAnimation(translateAnimation);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        langtitude = location.getLatitude();
+        longitude = location.getLongitude();
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
