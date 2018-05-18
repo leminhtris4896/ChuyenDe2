@@ -111,32 +111,6 @@
 
                     </LinearLayout>
 
-
-                    <LinearLayout
-                        style="@style/linear"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/text_detail"
-                            android:textColor="@android:color/black"
-                            android:text="Khoảng cách : 3 km"
-                            android:drawableLeft="@drawable/near"/>
-
-                        <TextView
-                            style="@style/text_detail"
-                            android:textColor="@color/adrress"
-                            android:layout_marginRight="20dp"
-                            android:text="74/2/6 Đường 6 , P.Linh Đông , Quận Thủ Đức "
-                            android:drawableLeft="@drawable/map"/>
-
-                        <fragment
-                            android:id="@+id/myMapDetail"
-                            android:layout_marginTop="10dp"
-                            android:name="com.google.android.gms.maps.SupportMapFragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="150dp"/>
-
-                    </LinearLayout>
                 </LinearLayout>
 
             </ScrollView>

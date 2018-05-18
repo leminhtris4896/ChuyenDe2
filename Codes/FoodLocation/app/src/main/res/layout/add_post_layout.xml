@@ -89,8 +89,8 @@
                 style="@style/edt_custom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chọn doanh nghiệp đăng bài"
-                />
+                android:text="Chọn doanh nghiệp đăng bài" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

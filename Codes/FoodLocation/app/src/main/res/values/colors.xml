@@ -20,4 +20,5 @@
     <color name="click_user">#fa8f54</color>
     <color name="click_choosen_user">#fccaae</color>
     <color name="text_search_map">#BFFFFFFF</color>
+    <color name="vote_rating">#324a5e</color>
 </resources>

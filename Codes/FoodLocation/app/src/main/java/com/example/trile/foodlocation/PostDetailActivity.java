@@ -24,7 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-public class PostDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class PostDetailActivity extends AppCompatActivity  {
 
     private TextView tvCall;
     private ImageView postImage;
@@ -42,10 +42,6 @@ public class PostDetailActivity extends AppCompatActivity implements OnMapReadyC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_detail_layout);
 
-        SupportMapFragment mapFragmentDetail = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.myMapDetail);
-        mapFragmentDetail.getMapAsync(PostDetailActivity.this);
-
-
         tvCall = (TextView) findViewById(R.id.btn_phone);
         tvCall.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("MissingPermission")
@@ -59,17 +55,6 @@ public class PostDetailActivity extends AppCompatActivity implements OnMapReadyC
         iniṭ();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         loadDetailItemPost();
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        LatLng sydney = new LatLng(10.850789, 106.758846);
-        //LatLng sydney = new LatLng(-33.852, 151.211);
-
-        googleMap.addMarker(new MarkerOptions().position(sydney)
-                .title("Nhóm 3")
-                .snippet("Trường Cao Đẳng Công Nghệ Thủ Đức"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,15));
     }
 
     public void iniṭ()

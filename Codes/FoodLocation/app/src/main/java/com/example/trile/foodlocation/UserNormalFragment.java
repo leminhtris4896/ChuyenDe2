@@ -53,19 +53,19 @@ public class UserNormalFragment extends Fragment implements GoogleApiClient.OnCo
         mData = FirebaseDatabase.getInstance().getReference();
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-        editpersonal = (LinearLayout) view.findViewById(R.id.linear_edit_personal);
+        //editpersonal = (LinearLayout) view.findViewById(R.id.linear_edit_personal);
         aboutus = (LinearLayout) view.findViewById(R.id.linear_aboutus);
         logout = (LinearLayout) view.findViewById(R.id.linear_logout);
         change_password = (LinearLayout) view.findViewById(R.id.linear_change_passwork);
 
 
         // EDIT INFORAMTION USER NORMAL
-        editpersonal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+//        editpersonal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
         //
         aboutus.setOnClickListener(new View.OnClickListener() {
             @Override

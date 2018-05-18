@@ -33,8 +33,8 @@ import java.util.ArrayList;
 public class AdapterMenuPlace extends RecyclerView.Adapter<AdapterMenuPlace.ViewHolder> implements LocationListener {
     ArrayList<mdBusiness> arrBusiness;
     Context context;
-    double langtitude;
-    double longitude;
+    public double langtitude;
+    public double longitude;
     //
     private LocationManager locationManager;
 
@@ -49,8 +49,6 @@ public class AdapterMenuPlace extends RecyclerView.Adapter<AdapterMenuPlace.View
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.customview_place,parent,false);
-
-
         return new ViewHolder(itemView);
     }
 
@@ -88,7 +86,7 @@ public class AdapterMenuPlace extends RecyclerView.Adapter<AdapterMenuPlace.View
             holder.tvNear.setText(kq + "" + "KM");
         }else {
             //tvLocation.setText(a + "" + "M");
-            holder.tvNear.setText(a + "" + "KM");
+            holder.tvNear.setText(a + "" + "M");
         }
         Picasso.with(context).load(arrBusiness.get(position).getStrImage()).into(holder.img);
         holder.tvName.setText(arrBusiness.get(position).getStrName());
@@ -128,8 +126,10 @@ public class AdapterMenuPlace extends RecyclerView.Adapter<AdapterMenuPlace.View
 
     @Override
     public void onLocationChanged(Location location) {
-        langtitude = location.getLatitude();
-        longitude = location.getLongitude();
+        //remove location callback:
+        locationManager.removeUpdates(this);
+            langtitude = location.getLatitude();
+            longitude = location.getLongitude();
     }
 
     @Override
