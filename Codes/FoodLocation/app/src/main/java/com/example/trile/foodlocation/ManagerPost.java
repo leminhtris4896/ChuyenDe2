@@ -2,6 +2,7 @@ package com.example.trile.foodlocation;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,20 +24,47 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class ManagerPost extends AppCompatActivity {
+public class ManagerPost extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
     private ArrayList<mdPost> postArrayList;
     private AdapterManagerPostShow adapterManagerPostShow;
     private RecyclerView recyclerViewPostShow;
     private Button btnAddPost;
     DatabaseReference mData;
     FirebaseAuth mAuth;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manager_post_layout);
 
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+       /* mSwipeRefreshLayout.post(new Runnable() {
+
+            @Override
+            public void run() {
+
+                mSwipeRefreshLayout.setRefreshing(true);
+
+                // Fetching data from server
+                LoadPost();
+            }
+        });*/
+
+
         Init();
+
+
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerViewPostShow.setHasFixedSize(true);
@@ -45,8 +73,6 @@ public class ManagerPost extends AppCompatActivity {
         mData = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        LoadPost();
-
         btnAddPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +80,8 @@ public class ManagerPost extends AppCompatActivity {
                 startActivity(intentShowActivityAddPost);
             }
         });
+
+        LoadPost();
 
     }
 
@@ -94,5 +122,11 @@ public class ManagerPost extends AppCompatActivity {
 
             }
         });
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        LoadPost();
     }
 }

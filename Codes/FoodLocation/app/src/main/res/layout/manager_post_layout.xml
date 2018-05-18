@@ -62,12 +62,19 @@
             android:layout_height="0dp"
             android:layout_weight="10">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerPostShowManager"
+            <android.support.v4.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:id="@+id/swipe">
 
-            </android.support.v7.widget.RecyclerView>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerPostShowManager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
 
         </LinearLayout>
 
@@ -80,14 +87,14 @@
             <Button
                 android:id="@+id/btn_add_post"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:textStyle="bold"
+                android:layout_weight="1"
                 android:background="@color/colorPrimary"
-                android:textColor="@android:color/white"
                 android:gravity="center"
                 android:text="Thêm bài đăng"
-                android:textSize="18sp"/>
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
