@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FoodLocation.iml" filepath="$PROJECT_DIR$/FoodLocation.iml" />
-      <module fileurl="file://C:\Users\TRILE\Documents\GitHub\ChuyenDe2\Codes\FoodLocation\FoodLocation.iml" filepath="C:\Users\TRILE\Documents\GitHub\ChuyenDe2\Codes\FoodLocation\FoodLocation.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\TRILE\Documents\GitHub\ChuyenDe2\Codes\FoodLocation\app\app.iml" filepath="C:\Users\TRILE\Documents\GitHub\ChuyenDe2\Codes\FoodLocation\app\app.iml" />
     </modules>
   </component>
 </project>
