@@ -3,19 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FoodLocation.iml" filepath="$PROJECT_DIR$/FoodLocation.iml" />
-<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-=======
-<<<<<<< HEAD
-      <module fileurl="file://$PROJECT_DIR$/../../../../../../TRILE/Documents/GitHub/ChuyenDe2/Codes/FoodLocation/FoodLocation.iml" filepath="$PROJECT_DIR$/../../../../../../TRILE/Documents/GitHub/ChuyenDe2/Codes/FoodLocation/FoodLocation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../../../../TRILE/Documents/GitHub/ChuyenDe2/Codes/FoodLocation/app/app.iml" filepath="$PROJECT_DIR$/../../../../../../TRILE/Documents/GitHub/ChuyenDe2/Codes/FoodLocation/app/app.iml" />
-=======
-      <module fileurl="file://C:\Users\TRILE\Documents\GitHub\ChuyenDe2\Codes\FoodLocation\FoodLocation.iml" filepath="C:\Users\TRILE\Documents\GitHub\ChuyenDe2\Codes\FoodLocation\FoodLocation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\TRILE\Documents\GitHub\ChuyenDe2\Codes\FoodLocation\app\app.iml" filepath="C:\Users\TRILE\Documents\GitHub\ChuyenDe2\Codes\FoodLocation\app\app.iml" />
->>>>>>> bd1615917f0a1f56e250a6bd78f51b2a994d3e7f
->>>>>>> 5429f1876033884cab17ea27f9bf0174d2735eec
     </modules>
   </component>
 </project>

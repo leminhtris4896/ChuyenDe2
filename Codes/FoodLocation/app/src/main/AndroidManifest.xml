@@ -59,13 +59,6 @@
             android:theme="@style/title_bar" />
         <activity
             android:name=".ManagerPost"
-<<<<<<< HEAD
-
-            android:theme="@style/title_bar" />
-
-
-=======
->>>>>>> bd1615917f0a1f56e250a6bd78f51b2a994d3e7f
             android:theme="@style/title_bar" />/>
         <activity
             android:name=".SlideShowStar"
