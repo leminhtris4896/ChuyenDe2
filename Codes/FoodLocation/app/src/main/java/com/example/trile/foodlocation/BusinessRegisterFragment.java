@@ -207,11 +207,14 @@ public class BusinessRegisterFragment extends Fragment {
                                     @Override
                                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                                         mdPost mdPost = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdPost.class);
-                                        arrayListKeyPost.add(mdPost.getPostID());
-                                        arrayListUserStatusPost.clear();
-                                        for (int i = 0; i < arrayListKeyPost.size(); i++) {
-                                            mdUserStatusPost mdUserStatusPost = new mdUserStatusPost(arrayListKeyPost.get(i), false, false);
+                                        if (arrayListUserStatusPost.size() == 0) {
+                                            mdUserStatusPost mdUserStatusPost = new mdUserStatusPost(mdPost.getPostID(),false,false);
                                             arrayListUserStatusPost.add(mdUserStatusPost);
+                                        } else {
+                                            if (ktTrungPost(arrayListUserStatusPost, mdBusiness.getStrID()) == false) {
+                                                mdUserStatusPost mdUserStatusPost = new mdUserStatusPost(mdPost.getPostID(),false,false);
+                                                arrayListUserStatusPost.add(mdUserStatusPost);
+                                            }
                                         }
                                         //arrayListUserStatusRate.clear();
                                         mData.child("Business").addChildEventListener(new ChildEventListener() {
@@ -224,7 +227,7 @@ public class BusinessRegisterFragment extends Fragment {
                                                     mdUserStatusRate userStatusRate = new mdUserStatusRate(mdBusiness.getStrID(), "0", false);
                                                     arrayListUserStatusRate.add(userStatusRate);
                                                 } else {
-                                                    if (ktTrung(arrayListUserStatusRate, mdBusiness.getStrID()) == false) {
+                                                    if (ktTrungRate(arrayListUserStatusRate, mdBusiness.getStrID()) == false) {
                                                         mdUserStatusRate userStatusRate = new mdUserStatusRate(mdBusiness.getStrID(), "0", false);
                                                         arrayListUserStatusRate.add(userStatusRate);
                                                     }
@@ -296,10 +299,20 @@ public class BusinessRegisterFragment extends Fragment {
         return view;
     }
 
-    public boolean ktTrung(ArrayList<mdUserStatusRate> strings, String chuoi) {
+    public boolean ktTrungRate(ArrayList<mdUserStatusRate> strings, String chuoi) {
         boolean kt = false;
         for (int i = 0; i < strings.size(); i++) {
             if (strings.get(i).getStrIDBusiness().equalsIgnoreCase(chuoi)) {
+                kt = true;
+            }
+        }
+        return kt;
+    }
+
+    public boolean ktTrungPost(ArrayList<mdUserStatusPost> strings, String chuoi) {
+        boolean kt = false;
+        for (int i = 0; i < strings.size(); i++) {
+            if (strings.get(i).getStrIDPost().equalsIgnoreCase(chuoi)) {
                 kt = true;
             }
         }
