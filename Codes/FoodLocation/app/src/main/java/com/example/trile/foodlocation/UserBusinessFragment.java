@@ -23,6 +23,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -37,7 +39,7 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class UserBusinessFragment extends Fragment {
 
-    LinearLayout personal, manager,comment, aboutus, logout, change_password;
+    LinearLayout personal, manager, comment, aboutus, logout, change_password;
     // Authencation
     private FirebaseAuth mAuth;
     private Dialog dialog;
@@ -153,64 +155,71 @@ public class UserBusinessFragment extends Fragment {
                     dialogChangePass.show();
                     final EditText edtPass = (EditText) dialogChangePass.findViewById(R.id.edt_pass_change);
                     final EditText edtPassAgaint = (EditText) dialogChangePass.findViewById(R.id.edt_pass_change_againt);
-                    Button btnChange = (Button) dialogChangePass.findViewById(R.id.btn_change_pass);
+                    final Button btnChange = (Button) dialogChangePass.findViewById(R.id.btn_change_pass);
                     TextView tvCloseComment = dialogChangePass.findViewById(R.id.tvExitComment);
                     final EditText oldPass = (EditText) dialogChangePass.findViewById(R.id.edt_pass_old);
                     // Click button accept change password
-                    btnChange.setOnClickListener(new View.OnClickListener() {
+
+                    final FirebaseUser user;
+                    user = FirebaseAuth.getInstance().getCurrentUser();
+                    final String email = user.getEmail();
+                    AuthCredential credential = EmailAuthProvider.getCredential(email, oldPass.getText().toString());
+                    user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
-                        public void onClick(View view) {
-                            if (!edtPass.getText().toString().trim().equalsIgnoreCase(edtPassAgaint.getText().toString().trim())) {
-                                edtPassAgaint.setError("Nhập lại không khớp");
-                            }else if (edtPass.getText().toString() == "" || edtPassAgaint.getText().toString() == "") {
-                                Toast.makeText(getContext(), "Điền đầy đủ", Toast.LENGTH_SHORT).show();
-                            }else {
-                                mData.child("Users").addChildEventListener(new ChildEventListener() {
-                                    @Override
-                                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                        final mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
-                                        if ( mdUser.getUserMail().equalsIgnoreCase(mAuth.getCurrentUser().getEmail()))
-                                        {
-                                            if ( mdUser.getUserPass().equalsIgnoreCase(oldPass.getText().toString()))
-                                            {
-                                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                                user.updatePassword(edtPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            dialogChangePass.dismiss();
-                                                            mData.child("Users").child(mdUser.getUserID()).child("userPass").setValue(oldPass.getText().toString());
-                                                            Toast.makeText(getContext(), "Thay đổi thành công", Toast.LENGTH_SHORT).show();
-                                                        } else {
-                                                            Toast.makeText(getContext(), "Thay đổi thất bại", Toast.LENGTH_SHORT).show();
-                                                        }
+                        public void onComplete(@NonNull Task<Void> task) {
+                            btnChange.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (!edtPass.getText().toString().trim().equalsIgnoreCase(edtPassAgaint.getText().toString().trim())) {
+                                        edtPassAgaint.setError("Nhập lại không khớp");
+                                    } else if (edtPass.getText().toString() == "" || edtPassAgaint.getText().toString() == "") {
+                                        Toast.makeText(getContext(), "Điền đầy đủ", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        mData.child("Users").addChildEventListener(new ChildEventListener() {
+                                            @Override
+                                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                                final mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
+                                                if (mdUser.getUserMail().equalsIgnoreCase(mAuth.getCurrentUser().getEmail())) {
+                                                    if (mdUser.getUserPass().equalsIgnoreCase(oldPass.getText().toString())) {
+                                                        user.updatePassword(edtPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    dialogChangePass.dismiss();
+                                                                    mData.child("Users").child(mdUser.getUserID()).child("userPass").setValue(oldPass.getText().toString());
+                                                                    Toast.makeText(getContext(), "Thay đổi thành công", Toast.LENGTH_SHORT).show();
+                                                                } else {
+                                                                    Toast.makeText(getContext(), "Thay đổi thất bại", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
+                                                        });
                                                     }
-                                                });
+                                                }
                                             }
-                                        }
+
+                                            @Override
+                                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                            }
+
+                                            @Override
+                                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                            }
+
+                                            @Override
+                                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
                                     }
-
-                                    @Override
-                                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                                    }
-
-                                    @Override
-                                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                                    }
-
-                                    @Override
-                                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-                            }
+                                }
+                            });
                         }
                     });
                 }

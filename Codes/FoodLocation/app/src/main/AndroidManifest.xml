@@ -58,7 +58,10 @@
             android:theme="@style/title_bar" />
         <activity
             android:name=".ManagerPost"
-            android:theme="@style/title_bar" />/>
+
+            android:theme="@style/title_bar" />
+
+        
         <activity
             android:name=".SlideShowStar"
             android:theme="@style/title_bar">
