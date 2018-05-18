@@ -56,7 +56,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
-                    android:text="74/2/6 , Linh Đông , Thủ Đức"
+                    android:maxWidth="230dp"
+                    android:maxHeight="20dp"
+                    android:text="74/2/6 , Linh Đông , Thủ Đức jskjskdjskdsjdksjjdskdjsksds"
                     android:textColor="@color/tv_address" />
 
                 <TextView
