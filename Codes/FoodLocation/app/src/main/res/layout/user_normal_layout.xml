@@ -10,6 +10,39 @@
         android:background="@color/bg_main"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/linear_edit_personal"
+            style="@style/choosen_user"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="12"
+                android:gravity="center|left">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_text_infor"/>
+                <TextView
+                    style="@style/text_user"
+                    android:text="Cập nhật thông tin"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right">
+
+                <ImageView
+                    style="@style/img_user"
+                    android:src="@drawable/ic_next_personal"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linear_change_passwork"
