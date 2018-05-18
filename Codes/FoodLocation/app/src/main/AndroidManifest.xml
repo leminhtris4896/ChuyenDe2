@@ -37,7 +37,6 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/title_bar">
-
         </activity>
         <activity
             android:name=".AddProductActivity"
@@ -72,7 +71,9 @@
         <activity
             android:name=".UpdatePost"
             android:theme="@style/title_bar" />
-        <activity android:name=".UpdateProduct"></activity>
+        <activity
+            android:name=".UpdateProduct"
+            android:theme="@style/title_bar" ></activity>
     </application>
 
 </manifest>

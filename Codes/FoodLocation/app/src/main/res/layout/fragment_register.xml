@@ -12,7 +12,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.2"
+            android:layout_weight="1"
             android:gravity="center">
 
             <RadioGroup
@@ -45,7 +45,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.4"
+            android:layout_weight="2"
             android:gravity="center">
 
             <ImageView
@@ -58,21 +58,9 @@
             android:id="@+id/frame_type_login"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"></FrameLayout>
+            android:layout_weight="10"></FrameLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:layout_weight="0.2">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Trang chủ"
-                android:textColor="@android:color/white"/>
-
-        </LinearLayout>
 
     </LinearLayout>
 

@@ -54,15 +54,6 @@ public class LoginFragment extends Fragment {
         btn_login = (Button) view.findViewById(R.id.btn_login);
         edtMail = (EditText) view.findViewById(R.id.edt_mail_login);
         edtPass = (EditText) view.findViewById(R.id.edt_pass_login);
-        next_no_login = (TextView) view.findViewById(R.id.next_no_login);
-
-        next_no_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(),HomeActivity.class);
-                startActivity(intent);
-            }
-        });
 
         //Get Firebase
         mAuth = FirebaseAuth.getInstance();

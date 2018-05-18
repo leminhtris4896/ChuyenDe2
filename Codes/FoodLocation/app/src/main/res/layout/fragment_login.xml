@@ -49,22 +49,6 @@
                 android:text="@string/button_login"
                 style="@style/btn_custom"/>
 
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:layout_weight="0.2">
-
-            <TextView
-                android:id="@+id/next_no_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Trang chủ"
-                android:textColor="@android:color/white"/>
-
         </LinearLayout>
 
     </LinearLayout>

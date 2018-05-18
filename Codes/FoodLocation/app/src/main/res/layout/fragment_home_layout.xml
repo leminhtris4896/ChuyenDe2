@@ -48,17 +48,6 @@
                                 android:textColor="@color/bg_login"
                                 android:text="@string/home_tv_toplocation"/>
                         </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right">
-                            <TextView
-                                android:id="@+id/tv_next_add"
-                                style="@style/text_title"
-                                android:text="@string/home_tv_add_toplocation"
-                                android:textColor="@color/bg_login"/>
-                        </LinearLayout>
 
                     </LinearLayout>
 

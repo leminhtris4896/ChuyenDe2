@@ -118,7 +118,7 @@
                                     android:drawablePadding="5dp"
                                     android:gravity="center"
                                     android:text="4.5"
-                                    android:textColor="@color/vote"
+                                    android:textColor="@color/vote_rating"
                                     android:textSize="20dp"
                                     android:textStyle="bold" />
 
@@ -161,21 +161,6 @@
                                     android:textSize="15sp"
                                     android:layout_marginTop="30dp"
                                     android:textColor="@android:color/white"/>
-
-                                <TextView
-                                    android:id="@+id/btn_comment"
-                                    android:layout_width="110dp"
-                                    android:layout_height="40dp"
-                                    android:background="@mipmap/bg_chat"
-                                    android:gravity="center"
-                                    android:drawableLeft="@drawable/support"
-                                    android:padding="10dp"
-                                    android:text="Bình luận"
-                                    android:textSize="15sp"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginTop="30dp"
-                                    android:textColor="@android:color/white"/>
-
 
                             </LinearLayout>
 
