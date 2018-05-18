@@ -119,6 +119,9 @@ public class PlaceFragment extends Fragment {
                         }else if (posision == 5 && business.getStrBusinessType().equalsIgnoreCase("Quán nhậu")) {
                             arrProductPlace.add(new mdBusiness(business.getStrID(),business.getStrEmail(),business.getStrPass(),business.getStrImage(),business.getStrName(),business.getStrPhone(),business.getStrAddress(),business.getStrBusinessType(),business.getStrOpenTime(),business.getStrScoreRating(),business.getArrayListProductList(),business.getStrListCommentList(),business.getDbLatitude(),business.getDbLongitude(),business.getnNumberRate()));
                             adapterMenuPlace.notifyDataSetChanged();
+                        }else if (posision == 1 && business.getnNumberRate() >= 4.0) {
+                            arrProductPlace.add(new mdBusiness(business.getStrID(),business.getStrEmail(),business.getStrPass(),business.getStrImage(),business.getStrName(),business.getStrPhone(),business.getStrAddress(),business.getStrBusinessType(),business.getStrOpenTime(),business.getStrScoreRating(),business.getArrayListProductList(),business.getStrListCommentList(),business.getDbLatitude(),business.getDbLongitude(),business.getnNumberRate()));
+                            adapterMenuPlace.notifyDataSetChanged();
                         }
                     }
 

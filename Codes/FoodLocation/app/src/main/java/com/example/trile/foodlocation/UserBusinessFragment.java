@@ -64,7 +64,6 @@ public class UserBusinessFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         personal = (LinearLayout) view.findViewById(R.id.linear_personal);
         manager = (LinearLayout) view.findViewById(R.id.linear_product_manager);
-        comment = (LinearLayout) view.findViewById(R.id.linear_comment_manager);
         aboutus = (LinearLayout) view.findViewById(R.id.linear_aboutus);
         logout = (LinearLayout) view.findViewById(R.id.linear_logout);
         change_password = (LinearLayout) view.findViewById(R.id.linear_change_passwork);

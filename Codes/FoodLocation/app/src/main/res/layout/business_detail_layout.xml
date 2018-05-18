@@ -86,7 +86,7 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="40dp"
+                                android:layout_height="100dp"
                                 android:gravity="center"
                                 android:orientation="horizontal">
 
@@ -101,12 +101,12 @@
                                         android:id="@+id/tv_business_name"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textColor="@color/colorAccent"
-                                        android:drawablePadding="5dp"
                                         android:drawableLeft="@drawable/title_size"
-                                        android:textStyle="bold"
+                                        android:drawablePadding="5dp"
                                         android:text="Trà Sữa BopBy"
-                                        android:textSize="22sp" />
+                                        android:textColor="@color/colorAccent"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
 
                                 </LinearLayout>
 
@@ -211,12 +211,14 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/near_detail_business"
                             style="@style/text_detail"
                             android:textColor="@android:color/black"
                             android:text="Khoảng cách : 3 km"
                             android:drawableLeft="@drawable/near"/>
 
                         <TextView
+                            android:id="@+id/adress_detail"
                             style="@style/text_detail"
                             android:textColor="@color/adrress"
                             android:text="74/2/6 Đường 6 , P.Linh Đông , Quận Thủ Đức "
@@ -227,7 +229,7 @@
                             android:layout_marginTop="10dp"
                             android:name="com.google.android.gms.maps.SupportMapFragment"
                             android:layout_width="match_parent"
-                            android:layout_height="150dp"/>
+                            android:layout_height="300dp"/>
 
                     </LinearLayout>
                 </LinearLayout>

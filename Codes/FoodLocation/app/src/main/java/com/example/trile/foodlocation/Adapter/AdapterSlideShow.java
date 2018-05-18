@@ -30,18 +30,27 @@ public class AdapterSlideShow extends PagerAdapter {
             R.drawable.img_show_food,
             R.drawable.img_show_earth,
             R.drawable.img_show_gps,
+            R.drawable.restaurant,
+            R.drawable.exchange,
+            R.drawable.store
     };
 
     public String[] slide_title = {
             "FOOD",
             "SEARCH",
-            "MAP"
+            "MAP",
+            "VIEW",
+            "UPDATE",
+            "BUSINESS"
     };
 
     public String[] slide_content = {
-            "Các địa điểm ăn , uống , nhậu nhẹt tất cả đều có , chỉ cần bạn có tiền đi đâu cũng có thể",
-            "Tìm kiếm các địa điểm ăn uống trên Google Map . Chỉ cần tìm kiếm khu vực thì mọi quán ăn sẽ hiển thị",
-            "Lấy được vị trí hiện tại của bạn ( GPS ) hiển thị ra các địa điểm gần bạn, gần bạn nhất"
+            "Mọi của hàng , quán ăn , quán nước đều có , chỉ cần xem là có hết",
+            "Tìm kiếm các quán chuyện nhỏ , đầy đủ các loại hình",
+            "Bắt được vị trí của bạn , hiển thị các quán ở gần bạn nhất",
+            "Bạn sẽ xem được những địa điểm tốt nhất , tìm kiếm các quán ăn , khu vực gần bạn dễ dàng nhất",
+            "Bạn sẽ cập nhật được những tin tức , sản phẩm , cũng như địa điểm mới , hoặc khuyến mãi tại các quán",
+            "Doanh nghiệp có thể tạo tài khoản , và quảng cáo sản phẩm cửa hàng của mình cũng như là quảng cáo buôn bán"
     };
 
     @Override

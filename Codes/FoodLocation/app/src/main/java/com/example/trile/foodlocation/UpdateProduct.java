@@ -85,6 +85,13 @@ public class UpdateProduct extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
+        tvClodeUpdateProduct = (TextView) findViewById(R.id.tvCloseUpdateProduct);
+        tvClodeUpdateProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         // khởi tạo các phần tử
         Init();

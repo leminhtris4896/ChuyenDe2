@@ -2,23 +2,34 @@ package com.example.trile.foodlocation;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.trile.foodlocation.Models.mdBusiness;
 import com.example.trile.foodlocation.Models.mdUser;
 import com.example.trile.foodlocation.Models.mdUserStatusRate;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,9 +40,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class BusinessDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class BusinessDetailActivity extends AppCompatActivity implements OnMapReadyCallback , LocationListener {
     private ImageView BusinessImage;
     private TextView BusinessName;
     private TextView Rating;
@@ -40,10 +53,18 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
     private TextView tvCall;
     public RatingBar ratingBar;
     private TextView tvNumberRating;
+    private TextView adress_detail;
     private TextView tvVote;
     Intent intent;
     Bundle bundle;
+    private TextView near_detail_business;
     private TextView btnCloseDetailBusiness;
+
+
+    public double langtitude;
+    public double longitude;
+    //
+    private LocationManager locationManager;
 
     DatabaseReference databaseReference;
 
@@ -54,6 +75,9 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
     Double Vote = 0.0;
 
     Double TempVote = 0.0;
+    private LatLng latLng;
+
+    GoogleMap mMap;
 
     ArrayList<mdUser> arrayListUser = new ArrayList<>();
 
@@ -65,6 +89,37 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         Init();
+        adress_detail = (TextView) findViewById(R.id.adress_detail);
+        near_detail_business = (TextView) findViewById(R.id.near_detail_business);
+
+        // DISPLAY MAP DETAIL BUSINESS
+        String location = BusinessAddress.getText().toString();
+        Geocoder geocoder = new Geocoder(BusinessDetailActivity.this);
+
+        List<Address> arrAdress = new ArrayList<>();
+        try {
+            arrAdress = geocoder.getFromLocationName(location,1);
+        }catch (IOException e) {
+            e.getMessage();
+        }
+        if (arrAdress.size() > 0) {
+            Address address = arrAdress.get(0);
+            latLng = new LatLng(address.getLatitude(),address.getLongitude());
+        }
+
+
+
+        // NEAR
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        Location locations = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+        onLocationChanged(locations);
 
         btnCloseDetailBusiness = (TextView) findViewById(R.id.btnCloseDetailBusiness);
 
@@ -302,13 +357,13 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng sydney = new LatLng(10.850789, 106.758846);
-        //LatLng sydney = new LatLng(-33.852, 151.211);
+//        LatLng sydney = new LatLng(10.850789, 106.758846);
+//        //LatLng sydney = new LatLng(-33.852, 151.211);
 
-        googleMap.addMarker(new MarkerOptions().position(sydney)
-                .title("Nhóm 3")
-                .snippet("Trường Cao Đẳng Công Nghệ Thủ Đức"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
+        googleMap.addMarker(new MarkerOptions().position(latLng)
+                .title(BusinessName.getText().toString())
+                .snippet("Chào mứng bạn"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
     }
 
     public void loadDetailItemBusiness() {
@@ -396,4 +451,26 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
         return kt;
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        //remove location callback:
+        locationManager.removeUpdates(this);
+        langtitude = location.getLatitude();
+        longitude = location.getLongitude();
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
 }

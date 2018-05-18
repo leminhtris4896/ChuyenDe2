@@ -29,6 +29,8 @@ public class ProductManagerActivity extends AppCompatActivity {
     DatabaseReference mData;
     FirebaseAuth firebaseAuth;
 
+    private TextView tvCloseManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,13 @@ public class ProductManagerActivity extends AppCompatActivity {
         mData = FirebaseDatabase.getInstance().getReference();
 
         firebaseAuth = FirebaseAuth.getInstance();
+        tvCloseManager = (TextView) findViewById(R.id.tvCloseManager);
+        tvCloseManager.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         recyclerViewProDuct = (RecyclerView) findViewById(R.id.recyclerProductManager);
 

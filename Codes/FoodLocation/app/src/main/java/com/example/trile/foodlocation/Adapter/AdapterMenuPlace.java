@@ -38,7 +38,7 @@ public class AdapterMenuPlace extends RecyclerView.Adapter<AdapterMenuPlace.View
     //
     private LocationManager locationManager;
 
-    private final static int FADE_DURATION = 3000;
+    private final static int FADE_DURATION = 1000;
 
     public AdapterMenuPlace(ArrayList<mdBusiness> arrTopLocation, Context context) {
         this.arrBusiness = arrTopLocation;

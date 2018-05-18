@@ -134,8 +134,7 @@ public class AddProductActivity extends AppCompatActivity {
         tvCloseAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent closeAdd = new Intent(AddProductActivity.this, ProductManagerActivity.class);
-                startActivity(closeAdd);
+                finish();
             }
         });
 
