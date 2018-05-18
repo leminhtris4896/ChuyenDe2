@@ -38,6 +38,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
     private Dialog dialogAcceptDelete;
     private Button btn_Yes_Delete_Product;
     private Button btn_No_Delete_Product;
+    ArrayList<mdProduct> arrayNewProduct;
 
     public AdapterProduct(ArrayList<mdProduct> mdProducts, Context context) {
         this.mdProducts = mdProducts;
@@ -91,11 +92,13 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                                 mdBusiness mdBusiness = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdBusiness.class);
                                 if (mAuth.getCurrentUser().getEmail().equalsIgnoreCase(mdBusiness.getStrEmail())) {
-                                    for (int i = 0; i < mdBusiness.getArrayListProductList().size(); i++) {
-                                        if (mdBusiness.getArrayListProductList().get(i).getStrID().equalsIgnoreCase(mdProduct.getStrID())) {
-                                            mData.child("Business").child(mdBusiness.getStrID()).child("arrayListProductList").child(i+"").removeValue();
+                                    arrayNewProduct = mdBusiness.getArrayListProductList();
+                                    for (int i = 0; i < arrayNewProduct.size(); i++) {
+                                        if (arrayNewProduct.get(i).getStrID().equalsIgnoreCase(mdProduct.getStrID())) {
+                                            arrayNewProduct.remove(i);
                                         }
                                     }
+                                    mData.child("Business").child(mdBusiness.getStrID()).child("arrayListProductList").setValue(arrayNewProduct);
                                     Toast.makeText(context, "Xóa sản phẩm thành công !", Toast.LENGTH_SHORT).show();
                                 }
                             }

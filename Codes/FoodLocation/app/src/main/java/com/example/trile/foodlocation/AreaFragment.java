@@ -2,6 +2,7 @@ package com.example.trile.foodlocation;
 
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -93,6 +94,8 @@ public class AreaFragment extends Fragment implements OnMapReadyCallback, Google
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
             new LatLng(-40, -168), new LatLng(71, 136));
 
+
+    private DatabaseReference mData;
     //
     public AreaFragment() {
         // Required empty public constructor
@@ -112,6 +115,7 @@ public class AreaFragment extends Fragment implements OnMapReadyCallback, Google
         //getActivity().getActionBar().hide();
         View view = inflater.inflate(R.layout.fragment_area, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        mData = FirebaseDatabase.getInstance().getReference();
         edtSearchMap = (AutoCompleteTextView) view.findViewById(R.id.edt_search_map);
         imgSetGPSLocation = (ImageView) view.findViewById(R.id.img_set_gps);
         arrBusiness = new ArrayList<>();
@@ -302,12 +306,40 @@ public class AreaFragment extends Fragment implements OnMapReadyCallback, Google
             arrBusiness = new ArrayList<mdBusiness>();
             googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                 @Override
-                public void onInfoWindowClick(Marker marker) {
-//                    Intent myIntent = new Intent(getContext(), BusinessDetailActivity.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("detailBusiness", arrBusiness.getStrName());
-//                    myIntent.putExtra("bundle", bundle);
-//                    getContext().startActivity(myIntent);
+                public void onInfoWindowClick(final Marker marker) {
+                    mData.child("Business").addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            mdBusiness mdBusiness = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdBusiness.class);
+                            Intent myIntent = new Intent(getContext(), BusinessDetailActivity.class);
+                            if (marker.getTitle().equalsIgnoreCase(mdBusiness.getStrName())) {
+                                Bundle bundle = new Bundle();
+                                bundle.putString("detailBusiness", mdBusiness.getStrID());
+                                myIntent.putExtra("bundle", bundle);
+                                getContext().startActivity(myIntent);
+                            }
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             });
 

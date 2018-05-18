@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.trile.foodlocation.Models.mdPost;
 import com.example.trile.foodlocation.Models.mdUser;
+import com.example.trile.foodlocation.Models.mdUserStatusPost;
 import com.example.trile.foodlocation.R;
 import com.example.trile.foodlocation.UpdatePost;
 import com.google.firebase.database.ChildEventListener;
@@ -32,6 +33,7 @@ public class AdapterManagerPostShow extends RecyclerView.Adapter<AdapterManagerP
     private Button btn_Yes_Delete_Post;
     private Button btn_No_Delete_Post;
     private DatabaseReference mData;
+    ArrayList<mdUserStatusPost> userStatusPosts ;
 
     public AdapterManagerPostShow(ArrayList<mdPost> postArrayList, Context context) {
         this.postArrayList = postArrayList;
@@ -65,6 +67,8 @@ public class AdapterManagerPostShow extends RecyclerView.Adapter<AdapterManagerP
         holder.tv_name_post_manager.setText(arrayPost.getNameProduct());
         holder.tv_description_post_manager.setText(arrayPost.getDescriptionProduct());
         holder.tv_address_post_manager.setText("Bài đăng thuộc doanh nghiệp " + arrayPost.getLienKetDiaDiem());
+
+
         holder.imageViewDeletePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,20 +82,31 @@ public class AdapterManagerPostShow extends RecyclerView.Adapter<AdapterManagerP
                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                                 final mdPost mdPost = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdPost.class);
                                 if (mdPost.getPostID().equalsIgnoreCase(postArrayList.get(position).getPostID())) {
-                                    mData.child("Post").child(mdPost.getPostID()).removeValue();
-                                    dialogAcceptDelete.dismiss();
-
                                     mData.child("Users").addChildEventListener(new ChildEventListener() {
                                         @Override
                                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                                             mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
-                                            for ( int i = 0; i < mdUser.getArrayListUserStatusPost().size(); i++)
+                                            userStatusPosts = new ArrayList<>();
+                                            userStatusPosts = mdUser.getArrayListUserStatusPost();
+                                            dialogAcceptDelete.dismiss();
+                                            for (int i = 0; i < userStatusPosts.size(); i++)
+                                            {
+                                                if (userStatusPosts.get(i).getStrIDPost().equalsIgnoreCase(mdPost.getPostID()))
+                                                {
+                                                    userStatusPosts.remove(i);
+                                                }
+                                            }
+                                            mData.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusPost").setValue(userStatusPosts);
+                                            mData.child("Post").child(mdPost.getPostID()).removeValue();
+                                            /*for ( int i = 0; i < mdUser.getArrayListUserStatusPost().size(); i++)
                                             {
                                                 if ( mdUser.getArrayListUserStatusPost().get(i).getStrIDPost().equalsIgnoreCase(mdPost.getPostID()))
                                                 {
                                                     mData.child("Users").child(mdUser.getUserID()).child("arrayListUserStatusPost").child(i+"").removeValue();
+
                                                 }
                                             }
+                                            mData.child("Post").child(mdPost.getPostID()).removeValue();*/
                                         }
 
                                         @Override

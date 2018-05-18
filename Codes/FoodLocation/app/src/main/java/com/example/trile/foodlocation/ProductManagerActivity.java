@@ -57,8 +57,8 @@ public class ProductManagerActivity extends AppCompatActivity {
                     for (int i = 0; i < mdBusiness.getArrayListProductList().size(); i++) {
                         mdProduct mdProduct = new mdProduct(mdBusiness.getArrayListProductList().get(i).getStrProductName(), mdBusiness.getArrayListProductList().get(i).getStrDescription(), mdBusiness.getArrayListProductList().get(i).getnPrice(), mdBusiness.getArrayListProductList().get(i).getStrURLImage(),mdBusiness.getArrayListProductList().get(i).getStrID());
                         mdProducts.add(mdProduct);
-                        adapterProduct.notifyItemRangeInserted(adapterProduct.getItemCount(), mdProducts.size());
                     }
+                    adapterProduct.notifyDataSetChanged();
                 }
             }
 
