@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 public class PostDetailActivity extends AppCompatActivity  {
 
     private TextView tvCall;
@@ -31,6 +33,7 @@ public class PostDetailActivity extends AppCompatActivity  {
     private TextView postName;
     private TextView postContent;
     private TextView postAddress;
+    private TextView tvCLodeDetailPost;
 
     Intent intent;
     Bundle bundle;
@@ -53,8 +56,17 @@ public class PostDetailActivity extends AppCompatActivity  {
             }
         });
         iniṭ();
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
         loadDetailItemPost();
+
+        tvCLodeDetailPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     public void iniṭ()
@@ -63,6 +75,7 @@ public class PostDetailActivity extends AppCompatActivity  {
         postName = (TextView) findViewById(R.id.tvPostName);
         postContent = (TextView) findViewById(R.id.tvPostContent);
         postAddress = (TextView) findViewById(R.id.tvPostAddress);
+        tvCLodeDetailPost = (TextView) findViewById(R.id.tvCloseDetailPost);
     }
     public void loadDetailItemPost() {
         intent = getIntent();

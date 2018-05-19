@@ -179,6 +179,8 @@ public class AddProductActivity extends AppCompatActivity {
                                     productArrayList.add(newProduct);
                                     mData.child("Business").child(mdBusiness.getStrID()).child("arrayListProductList").setValue(productArrayList);
 
+                                    Toast.makeText(AddProductActivity.this, "Thêm món thành công ", Toast.LENGTH_SHORT).show();
+
                                     tv_name_product_add.setText("");
                                     tv_description_product_add.setText("");
                                     tv_price_product_add.setText("");

@@ -179,6 +179,8 @@ public class AddPost extends AppCompatActivity {
                         final mdPost mdPost = new mdPost(keyNewPost, edtPostName.getText().toString(), edtPostDescription.getText().toString(), uri + "", "0", "0", "0", spinnerBusiness.getSelectedItem().toString(), mdComments);
                         mData.child("Post").child(keyNewPost).setValue(mdPost);
 
+                        Toast.makeText(AddPost.this, "Thêm bài đăng thành công ", Toast.LENGTH_SHORT).show();
+
                         // Clear layout resource
 
                         edtPostDescription.setText("");

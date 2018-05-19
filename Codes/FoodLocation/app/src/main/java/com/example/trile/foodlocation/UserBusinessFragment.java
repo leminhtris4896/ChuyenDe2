@@ -39,7 +39,7 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class UserBusinessFragment extends Fragment {
 
-    LinearLayout personal, manager, comment, aboutus, logout, change_password;
+    LinearLayout personal, manager, aboutus, logout, change_password;
     // Authencation
     private FirebaseAuth mAuth;
     private Dialog dialog;
@@ -73,19 +73,6 @@ public class UserBusinessFragment extends Fragment {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
         dialog.setContentView(R.layout.dialog_login_request);
         dialog.setCanceledOnTouchOutside(false); // NO LICK OUTSIDE DIALOG
-
-        comment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // DIALOG COMMENT MANAGER
-                dialogCommentManager = new Dialog(getContext());
-                dialogCommentManager.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
-                dialogCommentManager.setContentView(R.layout.dialog_comment_of_business);
-                dialogCommentManager.setCanceledOnTouchOutside(false); // NO LICK OUTSIDE DIALOG
-                //
-                dialogCommentManager.show();
-            }
-        });
 
 
         // Click logout account

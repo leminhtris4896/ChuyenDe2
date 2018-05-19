@@ -1,6 +1,7 @@
 package com.example.trile.foodlocation;
 
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +12,6 @@ import android.widget.TextView;
 import com.example.trile.foodlocation.Adapter.AdapterProduct;
 import com.example.trile.foodlocation.Models.mdBusiness;
 import com.example.trile.foodlocation.Models.mdProduct;
-import com.example.trile.foodlocation.Models.mdUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class ProductManagerActivity extends AppCompatActivity {
+public class ProductManagerActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     private RecyclerView recyclerViewProDuct;
     private TextView tvAddProduct;
     private ArrayList<mdProduct> mdProducts;
@@ -30,6 +30,8 @@ public class ProductManagerActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
 
     private TextView tvCloseManager;
+
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,32 @@ public class ProductManagerActivity extends AppCompatActivity {
         recyclerViewProDuct.setHasFixedSize(true);
         recyclerViewProDuct.setLayoutManager(layoutManager);
 
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.SwipeManagerProduct);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
 
+        loadProduct();
+
+        tvAddProduct = (TextView) findViewById(R.id.tvAddProduct);
+        tvAddProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentAdd = new Intent(ProductManagerActivity.this, AddProductActivity.class);
+                startActivity(intentAdd);
+            }
+        });
+
+    }
+
+    @Override
+    public void onRefresh() {
+        loadProduct();
+    }
+
+    public void loadProduct() {
         mdProducts = new ArrayList<mdProduct>();
         adapterProduct = new AdapterProduct(mdProducts, this);
         recyclerViewProDuct.setAdapter(adapterProduct);
@@ -64,7 +91,7 @@ public class ProductManagerActivity extends AppCompatActivity {
                 if (firebaseAuth.getCurrentUser().getEmail().equalsIgnoreCase(mdBusiness.getStrEmail())) {
                     //mdProducts = mdBusiness.getArrayListProductList();
                     for (int i = 0; i < mdBusiness.getArrayListProductList().size(); i++) {
-                        mdProduct mdProduct = new mdProduct(mdBusiness.getArrayListProductList().get(i).getStrProductName(), mdBusiness.getArrayListProductList().get(i).getStrDescription(), mdBusiness.getArrayListProductList().get(i).getnPrice(), mdBusiness.getArrayListProductList().get(i).getStrURLImage(),mdBusiness.getArrayListProductList().get(i).getStrID());
+                        mdProduct mdProduct = new mdProduct(mdBusiness.getArrayListProductList().get(i).getStrProductName(), mdBusiness.getArrayListProductList().get(i).getStrDescription(), mdBusiness.getArrayListProductList().get(i).getnPrice(), mdBusiness.getArrayListProductList().get(i).getStrURLImage(), mdBusiness.getArrayListProductList().get(i).getStrID());
                         mdProducts.add(mdProduct);
                     }
                     adapterProduct.notifyDataSetChanged();
@@ -92,14 +119,7 @@ public class ProductManagerActivity extends AppCompatActivity {
 
             }
         });
-        tvAddProduct = (TextView) findViewById(R.id.tvAddProduct);
-        tvAddProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentAdd = new Intent(ProductManagerActivity.this, AddProductActivity.class);
-                startActivity(intentAdd);
-            }
-        });
 
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 }

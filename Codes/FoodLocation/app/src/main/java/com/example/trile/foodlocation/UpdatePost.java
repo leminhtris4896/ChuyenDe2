@@ -200,11 +200,8 @@ public class UpdatePost extends AppCompatActivity {
                                     mData.child("Post").child(mdPost.getPostID()).child("nameProduct").setValue(edtPostNameUpdate.getText().toString());
                                     mData.child("Post").child(mdPost.getPostID()).child("lienKetDiaDiem").setValue(spinnerBusinessUpdate.getSelectedItem().toString());
                                 }
+                                Toast.makeText(UpdatePost.this, "Cập nhật thành công ", Toast.LENGTH_SHORT).show();
                                 finish();
-                               /* edtPostNameUpdate.setText("");
-                                edtPostDescriptionUpdate.setText("");
-                                spinnerBusinessUpdate.setSelection(0);
-                                imgUpdatePost.setImageResource(R.mipmap.image);*/
                             }
 
                             @Override
