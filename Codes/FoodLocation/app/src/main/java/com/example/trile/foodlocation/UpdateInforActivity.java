@@ -221,6 +221,8 @@ public class UpdateInforActivity extends AppCompatActivity {
                                     mData.child("Business").child(mdBusiness.getStrID()).child("strName").setValue(tvUpdateNameBusiness.getText().toString());
                                     mData.child("Business").child(mdBusiness.getStrID()).child("strPhone").setValue(tvUpdatePhoneBusiness.getText().toString());
                                     mData.child("Business").child(mdBusiness.getStrID()).child("strOpenTime").setValue(tvUpdateTimeBusiness.getText().toString());
+
+                                    Toast.makeText(UpdateInforActivity.this, "Cập nhật thành công ", Toast.LENGTH_SHORT).show();
                                 }
                             }
 

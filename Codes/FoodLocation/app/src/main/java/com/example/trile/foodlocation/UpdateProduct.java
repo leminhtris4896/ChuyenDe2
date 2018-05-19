@@ -191,6 +191,8 @@ public class UpdateProduct extends AppCompatActivity {
                                             mData.child("Business").child(mdBusiness.getStrID()).child("arrayListProductList").child(i+"").child("strProductName").setValue(edtUpdateNameProduct.getText().toString());
                                             mData.child("Business").child(mdBusiness.getStrID()).child("arrayListProductList").child(i+"").child("strDescription").setValue(edtUpdateDescriptionProduct.getText().toString());
                                             mData.child("Business").child(mdBusiness.getStrID()).child("arrayListProductList").child(i+"").child("nPrice").setValue(Integer.parseInt(edtUpdatePriceProduct.getText().toString()));
+
+                                            Toast.makeText(UpdateProduct.this, "Cập nhật thành công ", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 }

@@ -2,17 +2,9 @@ package com.example.trile.foodlocation;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -20,17 +12,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.trile.foodlocation.Models.mdBusiness;
 import com.example.trile.foodlocation.Models.mdUser;
 import com.example.trile.foodlocation.Models.mdUserStatusRate;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,11 +30,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
+<<<<<<< HEAD
 public class BusinessDetailActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
+=======
+public class BusinessDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
+>>>>>>> 4c35ca26d072f1352e7eb3c7679bc4e50e626ae6
     private ImageView BusinessImage;
     private TextView BusinessName;
     private TextView Rating;
@@ -57,14 +48,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
     private TextView tvVote;
     Intent intent;
     Bundle bundle;
-    private TextView near_detail_business;
     private TextView btnCloseDetailBusiness;
-
-
-    public double langtitude;
-    public double longitude;
-    //
-    private LocationManager locationManager;
 
     DatabaseReference databaseReference;
 
@@ -75,12 +59,10 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
     Double Vote = 0.0;
 
     Double TempVote = 0.0;
-    private LatLng latLng;
-
-    GoogleMap mMap;
 
     ArrayList<mdUser> arrayListUser = new ArrayList<>();
 
+    private TextView tvListProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +71,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         Init();
+<<<<<<< HEAD
         near_detail_business = (TextView) findViewById(R.id.near_detail_business);
 
         // NEAR
@@ -103,6 +86,8 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
         onLocationChanged(locations);
         /// CALCULATOR
 
+=======
+>>>>>>> 4c35ca26d072f1352e7eb3c7679bc4e50e626ae6
 
         //
         btnCloseDetailBusiness = (TextView) findViewById(R.id.btnCloseDetailBusiness);
@@ -272,34 +257,6 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
             }
         });
 
-
-    /*    mData.child("Users").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
         SupportMapFragment mapFragmentDetail = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.myMapDetail);
         mapFragmentDetail.getMapAsync(BusinessDetailActivity.this);
         tvCall = (TextView) findViewById(R.id.btn_phone);
@@ -359,6 +316,15 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
             }
         });
 
+        tvListProduct = findViewById(R.id.tvListProduct);
+        tvListProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentList = new Intent(BusinessDetailActivity.this,ListProductActivity.class);
+                intentList.putExtra("name_business",BusinessName.getText().toString());
+                startActivity(intentList);
+            }
+        });
 
     }
 
@@ -377,6 +343,7 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+<<<<<<< HEAD
 
         //
 
@@ -398,6 +365,15 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
                 .snippet("Chào mừng bạn"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
+=======
+        LatLng sydney = new LatLng(10.850789, 106.758846);
+        //LatLng sydney = new LatLng(-33.852, 151.211);
+
+        googleMap.addMarker(new MarkerOptions().position(sydney)
+                .title("Nhóm 3")
+                .snippet("Trường Cao Đẳng Công Nghệ Thủ Đức"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
+>>>>>>> 4c35ca26d072f1352e7eb3c7679bc4e50e626ae6
     }
 
     public void loadDetailItemBusiness() {
@@ -485,26 +461,4 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
         return kt;
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        //remove location callback:
-        locationManager.removeUpdates(this);
-        langtitude = location.getLatitude();
-        longitude = location.getLongitude();
-    }
-
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String s) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
-
-    }
 }

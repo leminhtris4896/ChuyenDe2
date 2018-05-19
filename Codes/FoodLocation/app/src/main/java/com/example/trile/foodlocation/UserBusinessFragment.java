@@ -39,7 +39,7 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class UserBusinessFragment extends Fragment {
 
-    LinearLayout personal, manager, comment, aboutus, logout, change_password;
+    LinearLayout personal, manager, aboutus, logout, change_password;
     // Authencation
     private FirebaseAuth mAuth;
     private Dialog dialog;
