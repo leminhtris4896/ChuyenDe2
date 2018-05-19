@@ -128,8 +128,7 @@
                                 android:id="@+id/tvBusinessAddress"
                                 style="@style/text_detail"
                                 android:textColor="@color/tv_address"
-                                android:textStyle="bold"
-                                android:text="74/2/6 Đường 6 , P.Linh Đông , Quận Thủ Đức " />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/tv_workingtime"
@@ -216,13 +215,6 @@
                             android:textColor="@android:color/black"
                             android:text="Khoảng cách : 3 km"
                             android:drawableLeft="@drawable/near"/>
-
-                        <TextView
-                            android:id="@+id/adress_detail"
-                            style="@style/text_detail"
-                            android:textColor="@color/adrress"
-                            android:text="74/2/6 Đường 6 , P.Linh Đông , Quận Thủ Đức "
-                            android:drawableLeft="@drawable/map"/>
 
                         <fragment
                             android:id="@+id/myMapDetail"

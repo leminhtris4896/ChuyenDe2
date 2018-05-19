@@ -1,6 +1,7 @@
 package com.example.trile.foodlocation.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -20,6 +21,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.trile.foodlocation.BusinessDetailActivity;
 import com.example.trile.foodlocation.Models.mdBusiness;
 import com.example.trile.foodlocation.R;
 import com.squareup.picasso.Picasso;
@@ -53,7 +55,7 @@ public class AdapterMenuPlace extends RecyclerView.Adapter<AdapterMenuPlace.View
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED &&
@@ -88,11 +90,25 @@ public class AdapterMenuPlace extends RecyclerView.Adapter<AdapterMenuPlace.View
             //tvLocation.setText(a + "" + "M");
             holder.tvNear.setText(a + "" + "M");
         }
+
+        holder.img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(context, BusinessDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("detailBusiness", arrBusiness.get(position).getStrID());
+                myIntent.putExtra("bundle", bundle);
+                context.startActivity(myIntent);
+            }
+        });
+
         Picasso.with(context).load(arrBusiness.get(position).getStrImage()).into(holder.img);
         holder.tvName.setText(arrBusiness.get(position).getStrName());
         holder.tvAdd.setText(arrBusiness.get(position).getStrAddress());
         holder.tvTime.setText(arrBusiness.get(position).getStrOpenTime());
         holder.tvVote.setText(arrBusiness.get(position).getStrScoreRating());
+
+
 
         Animation animation = AnimationUtils.loadAnimation(context,R.anim.anim_listview_place);
         setFadeAnimation(holder.itemView);

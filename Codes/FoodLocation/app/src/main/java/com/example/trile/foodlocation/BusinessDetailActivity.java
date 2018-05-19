@@ -16,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -44,7 +45,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusinessDetailActivity extends AppCompatActivity implements OnMapReadyCallback , LocationListener {
+public class BusinessDetailActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
     private ImageView BusinessImage;
     private TextView BusinessName;
     private TextView Rating;
@@ -53,7 +54,6 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
     private TextView tvCall;
     public RatingBar ratingBar;
     private TextView tvNumberRating;
-    private TextView adress_detail;
     private TextView tvVote;
     Intent intent;
     Bundle bundle;
@@ -89,28 +89,9 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         Init();
-        adress_detail = (TextView) findViewById(R.id.adress_detail);
         near_detail_business = (TextView) findViewById(R.id.near_detail_business);
 
-        // DISPLAY MAP DETAIL BUSINESS
-        String location = BusinessAddress.getText().toString();
-        Geocoder geocoder = new Geocoder(BusinessDetailActivity.this);
-
-        List<Address> arrAdress = new ArrayList<>();
-        try {
-            arrAdress = geocoder.getFromLocationName(location,1);
-        }catch (IOException e) {
-            e.getMessage();
-        }
-        if (arrAdress.size() > 0) {
-            Address address = arrAdress.get(0);
-            latLng = new LatLng(address.getLatitude(),address.getLongitude());
-        }
-
-
-
         // NEAR
-
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED &&
@@ -120,7 +101,10 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
         }
         Location locations = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
         onLocationChanged(locations);
+        /// CALCULATOR
 
+
+        //
         btnCloseDetailBusiness = (TextView) findViewById(R.id.btnCloseDetailBusiness);
 
         btnCloseDetailBusiness.setOnClickListener(new View.OnClickListener() {
@@ -321,19 +305,55 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
         tvCall = (TextView) findViewById(R.id.btn_phone);
         final Dialog dialog = new Dialog(BusinessDetailActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); //before
+        dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(R.layout.dialog_callphone);
         tvCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.show();
                 TextView tvphone = (TextView) dialog.findViewById(R.id.ok_callphone);
+                TextView tvCLosePhone = (TextView) dialog.findViewById(R.id.tvExitComment);
+                tvCLosePhone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
                 tvphone.setOnClickListener(new View.OnClickListener() {
                     @SuppressLint("MissingPermission")
                     @Override
                     public void onClick(View view) {
-                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                        callIntent.setData(Uri.parse("tel:0985134519"));
-                        startActivity(callIntent);
+                        databaseReference.child("Business").addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                final mdBusiness mdBusiness = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdBusiness.class);
+                                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                                callIntent.setData(Uri.parse("tel: " + mdBusiness.getStrPhone()));
+                                startActivity(callIntent);
+                            }
+
+                            @Override
+                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                            }
+
+                            @Override
+                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
                     }
                 });
             }
@@ -357,13 +377,27 @@ public class BusinessDetailActivity extends AppCompatActivity implements OnMapRe
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-//        LatLng sydney = new LatLng(10.850789, 106.758846);
-//        //LatLng sydney = new LatLng(-33.852, 151.211);
 
+        //
+
+        String location = BusinessAddress.getText().toString().trim() + "";
+        Geocoder geocoder = new Geocoder(BusinessDetailActivity.this);
+
+        List<Address> arrAdress = new ArrayList<>();
+        try {
+            arrAdress = geocoder.getFromLocationName(location, 1);
+        } catch (IOException e) {
+            e.getMessage();
+        }
+        if (arrAdress.size() > 0) {
+            Address address = arrAdress.get(0);
+            latLng = new LatLng(address.getLatitude(), address.getLongitude());
+        }
         googleMap.addMarker(new MarkerOptions().position(latLng)
                 .title(BusinessName.getText().toString())
-                .snippet("Chào mứng bạn"));
+                .snippet("Chào mừng bạn"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+
     }
 
     public void loadDetailItemBusiness() {

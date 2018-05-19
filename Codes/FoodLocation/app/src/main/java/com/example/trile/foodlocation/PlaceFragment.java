@@ -67,6 +67,7 @@ public class PlaceFragment extends Fragment {
         spinnerPlace();
         // RecyclerView 1
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false);
+        layoutManager.removeAllViews();
         recyclePlace.setHasFixedSize(true);
         recyclePlace.setLayoutManager(layoutManager);
 
@@ -109,18 +110,23 @@ public class PlaceFragment extends Fragment {
 
                         if (posision == 0){
                             arrProductPlace.add(new mdBusiness(business.getStrID(),business.getStrEmail(),business.getStrPass(),business.getStrImage(),business.getStrName(),business.getStrPhone(),business.getStrAddress(),business.getStrBusinessType(),business.getStrOpenTime(),business.getStrScoreRating(),business.getArrayListProductList(),business.getStrListCommentList(),business.getDbLatitude(),business.getDbLongitude(),business.getnNumberRate()));
+                            recyclePlace.getRecycledViewPool().clear();
                             adapterMenuPlace.notifyDataSetChanged();
-                        }else if (posision == 4 && business.getStrBusinessType().equalsIgnoreCase("Quán ăn")){
+                        }else if (posision == 3 && business.getStrBusinessType().equalsIgnoreCase("Quán ăn")){
                             arrProductPlace.add(new mdBusiness(business.getStrID(),business.getStrEmail(),business.getStrPass(),business.getStrImage(),business.getStrName(),business.getStrPhone(),business.getStrAddress(),business.getStrBusinessType(),business.getStrOpenTime(),business.getStrScoreRating(),business.getArrayListProductList(),business.getStrListCommentList(),business.getDbLatitude(),business.getDbLongitude(),business.getnNumberRate()));
+                            recyclePlace.getRecycledViewPool().clear();
                             adapterMenuPlace.notifyDataSetChanged();
-                        }else if (posision == 3 && business.getStrBusinessType().equalsIgnoreCase("Quán nước")) {
+                        }else if (posision == 2 && business.getStrBusinessType().equalsIgnoreCase("Quán nước")) {
                             arrProductPlace.add(new mdBusiness(business.getStrID(),business.getStrEmail(),business.getStrPass(),business.getStrImage(),business.getStrName(),business.getStrPhone(),business.getStrAddress(),business.getStrBusinessType(),business.getStrOpenTime(),business.getStrScoreRating(),business.getArrayListProductList(),business.getStrListCommentList(),business.getDbLatitude(),business.getDbLongitude(),business.getnNumberRate()));
+                            recyclePlace.getRecycledViewPool().clear();
                             adapterMenuPlace.notifyDataSetChanged();
-                        }else if (posision == 5 && business.getStrBusinessType().equalsIgnoreCase("Quán nhậu")) {
+                        }else if (posision == 4 && business.getStrBusinessType().equalsIgnoreCase("Quán nhậu")) {
                             arrProductPlace.add(new mdBusiness(business.getStrID(),business.getStrEmail(),business.getStrPass(),business.getStrImage(),business.getStrName(),business.getStrPhone(),business.getStrAddress(),business.getStrBusinessType(),business.getStrOpenTime(),business.getStrScoreRating(),business.getArrayListProductList(),business.getStrListCommentList(),business.getDbLatitude(),business.getDbLongitude(),business.getnNumberRate()));
+                            recyclePlace.getRecycledViewPool().clear();
                             adapterMenuPlace.notifyDataSetChanged();
-                        }else if (posision == 1 && business.getnNumberRate() >= 4.0) {
+                        }else if (posision == 1 && Double.parseDouble(business.getStrScoreRating()) >= 4.0) {
                             arrProductPlace.add(new mdBusiness(business.getStrID(),business.getStrEmail(),business.getStrPass(),business.getStrImage(),business.getStrName(),business.getStrPhone(),business.getStrAddress(),business.getStrBusinessType(),business.getStrOpenTime(),business.getStrScoreRating(),business.getArrayListProductList(),business.getStrListCommentList(),business.getDbLatitude(),business.getDbLongitude(),business.getnNumberRate()));
+                            recyclePlace.getRecycledViewPool().clear();
                             adapterMenuPlace.notifyDataSetChanged();
                         }
                     }
@@ -158,7 +164,6 @@ public class PlaceFragment extends Fragment {
         arrSpinnerType = new ArrayList<mdSpinnerPlace>();
         arrSpinnerType.add(new mdSpinnerPlace(R.drawable.spinner_all,"Tất cả"));
         arrSpinnerType.add(new mdSpinnerPlace(R.drawable.spinner_vote,"Top vote"));
-        arrSpinnerType.add(new mdSpinnerPlace(R.drawable.spinner_add,"Gần bạn"));
         arrSpinnerType.add(new mdSpinnerPlace(R.drawable.spinner_drink,"Quán nước"));
         arrSpinnerType.add(new mdSpinnerPlace(R.drawable.spinner_food,"Quán ăn"));
         arrSpinnerType.add(new mdSpinnerPlace(R.drawable.spinner_bia,"Quán nhậu"));
