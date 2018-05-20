@@ -11,6 +11,7 @@ import android.support.v7.widget.ViewUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.trile.foodlocation.Adapter.AdapterManagerPostShow;
 import com.example.trile.foodlocation.Models.mdBusiness;
@@ -32,6 +33,7 @@ public class ManagerPost extends AppCompatActivity implements SwipeRefreshLayout
     DatabaseReference mData;
     FirebaseAuth mAuth;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    private TextView close_manager_post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,13 @@ public class ManagerPost extends AppCompatActivity implements SwipeRefreshLayout
 
         Init();
 
+        close_manager_post = (TextView) findViewById(R.id.close_manager_post);
+        close_manager_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

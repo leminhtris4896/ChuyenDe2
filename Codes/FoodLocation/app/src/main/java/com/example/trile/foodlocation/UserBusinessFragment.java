@@ -48,6 +48,7 @@ public class UserBusinessFragment extends Fragment {
     private GoogleApiClient mGoogleApiClient;
     private DatabaseReference mData;
 
+    private TextView tvListProduct;
     public UserBusinessFragment() {
         // Required empty public constructor
     }
@@ -152,53 +153,36 @@ public class UserBusinessFragment extends Fragment {
                     btnChange.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if (!edtPass.getText().toString().trim().equalsIgnoreCase(edtPassAgaint.getText().toString().trim())) {
-                                edtPassAgaint.setError("Nhập lại không khớp");
-                            } else if (edtPass.getText().toString() == "" || edtPassAgaint.getText().toString() == "") {
-                                Toast.makeText(getContext(), "Điền đầy đủ", Toast.LENGTH_SHORT).show();
-                            } else {
-                                mData.child("Users").addChildEventListener(new ChildEventListener() {
-                                    @Override
-                                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            dialogChangePass.show();
+                            final EditText edtPass = (EditText) dialogChangePass.findViewById(R.id.edt_pass_change);
+                            final EditText edtPassAgaint = (EditText) dialogChangePass.findViewById(R.id.edt_pass_change_againt);
+                            Button btnChange = (Button) dialogChangePass.findViewById(R.id.btn_change_pass);
+                            TextView tvCloseComment = dialogChangePass.findViewById(R.id.tvExitComment);
+                            // Click button accept change password
+                            btnChange.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (edtPass.getText().toString().trim().equalsIgnoreCase(edtPassAgaint.getText().toString().trim())) {
+                                        edtPassAgaint.setError("Nhập lại không khớp");
+                                    }else if (edtPass.getText().toString() == "" || edtPassAgaint.getText().toString() == "") {
+                                        Toast.makeText(getContext(), "Điền đầy đủ", Toast.LENGTH_SHORT).show();
+                                    }else {
                                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                        final mdUser mdUser = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdUser.class);
-                                        if (mdUser.getUserMail().equalsIgnoreCase(mAuth.getCurrentUser().getEmail())) {
-                                            user.updatePassword(edtPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
-                                                        dialogChangePass.dismiss();
-                                                        mData.child("Users").child(mdUser.getUserID()).child("userPass").setValue(edtPass.getText().toString());
-                                                        Toast.makeText(getContext(), "Thay đổi thành công", Toast.LENGTH_SHORT).show();
-                                                    } else {
-                                                        Toast.makeText(getContext(), "Thay đổi thất bại", Toast.LENGTH_SHORT).show();
-                                                    }
+                                        user.updatePassword(edtPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    dialogChangePass.dismiss();
+                                                    Toast.makeText(getContext(), "Thay đổi thành công", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Toast.makeText(getContext(), "Thay đổi thất bại", Toast.LENGTH_SHORT).show();
                                                 }
-                                            });
-                                        }
+                                            }
+                                        });
                                     }
 
-                                    @Override
-                                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                                    }
-
-                                    @Override
-                                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                                    }
-
-                                    @Override
-                                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-                            }
+                                }
+                            });
                         }
                     });
                 }

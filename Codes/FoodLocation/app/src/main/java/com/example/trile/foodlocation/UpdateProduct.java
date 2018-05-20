@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
@@ -85,13 +86,6 @@ public class UpdateProduct extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
-        tvClodeUpdateProduct = (TextView) findViewById(R.id.tvCloseUpdateProduct);
-        tvClodeUpdateProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         // khởi tạo các phần tử
         Init();
@@ -143,6 +137,46 @@ public class UpdateProduct extends AppCompatActivity {
 
         id_product = getIntent().getStringExtra("id_product");
 
+        mData.child("Business").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                mdBusiness mdBusiness = dataSnapshot.getValue(com.example.trile.foodlocation.Models.mdBusiness.class);
+                if ( mdBusiness.getStrEmail().equalsIgnoreCase(mAuth.getCurrentUser().getEmail()))
+                {
+                    for ( int i = 0; i < mdBusiness.getArrayListProductList().size(); i++)
+                    {
+                        if ( mdBusiness.getArrayListProductList().get(i).getStrID().equalsIgnoreCase(id_product))
+                        {
+                            Picasso.with(UpdateProduct.this).load(mdBusiness.getArrayListProductList().get(i).getStrURLImage()).into(imgUpdateProduct);
+                            edtUpdateNameProduct.setText(mdBusiness.getArrayListProductList().get(i).getStrProductName());
+                            edtUpdateDescriptionProduct.setText(mdBusiness.getArrayListProductList().get(i).getStrDescription());
+                            edtUpdatePriceProduct.setText(Integer.toString(mdBusiness.getArrayListProductList().get(i).getnPrice()));
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         btnUpdateProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,14 +226,13 @@ public class UpdateProduct extends AppCompatActivity {
                                             mData.child("Business").child(mdBusiness.getStrID()).child("arrayListProductList").child(i+"").child("strDescription").setValue(edtUpdateDescriptionProduct.getText().toString());
                                             mData.child("Business").child(mdBusiness.getStrID()).child("arrayListProductList").child(i+"").child("nPrice").setValue(Integer.parseInt(edtUpdatePriceProduct.getText().toString()));
 
-                                            Toast.makeText(UpdateProduct.this, "Cập nhật thành công ", Toast.LENGTH_SHORT).show();
+                                            edtUpdateDescriptionProduct.setText("");
+                                            edtUpdateNameProduct.setText("");
+                                            edtUpdatePriceProduct.setText("");
+                                            imgUpdateProduct.setImageResource(R.mipmap.image);
                                         }
                                     }
                                 }
-                                edtUpdateDescriptionProduct.setText("");
-                                edtUpdateNameProduct.setText("");
-                                edtUpdatePriceProduct.setText("");
-                                imgUpdateProduct.setImageResource(R.mipmap.image);
                             }
 
                             @Override

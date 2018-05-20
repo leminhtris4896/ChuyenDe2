@@ -75,7 +75,6 @@
                 style="@style/edt_custom"
                 android:drawableLeft="@drawable/ic_text_phone"
                 android:hint="Mô tả"
-                android:inputType="number"
                 android:singleLine="true" />
 
             <EditText
@@ -83,6 +82,7 @@
                 style="@style/edt_custom"
                 android:drawableLeft="@drawable/ic_text_time"
                 android:hint="Giá"
+                android:inputType="number"
                 android:singleLine="true" />
 
             <Button
